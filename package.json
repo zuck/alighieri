@@ -3,6 +3,11 @@
   "version": "0.0.1",
   "description": "A distraction-free tool for novelists and writers",
   "author": "Emanuele Bertoldi <emanuele.bertoldi@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:zuck/dante.git"
+  },
   "scripts": {
     "clean": "node build/script.clean.js",
     "dev": "node build/script.dev.js",
