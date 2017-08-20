@@ -16,7 +16,7 @@
    inkscape:version="0.92.2 (unknown)"
    sodipodi:docname="logo.svg">
   <title
-     id="title4689">Dante Alighieri</title>
+     id="title833">dante</title>
   <defs
      id="defs4398" />
   <sodipodi:namedview
@@ -100,28 +100,20 @@
         <dc:publisher>
           <cc:Agent
              rdf:about="http://openclipart.org/">
-            <dc:title>Open Clip Art Library</dc:title>
+            <dc:title></dc:title>
           </cc:Agent>
         </dc:publisher>
-        <dc:title>Dante Alighieri</dc:title>
-        <dc:date>2012-11-04T03:58:27</dc:date>
-        <dc:description>Dante Alighieri</dc:description>
-        <dc:source>http://openclipart.org/detail/173015/dante-alighieri-by-inkscapeforum.it-173015</dc:source>
+        <dc:title>dante</dc:title>
+        <dc:date></dc:date>
+        <dc:description></dc:description>
+        <dc:source></dc:source>
         <dc:creator>
           <cc:Agent>
-            <dc:title>inkscapeforum.it</dc:title>
+            <dc:title></dc:title>
           </cc:Agent>
         </dc:creator>
         <dc:subject>
-          <rdf:Bag>
-            <rdf:li>Dante Alighieri</rdf:li>
-            <rdf:li>Firenze</rdf:li>
-            <rdf:li>Italia</rdf:li>
-            <rdf:li>Letteratura Italiana</rdf:li>
-            <rdf:li>Lingua Italiana</rdf:li>
-            <rdf:li>clip art</rdf:li>
-            <rdf:li>clipart</rdf:li>
-          </rdf:Bag>
+          <rdf:Bag />
         </dc:subject>
       </cc:Work>
       <cc:License
