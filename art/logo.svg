@@ -9,12 +9,12 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="100.53431"
-   height="108.95847"
+   width="87.787498"
+   height="89.50563"
    id="svg4396"
    version="1.1"
    inkscape:version="0.92.2 (unknown)"
-   sodipodi:docname="dante-logo.svg">
+   sodipodi:docname="logo.svg">
   <title
      id="title4689">Dante Alighieri</title>
   <defs
@@ -27,8 +27,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="4.5101062"
-     inkscape:cx="53.43009"
-     inkscape:cy="80.708364"
+     inkscape:cx="9.9178688"
+     inkscape:cy="68.499274"
      inkscape:document-units="px"
      inkscape:current-layer="g873"
      showgrid="false"
@@ -44,7 +44,8 @@
   <g
      inkscape:groupmode="layer"
      id="layer2"
-     inkscape:label="Livello 2">
+     inkscape:label="Livello 2"
+     transform="translate(-6.3734061,-7.2437546)">
     <g
        id="g873"
        transform="translate(2.2080156,-1.8572613)">
@@ -54,23 +55,38 @@
          id="path623"
          d="m 32.138299,18.805056 c -0.538735,2.38178 -3.509455,7.51162 -3.68226,8.46612 -0.172804,0.95449 0.454012,1.50228 0.203645,2.51107 -0.250373,1.00879 -1.112357,1.58531 -1.904718,3.29817 -0.792366,1.71286 -2.345373,5.9024 -2.526263,7.07753 -0.18089,1.17512 0.809015,2.72367 3.630492,2.38663 L 27.577,45.410956 c 0,0 -0.343035,0.23372 -0.484805,0.80081 l 0.928228,2.26249 c 0,0 -1.684168,3.53048 -0.134041,5.36257 1.550132,1.83208 6.495194,0.56352 8.980644,0.56352 2.725412,2.30519 0.954453,4.23294 -0.23849,10.6745 24.821412,-3.3554 36.748823,-3.50377 37.205539,-27.37395 0.182498,-22.69845 -13.268,-25.43602 -28.962696,-26.24837 -1.177618,-1.8589901 -3.68066,-2.1911101 -3.68066,-2.1911101 -0.300745,0.9022301 0.07499,1.9940601 0.07499,1.9940601 -2.757686,-2.0787101 -6.791626,-2.1544601 -6.791626,-2.1544601 0,0 -0.31308,1.1654901 1.048283,2.6121601 C 32.190712,9.1612659 22.283893,9.6423659 22.283893,9.6423659 c -0.0957,1.7700401 4.345295,5.5177201 4.345295,5.5177201 l -4.104705,4.32666 c 2.821278,2.46684 9.613818,-0.68169 9.613818,-0.68169 z"
          style="fill:#800000;fill-opacity:1;stroke:none;stroke-width:0.51152724px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <flowRoot
+      <g
+         aria-label="dante"
          transform="matrix(1.1552916,0,0,1.1552916,-13.090738,-100.57904)"
-         style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#916f6f;fill-opacity:1;stroke:none;"
-         id="flowRoot854"
-         xml:space="preserve"><flowRegion
-           style="fill:#916f6f;"
-           id="flowRegion856"><rect
-             style="fill:#916f6f;"
-             y="133.73015"
-             x="13.483315"
-             height="80.899887"
-             width="156.15561"
-             id="rect858" /></flowRegion><flowPara
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Reswysokr;-inkscape-font-specification:Reswysokr;fill:#916f6f;"
-           id="flowPara860"><flowSpan
-             id="flowSpan864"
-             style="font-size:41.54795074px;fill:#916f6f;">dante</flowSpan></flowPara></flowRoot>    </g>
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#916f6f;fill-opacity:1;stroke:none"
+         id="flowRoot854">
+        <path
+           d="m 28.439684,172.16232 v -33.23836 h -2.077397 v 10.09615 l -3.718542,-1.45417 c -1.142569,-0.43626 -2.700617,-0.58167 -3.157644,-0.58167 -2.804487,0 -4.549501,6.33606 -4.549501,12.67212 0,6.37761 1.745014,12.75522 4.549501,12.75522 0.457027,0 2.015075,-0.14542 3.157644,-0.58167 l 3.884733,-1.5165 0.62322,1.84888 z m -2.077397,-22.2697 v 19.61063 l -4.196343,1.39186 c -0.41548,0.12464 -1.329535,0.22851 -1.661918,0.22851 -2.13972,0 -3.34461,-5.69206 -3.34461,-11.38413 0,-5.73362 1.20489,-11.46724 3.34461,-11.46724 0.332383,0 1.246438,0.10387 1.661918,0.22852 z"
+           style="font-size:41.54795074px;fill:#916f6f"
+           id="path820"
+           inkscape:connector-curvature="0" />
+        <path
+           d="m 45.886578,172.16232 v -21.18945 c 0,-1.62037 -0.353158,-3.9886 -5.920583,-3.9886 -2.264363,0 -4.507953,0.78941 -5.338912,1.20489 l 0.706315,1.41263 2.430555,-1.0387 c 0.477802,-0.20774 1.329535,-0.54013 2.202042,-0.54013 2.991452,0 3.843185,1.5165 3.843185,2.99146 v 6.60612 h -6.232192 c -3.55235,0 -5.193494,3.65622 -5.193494,7.33321 0,3.71855 1.994301,7.45786 5.318138,7.45786 0.457027,0 1.246438,-0.14542 2.389007,-0.58167 l 3.801637,-1.49573 0.706315,1.82811 z m -2.077398,-2.65907 -4.196343,1.39186 c -0.415479,0.12464 -1.433404,0.22851 -1.765788,0.22851 -1.890431,0 -3.303062,-3.28228 -3.303062,-6.48148 0,-3.033 1.017925,-5.9829 3.55235,-5.9829 h 5.712843 z"
+           style="font-size:41.54795074px;fill:#916f6f"
+           id="path822"
+           inkscape:connector-curvature="0" />
+        <path
+           d="m 50.787936,172.16232 h 2.077398 v -22.2697 l 4.196343,-1.39185 c 0.415479,-0.12465 1.121794,-0.22852 1.454178,-0.22852 1.474952,0 2.659069,0.70632 2.659069,2.61752 v 21.27255 h 2.077397 v -21.58416 c 0,-2.05662 -1.225664,-3.59389 -3.510801,-3.59389 -0.457028,0 -2.015076,0.14541 -3.157645,0.58167 l -3.801637,1.49572 -0.706315,-1.82811 h -1.287987 z"
+           style="font-size:41.54795074px;fill:#916f6f"
+           id="path824"
+           inkscape:connector-curvature="0" />
+        <path
+           d="m 68.153682,148.52154 v 20.2754 c 0,2.05662 1.474952,3.5939 3.760089,3.5939 0.457028,0 1.848884,-0.18697 2.991453,-0.60245 l -0.41548,-0.97638 c -0.415479,0.12465 -1.017925,0.31161 -1.350308,0.31161 -1.994302,0 -3.157644,-0.64399 -3.157644,-2.82526 0,-0.51935 0.249287,-3.34461 0.249287,-4.69491 v -15.08191 h 5.920583 v -1.28799 h -5.920583 v -5.31813 l -2.077397,0.72708 v 4.59105 h -2.077398 v 1.28799 z"
+           style="font-size:41.54795074px;fill:#916f6f"
+           id="path826"
+           inkscape:connector-curvature="0" />
+        <path
+           d="m 90.923907,158.65924 c 0,-5.83749 -0.394706,-11.67497 -6.315289,-11.67497 -4.96498,0 -7.395535,6.37761 -7.395535,12.75522 0,6.33606 2.617521,12.67212 7.603275,12.67212 2.285137,0 4.528726,-0.70631 5.359685,-1.12179 l -0.727089,-1.41263 -2.222815,0.93482 c -0.560897,0.24929 -1.391856,0.5609 -2.13972,0.5609 -3.552349,0 -5.546651,-5.85826 -5.546651,-11.71652 0,-0.33238 0,-0.66477 0.02077,-0.99715 z m -2.077398,-1.0387 h -9.223645 c 0.353158,-5.06885 2.098171,-9.59758 5.255816,-9.59758 3.033,0 3.967829,4.61183 3.967829,9.59758 z"
+           style="font-size:41.54795074px;fill:#916f6f"
+           id="path828"
+           inkscape:connector-curvature="0" />
+      </g>
+    </g>
   </g>
   <metadata
      id="metadata617">
@@ -80,7 +96,7 @@
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
         <cc:license
-           rdf:resource="http://creativecommons.org/licenses/publicdomain/" />
+           rdf:resource="http://creativecommons.org/publicdomain/zero/1.0/" />
         <dc:publisher>
           <cc:Agent
              rdf:about="http://openclipart.org/">
@@ -109,7 +125,7 @@
         </dc:subject>
       </cc:Work>
       <cc:License
-         rdf:about="http://creativecommons.org/licenses/publicdomain/">
+         rdf:about="http://creativecommons.org/publicdomain/zero/1.0/">
         <cc:permits
            rdf:resource="http://creativecommons.org/ns#Reproduction" />
         <cc:permits

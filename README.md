@@ -1,4 +1,4 @@
-# dante
+![dante logo](https://cdn.rawgit.com/zuck/dante/307f1c73/art/logo.svg)
 
 > A distraction-free tool for novelists and writers
 
