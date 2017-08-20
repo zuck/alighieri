@@ -1,0 +1,35 @@
+{
+  "name": "dante-electron-shell",
+  "version": "0.0.1",
+  "description": "An Electron shell for dante",
+  "author": "Emanuele Bertoldi <emanuele.bertoldi@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:zuck/dante.git"
+  },
+  "main": "electron.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development electron src/main.js",
+    "clean": "node build/script.clean.js",
+    "build": "node build/script.build.js"
+  },
+  "devDependencies": {
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.3.2",
+    "colors": "^1.1.2",
+    "cross-env": "^3.1.3",
+    "devtron": "^1.4.0",
+    "electron": "^1.5.0",
+    "electron-devtools-installer": "^2.0.1",
+    "electron-packager": "^8.2.0",
+    "eslint": "^3.16.0",
+    "eslint-friendly-formatter": "^2.0.7",
+    "eslint-loader": "^1.6.2",
+    "json-loader": "^0.5.4",
+    "node-loader": "^0.6.0",
+    "shelljs": "^0.7.5",
+    "webpack": "^2.2.1",
+    "webpack-merge": "^3.0.0"
+  }
+}
