@@ -1,14 +1,7 @@
 <template>
-  <div class="container">
-    <div id="d-instructions">
-      <img id="d-logo" src="statics/icon.png" />
-      <dl>
-        <dt><kbd>Enter</kbd></dt><dd>New paragraph</dd>
-        <dt><kbd>Shift + Enter</kbd></dt><dd>New line</dd>
-        <dt><kbd>1. + Space</kbd></dt><dd>New numbered list</dd>
-        <dt><kbd>* + Space</kbd></dt><dd>New bullet list</dd>
-      </dl>
-    </div>
+  <q-layout ref="layout" view="hHr LpR lFf" :right-breakpoint="1100">
+    <toolbar slot="header"></toolbar>
+
     <vue-medium-editor
       id="d-writer"
       custom-tag="div"
@@ -17,12 +10,18 @@
       @edit="processEditOperation"
     >
     </vue-medium-editor>
-  </div>
+  </q-layout>
 </template>
 
 <script>
+import {
+  QLayout,
+  QBtn,
+  QIcon
+} from 'quasar'
 import VueMediumEditor from 'vue2-medium-editor'
 import MediumEditorAutoList from 'medium-editor-autolist'
+import Toolbar from 'components/Toolbar'
 
 import 'font-awesome/css/font-awesome.min.css'
 import 'medium-editor/dist/css/medium-editor.min.css'
@@ -33,11 +32,15 @@ import 'assets/fonts/LibreBaskerville/stylesheet.css'
 export default {
   name: 'index',
   components: {
-    VueMediumEditor
+    QLayout,
+    QBtn,
+    QIcon,
+    VueMediumEditor,
+    Toolbar
   },
   data () {
     return {
-      contentHTML: null,
+      contentHTML: '<h1>Welcome to &#171;dante&#187;</h1><p>When you feel <i>ready</i>, start to type your <b>masterpiece</b>...</p>',
       options: {
         buttonLabels: 'fontawesome',
         placeholder: false,
@@ -49,9 +52,11 @@ export default {
           buttons: [
             'h1',
             'h2',
+            'h3',
             'bold',
             'italic',
             'underline',
+            'strikethrough',
             'quote',
             'unorderedlist',
             'orderedlist'
@@ -78,46 +83,22 @@ export default {
 <style lang="stylus">
 body
   background-color #fcfcfc
+  overflow-x hidden
 
-.container
-  display block
-  min-width 320px
-  width 100%
-  max-width 576px
-  margin 2rem auto
-
-#d-instructions
-  position fixed
-  top 2rem
-  left 2rem
-  color #c0c0c0
-  cursor pointer
-
-  &:hover
-    #d-logo, dl
-      opacity 1
-
-  dl
-    opacity 0
-    transition opacity .2s
-
-  dt, dd
-    float left
-
-  dt
-    clear both
-    width 10em
-
-#d-logo
-  width 32px
-  margin-bottom 1rem
-  opacity .1
-  transition opacity .2s
+.layout-header
+  box-shadow none
 
 #d-writer
+  display block
+  box-sizing border-box
+  min-width 256px
+  width 100%
+  max-width 640px
+  min-height 5rem
+  margin 0 auto
+  padding 16px 32px
   outline none
   border none
-  min-height 5rem
   line-height 1.45
   font-family 'LibreBaskerville', serif
   color #333
