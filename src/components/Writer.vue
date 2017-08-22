@@ -10,6 +10,14 @@
     <left-menu
       id="d-left-menu"
       slot="left"
+      @new="newFile()"
+      @open="openFile()"
+      @save="saveFile()"
+      @export="exportFile()"
+      @print="printFile()"
+      @settings="settings()"
+      @about="about()"
+      @exit="exit()"
     />
 
     <vue-medium-editor
@@ -23,7 +31,10 @@
 </template>
 
 <script>
-import { QLayout } from 'quasar'
+import {
+  QLayout,
+  Dialog
+} from 'quasar'
 import VueMediumEditor from 'vue2-medium-editor'
 import MediumEditorAutoList from 'medium-editor-autolist'
 import Toolbar from 'components/Toolbar'
@@ -39,6 +50,7 @@ export default {
   name: 'writer',
   components: {
     QLayout,
+    Dialog,
     VueMediumEditor,
     Toolbar,
     LeftMenu
@@ -89,6 +101,110 @@ export default {
     document.querySelector('#d-writer').focus()
   },
   methods: {
+    newFile () {
+      Dialog.create({
+        title: 'dante',
+        message: 'New',
+        buttons: [
+          'Cancel',
+          {
+            label: 'OK',
+            handler () {}
+          }
+        ]
+      })
+    },
+    openFile () {
+      Dialog.create({
+        title: 'dante',
+        message: 'Open',
+        buttons: [
+          'Cancel',
+          {
+            label: 'OK',
+            handler () {}
+          }
+        ]
+      })
+    },
+    saveFile () {
+      Dialog.create({
+        title: 'dante',
+        message: 'Save',
+        buttons: [
+          'Cancel',
+          {
+            label: 'OK',
+            handler () {}
+          }
+        ]
+      })
+    },
+    exportFile () {
+      Dialog.create({
+        title: 'dante',
+        message: 'Export',
+        buttons: [
+          'Cancel',
+          {
+            label: 'OK',
+            handler () {}
+          }
+        ]
+      })
+    },
+    printFile () {
+      Dialog.create({
+        title: 'dante',
+        message: 'Print',
+        buttons: [
+          'Cancel',
+          {
+            label: 'OK',
+            handler () {}
+          }
+        ]
+      })
+    },
+    settings () {
+      Dialog.create({
+        title: 'dante',
+        message: 'Settings',
+        buttons: [
+          'Cancel',
+          {
+            label: 'OK',
+            handler () {}
+          }
+        ]
+      })
+    },
+    about () {
+      Dialog.create({
+        title: 'dante',
+        message: 'About',
+        buttons: [
+          'Cancel',
+          {
+            label: 'OK',
+            handler () {}
+          }
+        ]
+      })
+    },
+    exit () {
+      Dialog.create({
+        title: 'dante',
+        message: 'Exit',
+        buttons: [
+          'Cancel',
+          {
+            label: 'OK',
+            handler () {}
+          }
+        ]
+      })
+    },
     updateContentAndStats () {
       this.content = (this.contentHTML || '').replace(/<p>|<h\d+>|<li>/g, '\n\n').replace(/<br\s*\/*>/g, '\n').replace(/<(?:.|\n)*?>/gm, '')
       this.sentences = this.content.replace(/(\.+|:|;|\?|!)/g, '$1\n').split(/\n+\s*/).filter(n => n)

@@ -1,39 +1,39 @@
 <template>
   <q-list no-border link inset-delimiter>
     <q-list-header></q-list-header>
-    <q-item @click="launch('http://quasar-framework.org')">
+    <q-item @click="$emit('new')">
       <q-item-side icon="insert drive file" />
       <q-item-main label="New..." sublabel="Create a new file" />
     </q-item>
     <q-item-separator />
-    <q-item @click="launch('http://forum.quasar-framework.org')">
+    <q-item @click="$emit('open')">
       <q-item-side icon="folder open" />
       <q-item-main label="Open" sublabel="Open an existing file" />
     </q-item>
-    <q-item @click="launch('http://forum.quasar-framework.org')">
+    <q-item @click="$emit('save')">
       <q-item-side icon="save" />
       <q-item-main label="Save" sublabel="Save your work" />
     </q-item>
-    <q-item @click="launch('http://forum.quasar-framework.org')">
+    <q-item @click="$emit('export')">
       <q-item-side icon="import export" />
       <q-item-main label="Export" sublabel="Export to another format" />
     </q-item>
     <q-item-separator />
-    <q-item @click="launch('http://forum.quasar-framework.org')">
+    <q-item @click="$emit('print')">
       <q-item-side icon="print" />
       <q-item-main label="Print" sublabel="Print your work" />
     </q-item>
     <q-item-separator />
-    <q-item @click="launch('https://gitter.im/quasarframework/Lobby')">
+    <q-item @click="$emit('settings')">
       <q-item-side icon="settings" />
       <q-item-main label="Settings" sublabel="Adjust to your taste" />
     </q-item>
-    <q-item @click="launch('https://twitter.com/quasarframework')">
+    <q-item @click="$emit('about')">
       <q-item-side icon="school" />
       <q-item-main label="About" sublabel="What's this?" />
     </q-item>
     <q-item-separator />
-    <q-item @click="launch('https://twitter.com/quasarframework')">
+    <q-item @click="$emit('exit')">
       <q-item-side icon="exit to app" />
       <q-item-main label="Exit" sublabel="Close the application" />
     </q-item>
@@ -59,10 +59,6 @@ export default {
     QItemSeparator,
     QItemSide,
     QItemMain
-  },
-  methods: {
-    launch (url) {
-    }
   }
 }
 </script>
