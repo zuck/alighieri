@@ -87,7 +87,7 @@ export default {
     document.querySelector('#d-writer').focus()
   },
   methods: {
-    updateContentAndStats() {
+    updateContentAndStats () {
       this.content = (this.contentHTML || '').replace(/<p>|<h\d+>/g, '\n\n').replace(/<br\s*\/*>/g, '\n').replace(/<(?:.|\n)*?>/gm, '')
       this.sentences = this.content.replace(/(\.+|:|;|\?|!)/g, '$1\n').split(/\n+\s*/).filter(n => n)
       this.words = this.content.split(/\s+/).filter(n => n)
