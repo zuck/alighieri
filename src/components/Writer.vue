@@ -91,9 +91,11 @@ export default {
   },
   methods: {
     updateContentAndStats () {
-      this.content = (this.contentHTML || '').replace(/<p>|<h\d+>/g, '\n\n').replace(/<br\s*\/*>/g, '\n').replace(/<(?:.|\n)*?>/gm, '')
+      this.content = (this.contentHTML || '').replace(/<p>|<h\d+>|<li>/g, '\n\n').replace(/<br\s*\/*>/g, '\n').replace(/<(?:.|\n)*?>/gm, '')
       this.sentences = this.content.replace(/(\.+|:|;|\?|!)/g, '$1\n').split(/\n+\s*/).filter(n => n)
       this.words = this.content.split(/\s+/).filter(n => n)
+
+      console.log(this.content)
     },
     processEditOperation (operation) {
       this.$nextTick(() => {
