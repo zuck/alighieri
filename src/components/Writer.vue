@@ -3,7 +3,6 @@
     <toolbar
       id="d-toolbar"
       slot="header"
-      :layout="this.$refs.layout"
       :wordCount="wordCount"
       :sentenceCount="sentenceCount"
     />

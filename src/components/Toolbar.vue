@@ -4,7 +4,7 @@
       id="d-logo"
       flat round
       color="grey-13"
-      @click="layout.toggleLeft()"
+      @click="$parent.toggleLeft()"
     >
       <img src="statics/icon.png" />
     </q-btn>
@@ -45,7 +45,7 @@ export default {
     QIcon,
     QTooltip
   },
-  props: ['layout', 'wordCount', 'sentenceCount'],
+  props: ['wordCount', 'sentenceCount'],
   data () {
     return {
     }
