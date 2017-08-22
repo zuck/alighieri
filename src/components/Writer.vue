@@ -1,10 +1,17 @@
 <template>
-  <q-layout ref="layout" view="hHr LpR lFf" :right-breakpoint="1100">
+  <q-layout ref="layout" view="lHh LpR lFf">
     <toolbar
+      id="d-toolbar"
       slot="header"
+      :layout="this.$refs.layout"
       :wordCount="wordCount"
       :sentenceCount="sentenceCount"
-    ></toolbar>
+    />
+
+    <left-menu
+      id="d-left-menu"
+      slot="left"
+    />
 
     <vue-medium-editor
       id="d-writer"
@@ -12,20 +19,16 @@
       :text="contentHTML"
       :options="options"
       @edit="processEditOperation"
-    >
-    </vue-medium-editor>
+    />
   </q-layout>
 </template>
 
 <script>
-import {
-  QLayout,
-  QBtn,
-  QIcon
-} from 'quasar'
+import { QLayout } from 'quasar'
 import VueMediumEditor from 'vue2-medium-editor'
 import MediumEditorAutoList from 'medium-editor-autolist'
 import Toolbar from 'components/Toolbar'
+import LeftMenu from 'components/LeftMenu'
 
 import 'font-awesome/css/font-awesome.min.css'
 import 'medium-editor/dist/css/medium-editor.min.css'
@@ -34,13 +37,12 @@ import 'medium-editor/dist/css/themes/tim.min.css'
 import 'assets/fonts/LibreBaskerville/stylesheet.css'
 
 export default {
-  name: 'index',
+  name: 'writer',
   components: {
     QLayout,
-    QBtn,
-    QIcon,
     VueMediumEditor,
-    Toolbar
+    Toolbar,
+    LeftMenu
   },
   data () {
     return {
@@ -83,6 +85,7 @@ export default {
     }
   },
   mounted () {
+    this.$refs.layout.hideLeft()
     this.updateContentAndStats()
     document.querySelector('#d-writer').focus()
   },
@@ -108,8 +111,8 @@ body
   background-color #fafafa
   overflow-x hidden
 
-.layout-header
-  box-shadow none
+.layout-header, .layout-aside
+  box-shadow none !important
 
 #d-writer
   display block
