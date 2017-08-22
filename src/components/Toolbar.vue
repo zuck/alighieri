@@ -1,5 +1,5 @@
 <template>
-  <q-toolbar inverted>
+  <q-toolbar color="grey-1">
     <q-btn
       id="d-logo"
       flat round
@@ -8,7 +8,7 @@
     >
       <img src="statics/icon.png" />
     </q-btn>
-    <q-toolbar-title></q-toolbar-title>
+    <q-toolbar-title>{{ wordCount }} <abbr title="Words">ws</abbr> | {{ sentenceCount }} <abbr title="Sentences">ss</abbr></q-toolbar-title>
     <q-btn
       id="d-help"
       flat round
@@ -45,6 +45,7 @@ export default {
     QIcon,
     QTooltip
   },
+  props: ['wordCount', 'sentenceCount'],
   data () {
     return {
     }
@@ -67,6 +68,10 @@ export default {
     img, .q-icon
       opacity 1
 
+.q-toolbar-title
+  color #e0e0e0
+  text-align center
+
 .q-tooltip
   width 100%
   max-width 320px
@@ -76,5 +81,5 @@ export default {
 
   dt
     clear both
-    width 10em
+    width 9em
 </style>

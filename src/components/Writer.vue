@@ -1,6 +1,10 @@
 <template>
   <q-layout ref="layout" view="hHr LpR lFf" :right-breakpoint="1100">
-    <toolbar slot="header"></toolbar>
+    <toolbar
+      slot="header"
+      :wordCount="wordCount"
+      :sentenceCount="sentenceCount"
+    ></toolbar>
 
     <vue-medium-editor
       id="d-writer"
@@ -40,7 +44,10 @@ export default {
   },
   data () {
     return {
-      contentHTML: '<h1>Welcome to &#171;dante&#187;</h1><p>When you feel <i>ready</i>, start to type your <b>masterpiece</b>...</p>',
+      contentHTML: '<h1>Welcome to «dante»</h1><p>When you feel <i>ready</i>, start to type your <b>masterpiece</b>...</p>',
+      content: null,
+      words: [],
+      sentences: [],
       options: {
         buttonLabels: 'fontawesome',
         placeholder: false,
@@ -67,13 +74,28 @@ export default {
       }
     }
   },
+  computed: {
+    wordCount: function () {
+      return this.words.length
+    },
+    sentenceCount: function () {
+      return this.sentences.length
+    }
+  },
   mounted () {
+    this.updateContentAndStats()
     document.querySelector('#d-writer').focus()
   },
   methods: {
+    updateContentAndStats() {
+      this.content = (this.contentHTML || '').replace(/<p>|<h\d+>/g, '\n\n').replace(/<br\s*\/*>/g, '\n').replace(/<(?:.|\n)*?>/gm, '')
+      this.sentences = this.content.replace(/(\.+|:|;|\?|!)/g, '$1\n').split(/\n+\s*/).filter(n => n)
+      this.words = this.content.split(/\s+/).filter(n => n)
+    },
     processEditOperation (operation) {
       this.$nextTick(() => {
         this.contentHTML = operation.api.getFocusedElement().innerHTML
+        this.updateContentAndStats()
       })
     }
   }
@@ -82,7 +104,8 @@ export default {
 
 <style lang="stylus">
 body
-  background-color #fcfcfc
+  font-family 'LibreBaskerville', serif
+  background-color #fafafa
   overflow-x hidden
 
 .layout-header
@@ -100,21 +123,20 @@ body
   outline none
   border none
   line-height 1.45
-  font-family 'LibreBaskerville', serif
-  color #333
+  color #555
 
   h1, h2, h3, h4
     margin 0 0 .5em
     font-weight inherit
     line-height 1.2
-    color #888
+    color #777
 
     &+p
       margin-top 1.414em
 
   h1
     font-size 2.369em
-    color #111
+    color #333
 
   h2
     font-size 1.777em
