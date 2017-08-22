@@ -2,7 +2,7 @@
   <q-list no-border link inset-delimiter>
     <q-list-header></q-list-header>
     <q-item @click="$emit('new')">
-      <q-item-side icon="insert drive file" />
+      <q-item-side icon="add" />
       <q-item-main label="New..." sublabel="Create a new file" />
     </q-item>
     <q-item-separator />
@@ -13,6 +13,10 @@
     <q-item @click="$emit('save')">
       <q-item-side icon="save" />
       <q-item-main label="Save" sublabel="Save your work" />
+    </q-item>
+    <q-item @click="$emit('saveAs')">
+      <q-item-side icon="save" />
+      <q-item-main label="Save as" sublabel="Save to destination" />
     </q-item>
     <q-item @click="$emit('export')">
       <q-item-side icon="import export" />

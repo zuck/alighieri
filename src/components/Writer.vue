@@ -11,14 +11,23 @@
       id="d-left-menu"
       slot="left"
       @new="newFile()"
-      @open="openFile()"
+      @open="$refs.openFile.click()"
       @save="saveFile()"
+      @saveAs="saveFileAs()"
       @export="exportFile()"
       @print="printFile()"
       @settings="settings()"
       @about="about()"
       @exit="exit()"
     />
+
+    <input
+      type="file"
+      accept="application/json"
+      style="display:none"
+      @change="openFile($event.target.files)"
+      ref="openFile"
+    >
 
     <vue-medium-editor
       id="d-writer"
@@ -37,6 +46,7 @@ import {
 } from 'quasar'
 import VueMediumEditor from 'vue2-medium-editor'
 import MediumEditorAutoList from 'medium-editor-autolist'
+import FileSaver from 'file-saver'
 import Toolbar from 'components/Toolbar'
 import LeftMenu from 'components/LeftMenu'
 
@@ -57,6 +67,7 @@ export default {
   },
   data () {
     return {
+      filename: null,
       contentHTML: '<h1>Welcome to «dante»</h1><p>When you feel <i>ready</i>, start to type your <b>masterpiece</b>...</p>',
       content: null,
       words: [],
@@ -102,43 +113,56 @@ export default {
   },
   methods: {
     newFile () {
-      Dialog.create({
-        title: 'dante',
-        message: 'New',
-        buttons: [
-          'Cancel',
-          {
-            label: 'OK',
-            handler () {}
-          }
-        ]
-      })
+      // TODO Show confirm dialog before delete current content
+      this.contentHTML = null
+      this.filename = null
     },
-    openFile () {
-      Dialog.create({
-        title: 'dante',
-        message: 'Open',
-        buttons: [
-          'Cancel',
-          {
-            label: 'OK',
-            handler () {}
+    openFile (files) {
+      if (files && files.length > 0) {
+        var f = files[0]
+        var reader = new FileReader()
+        reader.onload = (evt) => {
+          try {
+            var data = evt.target.result
+            this.filename = f.name.split('.html')[0]
+            this.contentHTML = data.split('<body>')[1].replace(/<\/body>|<\/html>/g, '')
           }
-        ]
-      })
+          catch (err) {
+            reader.onerror(err)
+          }
+        }
+        reader.onerror = (err) => {
+          console.error(err)
+          this.filename = null
+          this.contentHTML = null
+        }
+        reader.readAsText(f)
+      }
     },
     saveFile () {
-      Dialog.create({
-        title: 'dante',
-        message: 'Save',
-        buttons: [
-          'Cancel',
-          {
-            label: 'OK',
-            handler () {}
-          }
-        ]
-      })
+      if (this.filename) {
+        var fileContent = '<!DOCTYPE html><html lang="en">' +
+        '<head><meta charset="utf-8">' +
+        '<title>' + this.filename + '</title>' +
+        '</head><body>' +
+        this.contentHTML +
+        '</body></html>'
+
+        FileSaver.saveAs(
+          new Blob(
+            [fileContent],
+            { type: 'text/html;charset=utf-8' }
+          ),
+          this.filename + '.html'
+        )
+      }
+      else {
+        this.saveFileAs()
+      }
+    },
+    saveFileAs () {
+      this.filename = 'test'
+      this.saveFile()
     },
     exportFile () {
       Dialog.create({
@@ -154,17 +178,9 @@ export default {
       })
     },
     printFile () {
-      Dialog.create({
-        title: 'dante',
-        message: 'Print',
-        buttons: [
-          'Cancel',
-          {
-            label: 'OK',
-            handler () {}
-          }
-        ]
-      })
+      if (window) {
+        window.print()
+      }
     },
     settings () {
       Dialog.create({
@@ -213,8 +229,12 @@ export default {
     processEditOperation (operation) {
       this.$nextTick(() => {
         this.contentHTML = operation.api.getFocusedElement().innerHTML
-        this.updateContentAndStats()
       })
+    }
+  },
+  watch: {
+    contentHTML: function (val) {
+      this.updateContentAndStats()
     }
   }
 }
@@ -240,8 +260,8 @@ body
   padding 16px 32px
   outline none
   border none
-  line-height 1.45
-  color #555
+  line-height 2
+  color #333
 
   h1, h2, h3, h4
     margin 0 0 .5em
@@ -254,7 +274,7 @@ body
 
   h1
     font-size 2.369em
-    color #333
+    color #111
 
   h2
     font-size 1.777em
@@ -264,4 +284,27 @@ body
 
   h4
     font-size 1em
+
+/* Printing */
+
+@page
+  size auto
+  margin 20mm 25mm 25mm
+
+@media print
+  body
+    font-size 16px
+    background-color transparent
+    padding 0 !important
+    margin 0 !important
+
+  .layout-header, .layout-aside
+    display none
+
+  .layout-page-container, .layout-page, #d-writer
+    display inline-block
+    width 100% !important
+    max-width 100% !important
+    padding 0 !important
+    margin 0 !important
 </style>
