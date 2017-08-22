@@ -56,6 +56,8 @@ import 'medium-editor/dist/css/themes/tim.min.css'
 
 import 'assets/fonts/LibreBaskerville/stylesheet.css'
 
+const DEFAULT_CONTENT_HTML = '<h1>Welcome to «dante»</h1><p>When you feel <i>ready</i>, start to type your <b>masterpiece</b>...</p>'
+
 export default {
   name: 'writer',
   components: {
@@ -68,7 +70,7 @@ export default {
   data () {
     return {
       filename: null,
-      contentHTML: '<h1>Welcome to «dante»</h1><p>When you feel <i>ready</i>, start to type your <b>masterpiece</b>...</p>',
+      contentHTML: null,
       content: null,
       words: [],
       sentences: [],
@@ -108,13 +110,13 @@ export default {
   },
   mounted () {
     this.$refs.layout.hideLeft()
-    this.updateContentAndStats()
+    this.contentHTML = DEFAULT_CONTENT_HTML
     document.querySelector('#d-writer').focus()
   },
   methods: {
     newFile () {
       // TODO Show confirm dialog before delete current content
-      this.contentHTML = null
+      this.contentHTML = DEFAULT_CONTENT_HTML
       this.filename = null
     },
     openFile (files) {
