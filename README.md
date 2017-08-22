@@ -1,6 +1,10 @@
-![dante logo](https://cdn.rawgit.com/zuck/dante/2fe036b7/art/logo.svg)
+![dante logo](https://rawgit.com/zuck/dante/master/art/logo.svg)
+
+# dante
 
 > A distraction-free tool for novelists and writers
+
+![dante UX](https://raw.githubusercontent.com/zuck/dante/master/art/screenshot.png?raw=true)
 
 ## Build Setup
 
