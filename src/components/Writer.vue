@@ -102,6 +102,7 @@ export default {
             'italic',
             'underline',
             'strikethrough',
+            'anchor',
             'quote',
             'unorderedlist',
             'orderedlist'
