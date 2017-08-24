@@ -285,7 +285,7 @@ export default {
 <style lang="stylus">
 body
   font-family 'LibreBaskerville', serif
-  background-color #fafafa
+  background-color #fff
   overflow-x hidden
 
 .layout-header, .layout-aside
@@ -326,6 +326,22 @@ body
 
   h4
     font-size 1em
+
+  pre, code
+    background-color #fafafa
+
+  pre
+    padding 1rem
+    border-radius .25rem
+
+    code
+      background-color transparent
+
+  blockquote
+    border-left-color #777
+
+    :last-child
+      margin-bottom 0
 
 /* Printing */
 

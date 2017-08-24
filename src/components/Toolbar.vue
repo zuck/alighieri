@@ -1,5 +1,5 @@
 <template>
-  <q-toolbar color="grey-1">
+  <q-toolbar color="white">
     <q-btn
       id="d-logo"
       flat round
