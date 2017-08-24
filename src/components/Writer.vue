@@ -89,6 +89,7 @@ export default {
         buttonLabels: 'fontawesome',
         placeholder: false,
         spellcheck: false,
+        autoLink: true,
         extensions: {
           autolist: new MediumEditorAutoList()
         },
