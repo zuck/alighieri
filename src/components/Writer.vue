@@ -62,7 +62,7 @@ import ExportModal from 'components/ExportModal'
 
 import 'font-awesome/css/font-awesome.min.css'
 import 'medium-editor/dist/css/medium-editor.min.css'
-import 'medium-editor/dist/css/themes/tim.min.css'
+import 'medium-editor/dist/css/themes/beagle.min.css'
 
 import 'assets/fonts/LibreBaskerville/stylesheet.css'
 
