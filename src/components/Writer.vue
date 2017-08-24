@@ -23,7 +23,7 @@
 
     <input
       type="file"
-      accept="application/json"
+      accept="text/markdown"
       style="display:none"
       @change="openFile($event.target.files)"
       ref="openFile"
@@ -36,6 +36,12 @@
       :options="options"
       @edit="processEditOperation"
     />
+
+    <export-modal
+      id="d-export-modal"
+      ref="exportModal"
+      @export="exportToFile"
+    />
   </q-layout>
 </template>
 
@@ -46,9 +52,13 @@ import {
 } from 'quasar'
 import VueMediumEditor from 'vue2-medium-editor'
 import MediumEditorAutoList from 'medium-editor-autolist'
+import showdown from 'showdown'
+import Europa from 'europa'
 import FileSaver from 'file-saver'
+
 import Toolbar from 'components/Toolbar'
 import LeftMenu from 'components/LeftMenu'
+import ExportModal from 'components/ExportModal'
 
 import 'font-awesome/css/font-awesome.min.css'
 import 'medium-editor/dist/css/medium-editor.min.css'
@@ -65,7 +75,8 @@ export default {
     Dialog,
     VueMediumEditor,
     Toolbar,
-    LeftMenu
+    LeftMenu,
+    ExportModal
   },
   data () {
     return {
@@ -109,11 +120,19 @@ export default {
     }
   },
   mounted () {
+    this.mdToHtmlConverter = new showdown.Converter()
+    this.htmlToMdConverter = new Europa()
     this.$refs.layout.hideLeft()
     this.contentHTML = DEFAULT_CONTENT_HTML
     document.querySelector('#d-writer').focus()
   },
   methods: {
+    convertMdToHtml (md) {
+      return this.mdToHtmlConverter.makeHtml(md)
+    },
+    convertHtmlToMd (html) {
+      return this.htmlToMdConverter.convert(html)
+    },
     newFile () {
       // TODO Show confirm dialog before delete current content
       this.contentHTML = DEFAULT_CONTENT_HTML
@@ -126,8 +145,8 @@ export default {
         reader.onload = (evt) => {
           try {
             var data = evt.target.result
-            this.filename = f.name.split('.html')[0]
-            this.contentHTML = data.split('<body>')[1].replace(/<\/body>|<\/html>/g, '')
+            this.filename = f.name.split('.md')[0]
+            this.contentHTML = this.convertMdToHtml(data)
           }
           catch (err) {
             reader.onerror(err)
@@ -143,6 +162,34 @@ export default {
     },
     saveFile () {
       if (this.filename) {
+        var fileContent = this.convertHtmlToMd(this.contentHTML)
+
+        FileSaver.saveAs(
+          new Blob(
+            [fileContent],
+            { type: 'text/markdown;charset=utf-8' }
+          ),
+          this.filename + '.md'
+        )
+      }
+      else {
+        this.saveFileAs()
+      }
+    },
+    saveFileAs () {
+      this.filename = 'test'
+      this.saveFile()
+    },
+    exportFile () {
+      this.$refs.exportModal.open()
+    },
+    exportToFile (ext) {
+      if (!this.filename) {
+        this.filename = 'test'
+      }
+
+      // Plain HTML (.html)
+      if (ext === 'html') {
         var fileContent = '<!DOCTYPE html><html lang="en">' +
         '<head><meta charset="utf-8">' +
         '<title>' + this.filename + '</title>' +
@@ -158,26 +205,19 @@ export default {
           this.filename + '.html'
         )
       }
-      else {
-        this.saveFileAs()
+
+      // Plain text (.txt)
+      else if (ext === 'txt') {
+        FileSaver.saveAs(
+          new Blob(
+            [this.content],
+            { type: 'text/plain;charset=utf-8' }
+          ),
+          this.filename + '.txt'
+        )
       }
-    },
-    saveFileAs () {
-      this.filename = 'test'
-      this.saveFile()
-    },
-    exportFile () {
-      Dialog.create({
-        title: 'dante',
-        message: 'Export',
-        buttons: [
-          'Cancel',
-          {
-            label: 'OK',
-            handler () {}
-          }
-        ]
-      })
+
+      this.$refs.exportModal.close()
     },
     printFile () {
       if (window) {
@@ -224,7 +264,7 @@ export default {
       })
     },
     updateContentAndStats () {
-      this.content = (this.contentHTML || '').replace(/<p>|<h\d+>|<li>/g, '\n\n').replace(/<br\s*\/*>/g, '\n').replace(/<(?:.|\n)*?>/gm, '')
+      this.content = (this.contentHTML || '').replace(/<p>|<h\d+>|<li>/g, '\n\n').replace(/<br\s*\/*>/g, '\n').replace(/\n\n\n/g, '\n\n').replace(/<(?:.|\n)*?>/gm, '').trim()
       this.sentences = this.content.replace(/(\.+|:|;|\?|!)/g, '$1\n').split(/\n+\s*/).filter(n => n)
       this.words = this.content.split(/\s+/).filter(n => n)
     },
