@@ -133,8 +133,8 @@ export default {
     document.querySelector('#d-writer').focus()
   },
   destroyed () {
-    this.htmlToMdConverter.release();
-    this.htmlToMdConverter = null;
+    this.htmlToMdConverter.release()
+    this.htmlToMdConverter = null
   },
   methods: {
     convertMdToHtml (md) {
