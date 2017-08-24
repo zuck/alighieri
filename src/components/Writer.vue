@@ -95,17 +95,15 @@ export default {
         },
         toolbar: {
           buttons: [
-            'h1',
-            'h2',
-            'h3',
-            'bold',
-            'italic',
-            'underline',
-            'strikethrough',
+            'h1', 'h2', 'h3',
+            'subscript', 'superscript',
+            'bold', 'italic',
+            'underline', 'strikethrough',
             'anchor',
-            'quote',
-            'unorderedlist',
-            'orderedlist'
+            'quote', 'pre',
+            // 'indent', 'outdent',
+            'justifyLeft', 'justifyCenter', 'justifyRight', // 'justifyFull',
+            'unorderedlist', 'orderedlist'
           ],
           static: true,
           sticky: true
@@ -122,11 +120,21 @@ export default {
     }
   },
   mounted () {
-    this.mdToHtmlConverter = new showdown.Converter()
+    this.mdToHtmlConverter = new showdown.Converter({
+      simplifiedAutoLink: true,
+      strikethrough: true,
+      tables: true,
+      tasklists: true,
+      simpleLineBreaks: true
+    })
     this.htmlToMdConverter = new Europa()
     this.$refs.layout.hideLeft()
     this.contentHTML = DEFAULT_CONTENT_HTML
     document.querySelector('#d-writer').focus()
+  },
+  destroyed () {
+    this.htmlToMdConverter.release();
+    this.htmlToMdConverter = null;
   },
   methods: {
     convertMdToHtml (md) {
@@ -329,12 +337,22 @@ body
   h4
     font-size 1em
 
+  table
+    margin-bottom 1rem
+
+    thead
+      text-align left
+
+    td, th
+      padding .5rem
+
   pre, code
     background-color #fafafa
 
   pre
     padding 1rem
     border-radius .25rem
+    overflow-x auto
 
     code
       background-color transparent
