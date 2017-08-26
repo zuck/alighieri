@@ -136,7 +136,7 @@ export default {
       simpleLineBreaks: true
     })
     this.htmlToMdConverter = {
-      convert: function (html)  {
+      convert: function (html) {
         return toMarkdown(html)
       }
     }
