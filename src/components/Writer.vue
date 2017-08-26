@@ -62,7 +62,7 @@ import {
 import VueMediumEditor from 'vue2-medium-editor'
 import MediumEditorAutoList from 'medium-editor-autolist'
 import showdown from 'showdown'
-import Europa from 'europa'
+import toMarkdown from 'to-markdown'
 import FileSaver from 'file-saver'
 
 import Toolbar from 'components/Toolbar'
@@ -135,7 +135,11 @@ export default {
       tasklists: true,
       simpleLineBreaks: true
     })
-    this.htmlToMdConverter = new Europa()
+    this.htmlToMdConverter = {
+      convert: function (html)  {
+        return toMarkdown(html)
+      }
+    }
     this.$refs.layout.hideLeft()
     this.contentHTML = DEFAULT_CONTENT_HTML
     document.querySelector('#d-writer').focus()
