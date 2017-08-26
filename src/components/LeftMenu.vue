@@ -1,6 +1,5 @@
 <template>
-  <q-list no-border link inset-delimiter>
-    <q-list-header></q-list-header>
+  <q-list no-border link>
     <q-item @click="$emit('new')">
       <q-item-side icon="add" />
       <q-item-main label="New..." sublabel="Create a new file" />
