@@ -72,7 +72,6 @@ export default {
   name: 'writer',
   components: {
     QLayout,
-    Dialog,
     VueMediumEditor,
     Toolbar,
     LeftMenu,
