@@ -401,6 +401,20 @@ body
     td, th
       padding .5rem
 
+    td, thead td, th
+      border-bottom 1px solid rgba(0,0,0,.1)
+
+    @media screen and (max-width 576px)
+      tr
+        display flex
+        flex-direction column
+
+      td, th
+        min-width 100%
+
+      td:not(:last-of-type), th:not(:last-of-type)
+        border-bottom none
+
   pre, code
     background-color #fafafa
 
