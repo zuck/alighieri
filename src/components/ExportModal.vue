@@ -1,5 +1,9 @@
 <template>
-  <q-modal ref="modal" :content-css="{padding: '32px', minWidth: '256px'}">
+  <q-modal
+    ref="modal"
+    :content-css="{padding: '32px', minWidth: '256px'}"
+    @escape-key="close()"
+  >
     <h4>Export to...</h4>
     <q-list no-border>
       <q-item
