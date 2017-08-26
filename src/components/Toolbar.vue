@@ -6,7 +6,7 @@
       color="grey-13"
       @click="$parent.toggleLeft()"
     >
-      <img src="statics/icon.png" />
+      <q-icon name="menu" />
     </q-btn>
     <q-toolbar-title>{{ wordCount }} <abbr title="Words">ws</abbr> | {{ sentenceCount }} <abbr title="Sentences">ss</abbr></q-toolbar-title>
     <q-btn
