@@ -23,7 +23,10 @@
         <q-item-side right icon="keyboard_arrow_right" />
       </q-item>
     </q-list>
-    <q-btn color="primary" @click="close()">Cancel</q-btn>
+    <q-btn
+      flat
+      @click="close()"
+    >Cancel</q-btn>
   </q-modal>
 </template>
 
