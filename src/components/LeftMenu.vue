@@ -9,6 +9,11 @@
       <q-item-side icon="folder open" />
       <q-item-main label="Open" sublabel="Open an existing file" />
     </q-item>
+    <q-item @click="$emit('import')">
+      <q-item-side icon="file upload" />
+      <q-item-main label="Import" sublabel="Import from other formats" />
+    </q-item>
+    <q-item-separator />
     <q-item @click="$emit('save')">
       <q-item-side icon="save" />
       <q-item-main label="Save" sublabel="Save your work" />
@@ -18,7 +23,7 @@
       <q-item-main label="Save as" sublabel="Save to destination" />
     </q-item>
     <q-item @click="$emit('export')">
-      <q-item-side icon="import export" />
+      <q-item-side icon="file download" />
       <q-item-main label="Export" sublabel="Export to another format" />
     </q-item>
     <q-item-separator />

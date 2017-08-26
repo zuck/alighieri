@@ -12,9 +12,10 @@
       slot="left"
       @new="newFile()"
       @open="$refs.openFile.click()"
+      @import="$refs.importFile.click()"
       @save="saveFile()"
       @saveAs="saveFileAs()"
-      @export="exportFile()"
+      @export="$refs.exportModal.open()"
       @print="printFile()"
       @settings="settings()"
       @about="about()"
@@ -23,10 +24,18 @@
 
     <input
       type="file"
-      accept="text/markdown"
+      accept="text/html"
       style="display:none"
       @change="openFile($event.target.files)"
       ref="openFile"
+    >
+
+    <input
+      type="file"
+      accept=".md, .txt"
+      style="display:none"
+      @change="importFile($event.target.files)"
+      ref="importFile"
     >
 
     <vue-medium-editor
@@ -40,7 +49,7 @@
     <export-modal
       id="d-export-modal"
       ref="exportModal"
-      @export="exportToFile"
+      @export="exportFile"
     />
   </q-layout>
 </template>
@@ -142,6 +151,17 @@ export default {
     convertHtmlToMd (html) {
       return this.htmlToMdConverter.convert(html)
     },
+    convertTxtToHtml (txt) {
+      return this.mdToHtmlConverter.makeHtml(txt)
+    },
+    convertHtmlToTxt (html) {
+      return (html || '')
+        .replace(/<p>|<h\d+>|<li>/g, '\n\n')
+        .replace(/<br\s*\/*>/g, '\n')
+        .replace(/\n\n\n/g, '\n\n')
+        .replace(/<(?:.|\n)*?>/gm, '')
+        .trim()
+    },
     newFile () {
       // TODO Show confirm dialog before delete current content
       this.contentHTML = DEFAULT_CONTENT_HTML
@@ -154,8 +174,36 @@ export default {
         reader.onload = (evt) => {
           try {
             var data = evt.target.result
-            this.filename = f.name.split('.md')[0]
-            this.contentHTML = this.convertMdToHtml(data)
+            this.filename = f.name.split('.')[0]
+            this.contentHTML = data
+          }
+          catch (err) {
+            reader.onerror(err)
+          }
+        }
+        reader.onerror = (err) => {
+          console.error(err)
+          this.filename = null
+          this.contentHTML = null
+        }
+        reader.readAsText(f)
+      }
+    },
+    importFile (files) {
+      if (files && files.length > 0) {
+        var f = files[0]
+        var reader = new FileReader()
+        reader.onload = (evt) => {
+          try {
+            var data = evt.target.result
+            this.filename = f.name.split('.')[0]
+
+            if (f.type === 'text/markdown') {
+              this.contentHTML = this.convertMdToHtml(data)
+            }
+            else if (f.type === 'text/plain') {
+              this.contentHTML = this.convertTxtToHtml(data)
+            }
           }
           catch (err) {
             reader.onerror(err)
@@ -171,14 +219,20 @@ export default {
     },
     saveFile () {
       if (this.filename) {
-        var fileContent = this.convertHtmlToMd(this.contentHTML)
+        var fileContent = '<!DOCTYPE html><html>' +
+        '<head>' +
+        '<meta charset="utf-8">' +
+        '<title>' + this.filename + '</title>' +
+        '</head>' +
+        '<body>' + this.contentHTML + '</body>' +
+        '</html>'
 
         FileSaver.saveAs(
           new Blob(
             [fileContent],
-            { type: 'text/markdown;charset=utf-8' }
+            { type: 'text/html;charset=utf-8' }
           ),
-          this.filename + '.md'
+          this.filename + '.html'
         )
       }
       else {
@@ -189,40 +243,33 @@ export default {
       this.filename = 'test'
       this.saveFile()
     },
-    exportFile () {
-      this.$refs.exportModal.open()
-    },
-    exportToFile (ext) {
+    exportFile (ext) {
+      var fileContent = null
+      var fileType = null
+
       if (!this.filename) {
         this.filename = 'test'
       }
 
-      // Plain HTML (.html)
-      if (ext === 'html') {
-        var fileContent = '<!DOCTYPE html><html lang="en">' +
-        '<head><meta charset="utf-8">' +
-        '<title>' + this.filename + '</title>' +
-        '</head><body>' +
-        this.contentHTML +
-        '</body></html>'
-
-        FileSaver.saveAs(
-          new Blob(
-            [fileContent],
-            { type: 'text/html;charset=utf-8' }
-          ),
-          this.filename + '.html'
-        )
+      // Markdown (.md)
+      if (ext === 'md') {
+        fileContent = this.convertHtmlToMd(this.contentHTML)
+        fileType = 'text/markdown'
       }
 
       // Plain text (.txt)
-      else if (ext === 'txt') {
+      if (ext === 'txt') {
+        fileContent = this.convertHtmlToTxt(this.contentHTML)
+        fileType = 'text/plain'
+      }
+
+      if (fileType) {
         FileSaver.saveAs(
           new Blob(
-            [this.content],
-            { type: 'text/plain;charset=utf-8' }
+            [fileContent],
+            { type: fileType + ';charset=utf-8' }
           ),
-          this.filename + '.txt'
+          this.filename + '.' + ext
         )
       }
 
@@ -273,9 +320,14 @@ export default {
       })
     },
     updateContentAndStats () {
-      this.content = (this.contentHTML || '').replace(/<p>|<h\d+>|<li>/g, '\n\n').replace(/<br\s*\/*>/g, '\n').replace(/\n\n\n/g, '\n\n').replace(/<(?:.|\n)*?>/gm, '').trim()
-      this.sentences = this.content.replace(/(\.+|:|;|\?|!)/g, '$1\n').split(/\n+\s*/).filter(n => n)
-      this.words = this.content.split(/\s+/).filter(n => n)
+      this.content = this.convertHtmlToTxt(this.contentHTML)
+      this.sentences = this.content
+        .replace(/(\.+|:|;|\?|!)/g, '$1\n')
+        .split(/\n+\s*/)
+        .filter(n => n)
+      this.words = this.content
+        .split(/\s+/)
+        .filter(n => n)
     },
     processEditOperation (operation) {
       this.$nextTick(() => {

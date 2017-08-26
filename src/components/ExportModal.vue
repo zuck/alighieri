@@ -4,10 +4,10 @@
     <q-list no-border>
       <q-item
         link
-        @click="$emit('export', 'html')"
+        @click="$emit('export', 'md')"
       >
         <q-item-side icon="open_in_new" />
-        <q-item-main label="Plain HTML (.html)" />
+        <q-item-main label="Markdown (.md)" />
         <q-item-side right icon="keyboard_arrow_right" />
       </q-item>
       <q-item
