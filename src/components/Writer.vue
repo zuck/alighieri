@@ -57,7 +57,9 @@
 <script>
 import {
   QLayout,
-  Dialog
+  Dialog,
+  SessionStorage,
+  LocalStorage
 } from 'quasar'
 import VueMediumEditor from 'vue2-medium-editor'
 import MediumEditorAutoList from 'medium-editor-autolist'
@@ -75,6 +77,8 @@ import 'medium-editor/dist/css/themes/beagle.min.css'
 
 import 'assets/fonts/LibreBaskerville/stylesheet.css'
 
+const DANTE_CONTENT_BACKUP_KEY = 'dante-content-backup'
+const DANTE_CONTENT_LAST_SAVED_KEY = 'dante-content-last-saved'
 const DEFAULT_CONTENT_HTML = '<h1>Welcome to «dante»</h1><p>When you feel <i>ready</i>, start to type your <b>masterpiece</b>...</p>'
 
 export default {
@@ -145,8 +149,6 @@ export default {
     document.querySelector('#d-writer').focus()
   },
   destroyed () {
-    this.htmlToMdConverter.release()
-    this.htmlToMdConverter = null
   },
   methods: {
     convertMdToHtml (md) {
@@ -166,10 +168,28 @@ export default {
         .replace(/<(?:.|\n)*?>/gm, '')
         .trim()
     },
-    newFile () {
-      // TODO Show confirm dialog before delete current content
+    resetContent () {
+      SessionStorage.set(DANTE_CONTENT_LAST_SAVED_KEY, null)
       this.contentHTML = DEFAULT_CONTENT_HTML
       this.filename = null
+    },
+    newFile () {
+      if (this.contentHTML !== SessionStorage.get.item(DANTE_CONTENT_LAST_SAVED_KEY)) {
+        Dialog.create({
+          title: 'There are unsaved changes',
+          message: 'Are you sure you want to discard them?',
+          buttons: [
+            'No',
+            {
+              label: 'Yes',
+              handler: this.resetContent
+            }
+          ]
+        })
+      }
+      else {
+        this.resetContent()
+      }
     },
     openFile (files) {
       if (files && files.length > 0) {
@@ -180,6 +200,8 @@ export default {
             var data = evt.target.result
             this.filename = f.name.split('.')[0]
             this.contentHTML = data
+
+            SessionStorage.set(DANTE_CONTENT_LAST_SAVED_KEY, this.contentHTML)
           }
           catch (err) {
             reader.onerror(err)
@@ -238,6 +260,8 @@ export default {
           ),
           this.filename + '.html'
         )
+
+        SessionStorage.set(DANTE_CONTENT_LAST_SAVED_KEY, this.contentHTML)
       }
       else {
         this.saveFileAs()
@@ -318,7 +342,9 @@ export default {
           'Cancel',
           {
             label: 'OK',
-            handler () {}
+            handler () {
+              this.resetContent()
+            }
           }
         ]
       })
@@ -336,6 +362,7 @@ export default {
     processEditOperation (operation) {
       this.$nextTick(() => {
         this.contentHTML = operation.api.getFocusedElement().innerHTML
+        LocalStorage.set(DANTE_CONTENT_BACKUP_KEY, this.contentHTML)
       })
     }
   },
