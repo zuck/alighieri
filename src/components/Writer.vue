@@ -173,7 +173,7 @@ export default {
       this.contentHTML = DEFAULT_CONTENT_HTML
       this.filename = null
     },
-    newFile () {
+    checkContent (handlerFunc) {
       if (this.contentHTML !== SessionStorage.get.item(DANTE_CONTENT_LAST_SAVED_KEY)) {
         Dialog.create({
           title: 'There are unsaved changes',
@@ -182,14 +182,17 @@ export default {
             'No',
             {
               label: 'Yes',
-              handler: this.resetContent
+              handler: handlerFunc
             }
           ]
         })
       }
       else {
-        this.resetContent()
+        handlerFunc()
       }
+    },
+    newFile () {
+      this.checkContent(this.resetContent)
     },
     openFile (files) {
       if (files && files.length > 0) {
@@ -335,19 +338,9 @@ export default {
       })
     },
     exit () {
-      Dialog.create({
-        title: 'dante',
-        message: 'Exit',
-        buttons: [
-          'Cancel',
-          {
-            label: 'OK',
-            handler () {
-              this.resetContent()
-            }
-          }
-        ]
-      })
+      this.checkContent(this.resetContent)
+      
+      // TODO close window
     },
     updateContentAndStats () {
       this.content = this.convertHtmlToTxt(this.contentHTML)
