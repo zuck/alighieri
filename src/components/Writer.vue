@@ -1,14 +1,14 @@
 <template>
   <q-layout ref="layout" view="lHh LpR lFf">
     <toolbar
-      id="d-toolbar"
+      id="toolbar"
       slot="header"
       :wordCount="wordCount"
       :sentenceCount="sentenceCount"
     />
 
     <left-menu
-      id="d-left-menu"
+      id="left-menu"
       slot="left"
       @new="newFile()"
       @open="$refs.openFile.click()"
@@ -39,7 +39,7 @@
     >
 
     <vue-medium-editor
-      id="d-writer"
+      id="writer"
       custom-tag="div"
       :text="contentHTML"
       :options="options"
@@ -47,7 +47,7 @@
     />
 
     <export-modal
-      id="d-export-modal"
+      id="export-modal"
       ref="exportModal"
       @export="exportFile"
     />
@@ -77,9 +77,9 @@ import 'medium-editor/dist/css/themes/beagle.min.css'
 
 import 'assets/fonts/LibreBaskerville/stylesheet.css'
 
-const DANTE_CONTENT_BACKUP_KEY = 'dante-content-backup'
-const DANTE_CONTENT_LAST_SAVED_KEY = 'dante-content-last-saved'
-const DEFAULT_CONTENT_HTML = '<h1>Welcome to «dante»</h1><p>When you feel <i>ready</i>, start to type your <b>masterpiece</b>...</p>'
+const CONTENT_BACKUP_KEY = 'alighieri-content-backup'
+const CONTENT_LAST_SAVED_KEY = 'alighieri-content-last-saved'
+const DEFAULT_CONTENT_HTML = '<h1>Welcome to «Alighieri»</h1><p>When you feel <i>ready</i>, start to type your <b>masterpiece</b>...</p>'
 
 export default {
   name: 'writer',
@@ -146,7 +146,7 @@ export default {
     }
     this.$refs.layout.hideLeft()
     this.contentHTML = DEFAULT_CONTENT_HTML
-    document.querySelector('#d-writer').focus()
+    document.querySelector('#writer').focus()
   },
   destroyed () {
   },
@@ -169,12 +169,12 @@ export default {
         .trim()
     },
     resetContent () {
-      SessionStorage.set(DANTE_CONTENT_LAST_SAVED_KEY, null)
+      SessionStorage.set(CONTENT_LAST_SAVED_KEY, null)
       this.contentHTML = DEFAULT_CONTENT_HTML
       this.filename = null
     },
     checkContent (handlerFunc) {
-      if (this.contentHTML !== SessionStorage.get.item(DANTE_CONTENT_LAST_SAVED_KEY)) {
+      if (this.contentHTML !== SessionStorage.get.item(CONTENT_LAST_SAVED_KEY)) {
         Dialog.create({
           title: 'There are unsaved changes',
           message: 'Are you sure you want to discard them?',
@@ -204,7 +204,7 @@ export default {
             this.filename = f.name.split('.')[0]
             this.contentHTML = data
 
-            SessionStorage.set(DANTE_CONTENT_LAST_SAVED_KEY, this.contentHTML)
+            SessionStorage.set(CONTENT_LAST_SAVED_KEY, this.contentHTML)
           }
           catch (err) {
             reader.onerror(err)
@@ -264,7 +264,7 @@ export default {
           this.filename + '.html'
         )
 
-        SessionStorage.set(DANTE_CONTENT_LAST_SAVED_KEY, this.contentHTML)
+        SessionStorage.set(CONTENT_LAST_SAVED_KEY, this.contentHTML)
       }
       else {
         this.saveFileAs()
@@ -313,7 +313,7 @@ export default {
     },
     settings () {
       Dialog.create({
-        title: 'dante',
+        title: 'Alighieri',
         message: 'Settings',
         buttons: [
           'Cancel',
@@ -326,7 +326,7 @@ export default {
     },
     about () {
       Dialog.create({
-        title: 'dante',
+        title: 'Alighieri',
         message: 'About',
         buttons: [
           'Cancel',
@@ -339,7 +339,7 @@ export default {
     },
     exit () {
       this.checkContent(this.resetContent)
-      
+
       // TODO close window
     },
     updateContentAndStats () {
@@ -355,7 +355,7 @@ export default {
     processEditOperation (operation) {
       this.$nextTick(() => {
         this.contentHTML = operation.api.getFocusedElement().innerHTML
-        LocalStorage.set(DANTE_CONTENT_BACKUP_KEY, this.contentHTML)
+        LocalStorage.set(CONTENT_BACKUP_KEY, this.contentHTML)
       })
     }
   },
@@ -376,7 +376,7 @@ body
 .layout-header, .layout-aside
   box-shadow none !important
 
-#d-writer
+#writer
   display block
   box-sizing border-box
   min-width 256px
@@ -468,7 +468,7 @@ body
   .layout-header, .layout-aside
     display none
 
-  .layout-page-container, .layout-page, #d-writer
+  .layout-page-container, .layout-page, #writer
     display inline-block
     width 100% !important
     max-width 100% !important

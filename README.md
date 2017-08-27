@@ -1,10 +1,10 @@
-![dante logo](https://rawgit.com/zuck/dante/master/art/logo.svg)
+![Alighieri logo](https://rawgit.com/zuck/alighieri/master/art/logo.svg)
 
-# dante
+# Alighieri
 
 > A distraction-free tool for novelists and writers
 
-![dante UX](https://raw.githubusercontent.com/zuck/dante/master/art/screenshot.png?raw=true)
+![Alighieri UX](https://raw.githubusercontent.com/zuck/alighieri/master/art/screenshot.png?raw=true)
 
 ## Build Setup
 

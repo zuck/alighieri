@@ -1,12 +1,12 @@
 {
-  "name": "dante",
+  "name": "alighieri",
   "version": "0.0.1",
   "description": "A distraction-free tool for novelists and writers",
   "author": "Emanuele Bertoldi <emanuele.bertoldi@gmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git@github.com:zuck/dante.git"
+    "url": "git@github.com:zuck/alighieri.git"
   },
   "scripts": {
     "clean": "node build/script.clean.js",
