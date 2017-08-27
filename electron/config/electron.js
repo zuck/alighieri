@@ -3,7 +3,7 @@ const path = require('path')
 module.exports = {
   // electron-packager options
   // Docs: https://simulatedgreg.gitbooks.io/electron-vue/content/docs/building_your_app.html
-  name: 'dante',
+  name: 'Alighieri',
 
   // Electron version
   electronVersion: require('../node_modules/electron/package.json').version,

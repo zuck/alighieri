@@ -1,12 +1,12 @@
 {
-  "name": "dante-electron-shell",
+  "name": "alighieri-electron-shell",
   "version": "0.0.1",
-  "description": "An Electron shell for dante",
+  "description": "An Electron shell for Alighieri",
   "author": "Emanuele Bertoldi <emanuele.bertoldi@gmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git@github.com:zuck/dante.git"
+    "url": "git@github.com:zuck/alighieri.git"
   },
   "main": "electron.js",
   "scripts": {
