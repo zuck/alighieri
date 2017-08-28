@@ -33,3 +33,9 @@ $ quasar build
 # Lint code
 $ quasar lint
 ```
+
+## License
+
+Copyright (c) 2017 Emanuele Bertoldi
+
+[MIT License](http://en.wikipedia.org/wiki/MIT_License)
