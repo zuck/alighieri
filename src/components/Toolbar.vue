@@ -65,8 +65,12 @@ export default {
     opacity 1
 
 .q-toolbar-title
-  color #e0e0e0
+  color #333
+  opacity .3
   text-align center
+
+  abbr
+    cursor help
 
 .q-tooltip
   width 100%
