@@ -6,11 +6,13 @@
 
 ![Alighieri UX](https://raw.githubusercontent.com/zuck/alighieri/master/art/screenshot.png?raw=true)
 
-## Start to type
+## Start your masterpiece
 
-You can try **Alighieri** in [your browser](https://zuck.github.io/alighieri/)!
+You can try **Alighieri** in your browser:
 
-## Development
+https://zuck.github.io/alighieri/
+
+## Contribute to development
 
 ``` bash
 # Clone repository
