@@ -3,24 +3,22 @@
     ref="modal"
     @escape-key="close()"
   >
-    <q-modal-layout>
-      <div class="layout-padding">
-        <img id="logo" src="statics/icon.png"/>
-        <h4>{{ name }}</h4>
-        <h6>{{ description }}</h6>
-        <p id="version">v{{ version }}</p>
-        <h5>License</h5>
-        <pre id="license">{{ license }}</pre>
-        <q-btn
-          flat
-          @click="close()"
-        >Cancel</q-btn>
-        <q-btn
-          flat
-          @click="goToGitHub()"
-        >Contribute</q-btn>
-      </div>
-    </q-modal-layout>
+    <div class="layout-padding">
+      <img id="logo" src="statics/icon.png"/>
+      <h4>{{ name }}</h4>
+      <h6>{{ description }}</h6>
+      <p id="version">v{{ version }}</p>
+      <h5>License</h5>
+      <pre id="license">{{ license }}</pre>
+      <q-btn
+        flat
+        @click="close()"
+      >Cancel</q-btn>
+      <q-btn
+        flat
+        @click="goToGitHub()"
+      >Contribute</q-btn>
+    </div>
   </q-modal>
 </template>
 

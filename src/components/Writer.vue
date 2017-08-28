@@ -47,9 +47,17 @@
       @edit="processEditOperation"
     />
 
+    <save-as-modal
+      id="save-as-modal"
+      ref="saveAsModal"
+      :filename="this.filename || this.sentences[0]"
+      @save="saveFile"
+    />
+
     <export-modal
       id="export-modal"
       ref="exportModal"
+      :filename="this.filename || this.sentences[0]"
       @export="exportFile"
     />
 
@@ -75,6 +83,7 @@ import FileSaver from 'file-saver'
 
 import Toolbar from 'components/Toolbar'
 import LeftMenu from 'components/LeftMenu'
+import SaveAsModal from 'components/SaveAsModal'
 import ExportModal from 'components/ExportModal'
 import AboutModal from 'components/AboutModal'
 
@@ -95,6 +104,7 @@ export default {
     VueMediumEditor,
     Toolbar,
     LeftMenu,
+    SaveAsModal,
     ExportModal,
     AboutModal
   },
@@ -254,7 +264,11 @@ export default {
         reader.readAsText(f)
       }
     },
-    saveFile () {
+    saveFile (filename) {
+      if (filename) {
+        this.filename = filename
+      }
+
       if (this.filename) {
         var fileContent = '<!DOCTYPE html><html>' +
         '<head>' +
@@ -279,40 +293,35 @@ export default {
       }
     },
     saveFileAs () {
-      this.filename = 'test'
-      this.saveFile()
+      this.$refs.saveAsModal.open()
     },
-    exportFile (ext) {
+    exportFile (filename, ext) {
       var fileContent = null
       var fileType = null
 
-      if (!this.filename) {
-        this.filename = 'test'
-      }
+      if (filename) {
+        // Markdown (.md)
+        if (ext === 'md') {
+          fileContent = this.convertHtmlToMd(this.contentHTML)
+          fileType = 'text/markdown'
+        }
 
-      // Markdown (.md)
-      if (ext === 'md') {
-        fileContent = this.convertHtmlToMd(this.contentHTML)
-        fileType = 'text/markdown'
-      }
+        // Plain text (.txt)
+        if (ext === 'txt') {
+          fileContent = this.convertHtmlToTxt(this.contentHTML)
+          fileType = 'text/plain'
+        }
 
-      // Plain text (.txt)
-      if (ext === 'txt') {
-        fileContent = this.convertHtmlToTxt(this.contentHTML)
-        fileType = 'text/plain'
+        if (fileType) {
+          FileSaver.saveAs(
+            new Blob(
+              [fileContent],
+              { type: fileType + ';charset=utf-8' }
+            ),
+            filename + '.' + ext
+          )
+        }
       }
-
-      if (fileType) {
-        FileSaver.saveAs(
-          new Blob(
-            [fileContent],
-            { type: fileType + ';charset=utf-8' }
-          ),
-          this.filename + '.' + ext
-        )
-      }
-
-      this.$refs.exportModal.close()
     },
     printFile () {
       if (window) {
