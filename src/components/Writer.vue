@@ -170,7 +170,7 @@ export default {
       }
     }
     this.$refs.layout.hideLeft()
-    this.contentHTML = DEFAULT_CONTENT_HTML
+    this.contentHTML = LocalStorage.get.item(CONTENT_BACKUP_KEY) || DEFAULT_CONTENT_HTML
     document.querySelector('#writer').focus()
   },
   destroyed () {
