@@ -61,6 +61,11 @@
       @export="exportFile"
     />
 
+    <settings-modal
+      id="settings-modal"
+      ref="settingsModal"
+    />
+
     <about-modal
       id="about-modal"
       ref="aboutModal"
@@ -85,6 +90,7 @@ import Toolbar from 'components/Toolbar'
 import LeftMenu from 'components/LeftMenu'
 import SaveAsModal from 'components/SaveAsModal'
 import ExportModal from 'components/ExportModal'
+import SettingsModal from 'components/SettingsModal'
 import AboutModal from 'components/AboutModal'
 
 import 'font-awesome/css/font-awesome.min.css'
@@ -106,6 +112,7 @@ export default {
     LeftMenu,
     SaveAsModal,
     ExportModal,
+    SettingsModal,
     AboutModal
   },
   data () {
@@ -329,17 +336,7 @@ export default {
       }
     },
     settings () {
-      Dialog.create({
-        title: 'Alighieri',
-        message: 'Settings',
-        buttons: [
-          'Cancel',
-          {
-            label: 'OK',
-            handler () {}
-          }
-        ]
-      })
+      this.$refs.settingsModal.open()
     },
     about () {
       this.$refs.aboutModal.open()
