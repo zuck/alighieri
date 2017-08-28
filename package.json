@@ -12,7 +12,8 @@
     "clean": "node build/script.clean.js",
     "dev": "node build/script.dev.js",
     "build": "node build/script.build.js",
-    "lint": "eslint --ext .js,.vue src"
+    "lint": "eslint --ext .js,.vue src",
+    "deploy": "npm run build && gh-pages -d dist"
   },
   "dependencies": {
     "babel-runtime": "^6.25.0",
@@ -72,6 +73,7 @@
     "webpack": "^3.5.2",
     "webpack-dev-middleware": "^1.12.0",
     "webpack-hot-middleware": "^2.18.2",
-    "webpack-merge": "^4.1.0"
+    "webpack-merge": "^4.1.0",
+    "gh-pages": "^1.0.0"
   }
 }
