@@ -72,6 +72,8 @@ export default {
 </script>
 
 <style lang="stylus">
+@require '../themes/app.variables'
+
 .q-item:hover .q-icon
-  color #c83737
+  color $primary
 </style>

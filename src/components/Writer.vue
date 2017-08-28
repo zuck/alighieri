@@ -375,6 +375,8 @@ export default {
 </script>
 
 <style lang="stylus">
+@require '../themes/app.variables'
+
 body
   font-family 'LibreBaskerville', serif
   background-color #fff
@@ -382,6 +384,26 @@ body
 
 .layout-header, .layout-aside
   box-shadow none !important
+
+.layout-padding
+  padding 2rem 2rem 1rem
+
+.modal-buttons
+  padding 0 2rem 2rem
+  justify-content space-between
+
+hr
+  border none
+  border-top 1px solid $neutral
+  margin-bottom 1rem
+
+input
+  display block
+  width 100%
+  padding 8px
+  margin-bottom .5rem
+  border 1px solid $tertiary
+  outline none
 
 #writer
   display block
@@ -401,7 +423,7 @@ body
     margin 0 0 .5em
     font-weight inherit
     line-height 1.2
-    color #777
+    color $tertiary
 
     &+p
       margin-top 1.414em
@@ -420,16 +442,20 @@ body
     font-size 1em
 
   table
+    width 100%
     margin-bottom 1rem
+    border-collapse collapse
 
     thead
       text-align left
 
     td, th
       padding .5rem
+      border-bottom 1px solid $neutral
+      vertical-align top
 
-    td, thead td, th
-      border-bottom 1px solid rgba(0,0,0,.1)
+    thead td, thead th
+      border-color $tertiary
 
     @media screen and (max-width 576px)
       tr
@@ -442,19 +468,23 @@ body
       td:not(:last-of-type), th:not(:last-of-type)
         border-bottom none
 
-  pre, code
-    background-color #fafafa
-
   pre
     padding 1rem
     border-radius .25rem
     overflow-x auto
+    background-color $neutral
 
     code
       background-color transparent
+      white-space pre-wrap
+
+  code
+    padding 4px
+    white-space nowrap
+    background-color $neutral
 
   blockquote
-    border-left-color #777
+    border-left-color $neutral
 
     :last-child
       margin-bottom 0

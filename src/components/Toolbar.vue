@@ -56,6 +56,8 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+@require '../themes/app.variables'
+
 .q-btn
   .q-icon
     opacity .3
@@ -63,7 +65,7 @@ export default {
 
   &:hover .q-icon
     opacity 1
-    color #c83737
+    color $primary
 
 .q-toolbar-title
   color #333

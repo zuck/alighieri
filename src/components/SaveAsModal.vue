@@ -6,6 +6,8 @@
     <div class="layout-padding">
       <h4>Choose a name</h4>
       <input ref="filenameInput" :value="filename" type="text"/>
+    </div>
+    <div class="modal-buttons row">
       <q-btn
         flat
         @click="close()"
@@ -50,11 +52,4 @@ export default {
 </script>
 
 <style lang="stylus">
-input
-  display block
-  width 100%
-  padding 8px
-  margin-bottom 16px
-  border 1px solid #777
-  outline none
 </style>
