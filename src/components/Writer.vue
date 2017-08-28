@@ -101,7 +101,21 @@ import 'assets/fonts/LibreBaskerville/stylesheet.css'
 
 const CONTENT_BACKUP_KEY = 'alighieri-content-backup'
 const CONTENT_LAST_SAVED_KEY = 'alighieri-content-last-saved'
-const DEFAULT_CONTENT_HTML = '<h1>Welcome to «Alighieri»</h1><p>When you feel <i>ready</i>, start to type your <b>masterpiece</b>...</p>'
+const DEFAULT_CONTENT_HTML = '<h1>Welcome to «Alighieri»</h1>' +
+  '<p>When you feel <i>ready</i>, start to type your <b>masterpiece</b>...</p>'
+
+var mdToHtmlConverter = new showdown.Converter({
+  simplifiedAutoLink: true,
+  strikethrough: true,
+  tables: true,
+  tasklists: true,
+  simpleLineBreaks: true
+})
+var htmlToMdConverter = {
+  convert: function (html) {
+    return toMarkdown(html)
+  }
+}
 
 export default {
   name: 'writer',
@@ -157,33 +171,19 @@ export default {
     }
   },
   mounted () {
-    this.mdToHtmlConverter = new showdown.Converter({
-      simplifiedAutoLink: true,
-      strikethrough: true,
-      tables: true,
-      tasklists: true,
-      simpleLineBreaks: true
-    })
-    this.htmlToMdConverter = {
-      convert: function (html) {
-        return toMarkdown(html)
-      }
-    }
     this.$refs.layout.hideLeft()
     this.contentHTML = LocalStorage.get.item(CONTENT_BACKUP_KEY) || DEFAULT_CONTENT_HTML
     document.querySelector('#writer').focus()
   },
-  destroyed () {
-  },
   methods: {
     convertMdToHtml (md) {
-      return this.mdToHtmlConverter.makeHtml(md)
+      return mdToHtmlConverter.makeHtml(md)
     },
     convertHtmlToMd (html) {
-      return this.htmlToMdConverter.convert(html)
+      return htmlToMdConverter.convert(html)
     },
     convertTxtToHtml (txt) {
-      return this.mdToHtmlConverter.makeHtml(txt)
+      return mdToHtmlConverter.makeHtml(txt)
     },
     convertHtmlToTxt (html) {
       return (html || '')
@@ -348,6 +348,13 @@ export default {
     },
     updateContentAndStats () {
       this.content = this.convertHtmlToTxt(this.contentHTML)
+      // Store backup content (only if there is valid text)
+      if (this.content) {
+        LocalStorage.set(CONTENT_BACKUP_KEY, this.contentHTML)
+      }
+      else {
+        LocalStorage.remove(CONTENT_BACKUP_KEY)
+      }
       this.sentences = this.content
         .replace(/(\.+|:|;|\?|!)/g, '$1\n')
         .split(/\n+\s*/)
@@ -359,7 +366,6 @@ export default {
     processEditOperation (operation) {
       this.$nextTick(() => {
         this.contentHTML = operation.api.getFocusedElement().innerHTML
-        LocalStorage.set(CONTENT_BACKUP_KEY, this.contentHTML)
       })
     }
   },
