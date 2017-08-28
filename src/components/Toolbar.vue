@@ -3,7 +3,7 @@
     <q-btn
       flat round
       color="grey-13"
-      @click="$parent.toggleLeft()"
+      @click="$emit('menuToggle')"
     >
       <q-icon name="menu" />
     </q-btn>
@@ -59,10 +59,11 @@ export default {
 .q-btn
   .q-icon
     opacity .3
-    transition opacity .2s
+    transition opacity .2s, color .2s
 
   &:hover .q-icon
     opacity 1
+    color #c83737
 
 .q-toolbar-title
   color #333

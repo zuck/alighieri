@@ -5,6 +5,7 @@
       slot="header"
       :wordCount="wordCount"
       :sentenceCount="sentenceCount"
+      @menuToggle="$refs.layout.toggleLeft()"
     />
 
     <left-menu
