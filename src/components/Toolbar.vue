@@ -1,7 +1,6 @@
 <template>
   <q-toolbar color="white">
     <q-btn
-      id="logo"
       flat round
       color="grey-13"
       @click="$parent.toggleLeft()"
@@ -10,7 +9,6 @@
     </q-btn>
     <q-toolbar-title>{{ wordCount }} <abbr title="Words">ws</abbr> | {{ sentenceCount }} <abbr title="Sentences">ss</abbr></q-toolbar-title>
     <q-btn
-      id="help"
       flat round
       color="grey-13"
     >
@@ -58,15 +56,13 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-#logo, #help
-  img, .q-icon
-    height 2em
+.q-btn
+  .q-icon
     opacity .3
     transition opacity .2s
 
-  &:hover
-    img, .q-icon
-      opacity 1
+  &:hover .q-icon
+    opacity 1
 
 .q-toolbar-title
   color #e0e0e0
