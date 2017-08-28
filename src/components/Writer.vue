@@ -52,6 +52,11 @@
       ref="exportModal"
       @export="exportFile"
     />
+
+    <about-modal
+      id="about-modal"
+      ref="aboutModal"
+    />
   </q-layout>
 </template>
 
@@ -71,6 +76,7 @@ import FileSaver from 'file-saver'
 import Toolbar from 'components/Toolbar'
 import LeftMenu from 'components/LeftMenu'
 import ExportModal from 'components/ExportModal'
+import AboutModal from 'components/AboutModal'
 
 import 'font-awesome/css/font-awesome.min.css'
 import 'medium-editor/dist/css/medium-editor.min.css'
@@ -89,7 +95,8 @@ export default {
     VueMediumEditor,
     Toolbar,
     LeftMenu,
-    ExportModal
+    ExportModal,
+    AboutModal
   },
   data () {
     return {
@@ -326,17 +333,7 @@ export default {
       })
     },
     about () {
-      Dialog.create({
-        title: 'Alighieri',
-        message: 'About',
-        buttons: [
-          'Cancel',
-          {
-            label: 'OK',
-            handler () {}
-          }
-        ]
-      })
+      this.$refs.aboutModal.open()
     },
     exit () {
       this.checkContent(this.resetContent)
