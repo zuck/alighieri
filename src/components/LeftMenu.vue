@@ -72,4 +72,6 @@ export default {
 </script>
 
 <style lang="stylus">
+.q-item:hover .q-icon
+  color #c83737
 </style>
