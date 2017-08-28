@@ -6,18 +6,28 @@
 
 ![Alighieri UX](https://raw.githubusercontent.com/zuck/alighieri/master/art/screenshot.png?raw=true)
 
-## Build Setup
+## Start to type
+
+You can try **Alighieri** in [your browser](https://zuck.github.io/alighieri/)!
+
+## Development
 
 ``` bash
-# install dependencies
+# Clone repository
+$ git clone https://github.com/zuck/alighieri.git
+
+# Move to working directory
+$ cd alighieri
+
+# Install dependencies
 $ npm install
 
-# serve with hot reload at localhost:8080
+# Serve with hot reload at localhost:8080
 $ quasar dev
 
-# build for production with minification
+# Build for production with minification
 $ quasar build
 
-# lint code
+# Lint code
 $ quasar lint
 ```
