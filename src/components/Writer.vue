@@ -25,7 +25,7 @@
 
     <input
       type="file"
-      accept="text/html"
+      accept=".html"
       style="display:none"
       @change="openFile($event.target.files)"
       ref="openFile"
@@ -33,7 +33,7 @@
 
     <input
       type="file"
-      accept=".md, .txt"
+      accept=".md,.txt"
       style="display:none"
       @change="importFile($event.target.files)"
       ref="importFile"
@@ -181,6 +181,19 @@ export default {
   },
   methods: {
     onKeyPress (evt) {
+      // Open file
+      if (evt.key === 'o' && evt.ctrlKey) {
+        evt.preventDefault()
+        this.$refs.openFile.click()
+      }
+
+      // Save file
+      if (evt.key === 's' && evt.ctrlKey) {
+        evt.preventDefault()
+        this.saveFile()
+      }
+
+      // Zen mode
       if (evt.key === 'F11') {
         if (this.isElectron) {
           const win = this.$electron.remote.getCurrentWindow()

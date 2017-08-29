@@ -17,8 +17,10 @@
         <dl>
           <dt><kbd>Enter</kbd></dt><dd>New paragraph</dd>
           <dt><kbd>Shift + Enter</kbd></dt><dd>New line</dd>
-          <dt><kbd>1. + Space</kbd></dt><dd>New numbered list</dd>
-          <dt><kbd>* + Space</kbd></dt><dd>New bullet list</dd>
+          <dt><kbd>'1.' + Space</kbd></dt><dd>New numbered list</dd>
+          <dt><kbd>'*' + Space</kbd></dt><dd>New bullet list</dd>
+          <dt><kbd>Ctrl + O</kbd></dt><dd>Open</dd>
+          <dt><kbd>Ctrl + S</kbd></dt><dd>Save</dd>
           <dt><kbd>F11</kbd></dt><dd>Toggle "Zen Mode"</dd>
         </dl>
       </q-tooltip>
