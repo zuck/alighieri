@@ -30,11 +30,11 @@ $ quasar dev
 # Build for production with minification
 $ quasar build
 
-# Build final Electron app
-$ quasar build-electron [linux|darwin|win]
-
 # Lint code
 $ quasar lint
+
+# Package the final Electron app
+$ npm run package-electron [linux|darwin|win]
 ```
 
 ## License
