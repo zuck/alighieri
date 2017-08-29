@@ -87,6 +87,7 @@ import MediumEditorAutoList from 'medium-editor-autolist'
 import showdown from 'showdown'
 import toMarkdown from 'to-markdown'
 import FileSaver from 'file-saver'
+import screenfull from 'screenfull'
 
 import Toolbar from 'components/Toolbar'
 import LeftMenu from 'components/LeftMenu'
@@ -134,6 +135,7 @@ export default {
   data () {
     return {
       isElectron: (this.$electron),
+      isFullscreen: false,
       filename: null,
       contentHTML: null,
       content: null,
@@ -175,10 +177,13 @@ export default {
   },
   mounted () {
     window.onbeforeunload = this.exit
-    document.onkeydown = this.onKeyPress
+    document.onkeyup = this.onKeyPress
+
     this.$refs.layout.hideLeft()
+
     this.contentHTML = LocalStorage.get.item(CONTENT_BACKUP_KEY) || DEFAULT_CONTENT_HTML
     SessionStorage.set(CONTENT_LAST_SAVED_KEY, this.contentHTML)
+
     document.querySelector('#writer').focus()
   },
   methods: {
@@ -421,16 +426,21 @@ export default {
 
       // Zen mode
       if (evt.key === 'F11') {
-        if (this.isElectron) {
-          const win = this.$electron.remote.getCurrentWindow()
-          win.setFullScreen(!win.isFullScreen())
-        }
-        else {
-          if (document.isFullscreen) {
-            document.exitFullscreen()
+        evt.preventDefault()
+        evt.stopPropagation()
+        evt.returnValue = false
+
+        if (evt.ctrlKey) {
+          evt.preventDefault()
+
+          if (this.isElectron) {
+            const win = this.$electron.remote.getCurrentWindow()
+            win.setFullScreen(!win.isFullScreen())
+            this.isFullscreen = win.isFullScreen()
           }
           else {
-            document.documentElement.requestFullscreen()
+            screenfull.toggle(screenfull.element || document.documentElement)
+            this.isFullscreen = screenfull.isFullscreen
           }
         }
       }
@@ -469,6 +479,9 @@ export default {
   watch: {
     contentHTML: function (val) {
       this.updateContentAndStats()
+    },
+    isFullscreen: function (val) {
+      this.$refs.layout.hideLeft()
     }
   }
 }

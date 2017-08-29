@@ -21,7 +21,7 @@
           <dt><kbd>'*' + Space</kbd></dt><dd>New bullet list</dd>
           <dt><kbd>Ctrl + O</kbd></dt><dd>Open</dd>
           <dt><kbd>Ctrl + S</kbd></dt><dd>Save</dd>
-          <dt><kbd>F11</kbd></dt><dd>Toggle "Zen Mode"</dd>
+          <dt><kbd>Ctrl + F11</kbd></dt><dd>Toggle "Zen Mode"</dd>
         </dl>
       </q-tooltip>
     </q-btn>
