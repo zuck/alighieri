@@ -33,6 +33,8 @@ webpackBuild(function () {
       return
     }
 
+    shell.cp('-rf', path.join(__dirname, '../icons/'), appPaths)
+
     console.log(' Build(s) were successful.')
     console.log(appPaths)
     console.log('\n Done!'.bold + ' Check ' + path.resolve(__dirname, '../dist').gray + ' folder.')

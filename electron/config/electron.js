@@ -11,7 +11,7 @@ module.exports = {
   asar: true,
   dir: path.join(__dirname, '../../dist'),
   icon: path.join(__dirname, '../icons/icon'),
-  ignore: /\b(node_modules|src|icons)\b/,
+  ignore: /\b(node_modules|src)\b/,
   out: path.join(__dirname, '../dist'),
   overwrite: true,
   platform: process.env.PLATFORM_TARGET || 'all'
