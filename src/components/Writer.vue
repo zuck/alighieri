@@ -425,7 +425,7 @@ export default {
     updateContentAndStats () {
       this.content = this.convertHtmlToTxt(this.contentHTML)
       // Store backup content (only if there is valid text)
-      if (this.content) {
+      if (this.content && this.content.length > 0) {
         LocalStorage.set(CONTENT_BACKUP_KEY, this.contentHTML)
       }
       else {
