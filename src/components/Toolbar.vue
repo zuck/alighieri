@@ -19,6 +19,7 @@
           <dt><kbd>Shift + Enter</kbd></dt><dd>New line</dd>
           <dt><kbd>1. + Space</kbd></dt><dd>New numbered list</dd>
           <dt><kbd>* + Space</kbd></dt><dd>New bullet list</dd>
+          <dt><kbd>F11</kbd></dt><dd>Toggle "Zen Mode"</dd>
         </dl>
       </q-tooltip>
     </q-btn>

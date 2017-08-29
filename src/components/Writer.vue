@@ -174,11 +174,28 @@ export default {
     }
   },
   mounted () {
+    document.onkeydown = this.onKeyPress
     this.$refs.layout.hideLeft()
     this.contentHTML = LocalStorage.get.item(CONTENT_BACKUP_KEY) || DEFAULT_CONTENT_HTML
     document.querySelector('#writer').focus()
   },
   methods: {
+    onKeyPress (evt) {
+      if (evt.key === 'F11') {
+        if (this.isElectron) {
+          const win = this.$electron.remote.getCurrentWindow()
+          win.setFullScreen(!win.isFullScreen())
+        }
+        else {
+          if (document.isFullscreen) {
+            document.exitFullscreen()
+          }
+          else {
+            document.documentElement.requestFullscreen()
+          }
+        }
+      }
+    },
     convertMdToHtml (md) {
       return mdToHtmlConverter.makeHtml(md)
     },
@@ -315,14 +332,17 @@ export default {
     },
     saveFileAs () {
       if (this.isElectron) {
-        var fn = this.$electron.remote.dialog.showSaveDialog({
+        this.$electron.remote.dialog.showSaveDialog({
           title: 'Save as',
           defaultPath: this.filename,
           filters: [
             { name: 'Plain HTML', extensions: ['html'] }
           ]
+        }, (fn) => {
+          if (fn) {
+            this.saveFile(fn)
+          }
         })
-        this.saveFile(fn)
       }
       else {
         this.$refs.saveAsModal.open()
@@ -367,16 +387,19 @@ export default {
     },
     exportFileAs () {
       if (this.isElectron) {
-        var fn = this.$electron.remote.dialog.showSaveDialog({
+        this.$electron.remote.dialog.showSaveDialog({
           title: 'Export to',
           buttonLabel: 'Export',
           filters: [
             { name: 'Markdown', extensions: ['md'] },
             { name: 'Plain Text', extensions: ['txt'] }
           ]
+        }, (fn) => {
+          if (fn) {
+            var fnTokens = fn.split('.')
+            this.exportFile(fnTokens[0], fnTokens[1])
+          }
         })
-        var fnTokens = fn.split('.')
-        this.exportFile(fnTokens[0], fnTokens[1])
       }
       else {
         this.$refs.exportModal.open()
