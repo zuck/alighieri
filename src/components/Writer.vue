@@ -174,83 +174,26 @@ export default {
     }
   },
   mounted () {
+    window.onbeforeunload = this.exit
     document.onkeydown = this.onKeyPress
     this.$refs.layout.hideLeft()
     this.contentHTML = LocalStorage.get.item(CONTENT_BACKUP_KEY) || DEFAULT_CONTENT_HTML
+    SessionStorage.set(CONTENT_LAST_SAVED_KEY, this.contentHTML)
     document.querySelector('#writer').focus()
   },
   methods: {
-    onKeyPress (evt) {
-      // Open file
-      if (evt.key === 'o' && evt.ctrlKey) {
-        evt.preventDefault()
-        this.$refs.openFile.click()
-      }
-
-      // Save file
-      if (evt.key === 's' && evt.ctrlKey) {
-        evt.preventDefault()
-        this.saveFile()
-      }
-
-      // Zen mode
-      if (evt.key === 'F11') {
-        if (this.isElectron) {
-          const win = this.$electron.remote.getCurrentWindow()
-          win.setFullScreen(!win.isFullScreen())
-        }
-        else {
-          if (document.isFullscreen) {
-            document.exitFullscreen()
-          }
-          else {
-            document.documentElement.requestFullscreen()
-          }
-        }
-      }
-    },
-    convertMdToHtml (md) {
-      return mdToHtmlConverter.makeHtml(md)
-    },
-    convertHtmlToMd (html) {
-      return htmlToMdConverter.convert(html)
-    },
-    convertTxtToHtml (txt) {
-      return mdToHtmlConverter.makeHtml(txt)
-    },
-    convertHtmlToTxt (html) {
-      return (html || '')
-        .replace(/<p>|<h\d+>|<li>/g, '\n\n')
-        .replace(/<br\s*\/*>/g, '\n')
-        .replace(/\n\n\n/g, '\n\n')
-        .replace(/<(?:.|\n)*?>/gm, '')
-        .trim()
-    },
-    resetContent () {
-      SessionStorage.set(CONTENT_LAST_SAVED_KEY, null)
+    resetFile () {
+      SessionStorage.set(CONTENT_LAST_SAVED_KEY, DEFAULT_CONTENT_HTML)
       this.contentHTML = DEFAULT_CONTENT_HTML
       this.filename = null
     },
-    checkContent (handlerFunc) {
-      if (this.contentHTML !== SessionStorage.get.item(CONTENT_LAST_SAVED_KEY)) {
-        Dialog.create({
-          title: 'There are unsaved changes',
-          message: 'Are you sure you want to discard them?',
-          buttons: [
-            'No',
-            {
-              label: 'Yes',
-              handler: handlerFunc
-            }
-          ]
-        })
+    newFile () {
+      if (this.hasContentChanges()) {
+        this.showConfirmDialog(this.resetFile)
       }
       else {
-        handlerFunc()
+        this.resetFile()
       }
-    },
-    newFile () {
-      this.checkContent(this.resetContent)
     },
     openFile (files) {
       if (files && files.length > 0) {
@@ -427,12 +370,18 @@ export default {
     about () {
       this.$refs.aboutModal.open()
     },
-    exit () {
-      this.checkContent(this.resetContent)
+    exit (evt) {
+      if (this.hasContentChanges()) {
+        if (evt) {
+          evt.returnValue = false
+        }
 
-      if (this.$electron) {
-        const window = this.$electron.remote.getCurrentWindow()
-        window.close()
+        if (this.$electron) {
+          this.showConfirmDialog(() => {
+            window.onbeforeunload = null
+            this.$electron.remote.getCurrentWindow().close()
+          })
+        }
       }
     },
     updateContentAndStats () {
@@ -455,6 +404,65 @@ export default {
     processEditOperation (operation) {
       this.$nextTick(() => {
         this.contentHTML = operation.api.getFocusedElement().innerHTML
+      })
+    },
+    onKeyPress (evt) {
+      // Open file
+      if (evt.key === 'o' && evt.ctrlKey) {
+        evt.preventDefault()
+        this.$refs.openFile.click()
+      }
+
+      // Save file
+      if (evt.key === 's' && evt.ctrlKey) {
+        evt.preventDefault()
+        this.saveFile()
+      }
+
+      // Zen mode
+      if (evt.key === 'F11') {
+        if (this.isElectron) {
+          const win = this.$electron.remote.getCurrentWindow()
+          win.setFullScreen(!win.isFullScreen())
+        }
+        else {
+          if (document.isFullscreen) {
+            document.exitFullscreen()
+          }
+          else {
+            document.documentElement.requestFullscreen()
+          }
+        }
+      }
+    },
+    convertMdToHtml (md) {
+      return mdToHtmlConverter.makeHtml(md)
+    },
+    convertHtmlToMd (html) {
+      return htmlToMdConverter.convert(html)
+    },
+    convertTxtToHtml (txt) {
+      return mdToHtmlConverter.makeHtml(txt)
+    },
+    convertHtmlToTxt (html) {
+      return (html || '')
+        .replace(/<p>|<h\d+>|<li>/g, '\n\n')
+        .replace(/<br\s*\/*>/g, '\n')
+        .replace(/\n\n\n/g, '\n\n')
+        .replace(/<(?:.|\n)*?>/gm, '')
+        .trim()
+    },
+    hasContentChanges () {
+      return (this.contentHTML !== SessionStorage.get.item(CONTENT_LAST_SAVED_KEY))
+    },
+    showConfirmDialog (handlerFunc, title, message) {
+      Dialog.create({
+        title: title || 'There are unsaved changes',
+        message: message || 'Are you sure you want to discard them?',
+        buttons: ['No', {
+          label: 'Yes',
+          handler: handlerFunc
+        }]
       })
     }
   },
