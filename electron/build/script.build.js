@@ -33,7 +33,9 @@ webpackBuild(function () {
       return
     }
 
-    shell.cp('-rf', path.join(__dirname, '../icons/'), appPaths)
+    appPaths.forEach((appPath) => {
+      shell.cp('-rf', path.join(__dirname, '../icons/'), path.join(appPath, 'resources'))
+    })
 
     console.log(' Build(s) were successful.')
     console.log(appPaths)
