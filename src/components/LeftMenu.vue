@@ -40,8 +40,8 @@
       <q-item-side icon="school" />
       <q-item-main label="About" sublabel="What's this?" />
     </q-item>
-    <q-item-separator />
-    <q-item @click="$emit('exit')">
+    <q-item-separator v-if="isElectron" />
+    <q-item @click="$emit('exit')" v-if="isElectron">
       <q-item-side icon="exit to app" />
       <q-item-main label="Exit" sublabel="Close the application" />
     </q-item>
@@ -67,6 +67,11 @@ export default {
     QItemSeparator,
     QItemSide,
     QItemMain
+  },
+  data () {
+    return {
+      isElectron: (this.$electron)
+    }
   }
 }
 </script>

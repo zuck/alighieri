@@ -16,7 +16,7 @@
       @import="$refs.importFile.click()"
       @save="saveFile()"
       @saveAs="saveFileAs()"
-      @export="$refs.exportModal.open()"
+      @export="exportFileAs()"
       @print="printFile()"
       @settings="settings()"
       @about="about()"
@@ -52,6 +52,7 @@
       ref="saveAsModal"
       :filename="this.filename || this.sentences[0]"
       @save="saveFile"
+      v-if="!isElectron"
     />
 
     <export-modal
@@ -59,6 +60,7 @@
       ref="exportModal"
       :filename="this.filename || this.sentences[0]"
       @export="exportFile"
+      v-if="!isElectron"
     />
 
     <settings-modal
@@ -131,6 +133,7 @@ export default {
   },
   data () {
     return {
+      isElectron: (this.$electron),
       filename: null,
       contentHTML: null,
       content: null,
@@ -271,9 +274,9 @@ export default {
         reader.readAsText(f)
       }
     },
-    saveFile (filename) {
-      if (filename) {
-        this.filename = filename
+    saveFile (fn) {
+      if (fn) {
+        this.filename = fn
       }
 
       if (this.filename) {
@@ -285,13 +288,24 @@ export default {
         '<body>' + this.contentHTML + '</body>' +
         '</html>'
 
-        FileSaver.saveAs(
-          new Blob(
-            [fileContent],
-            { type: 'text/html;charset=utf-8' }
-          ),
-          this.filename + '.html'
-        )
+        if (this.filename.split('.')[1] !== 'html') {
+          this.filename += '.html'
+        }
+
+        if (this.isElectron) {
+          require('fs').writeFile(this.filename, fileContent, (err) => {
+            if (err) throw err
+          })
+        }
+        else {
+          FileSaver.saveAs(
+            new Blob(
+              [fileContent],
+              { type: 'text/html;charset=utf-8' }
+            ),
+            this.filename
+          )
+        }
 
         SessionStorage.set(CONTENT_LAST_SAVED_KEY, this.contentHTML)
       }
@@ -300,13 +314,25 @@ export default {
       }
     },
     saveFileAs () {
-      this.$refs.saveAsModal.open()
+      if (this.isElectron) {
+        var fn = this.$electron.remote.dialog.showSaveDialog({
+          title: 'Save as',
+          defaultPath: this.filename,
+          filters: [
+            { name: 'Plain HTML', extensions: ['html'] }
+          ]
+        })
+        this.saveFile(fn)
+      }
+      else {
+        this.$refs.saveAsModal.open()
+      }
     },
-    exportFile (filename, ext) {
+    exportFile (fn, ext) {
       var fileContent = null
       var fileType = null
 
-      if (filename) {
+      if (fn) {
         // Markdown (.md)
         if (ext === 'md') {
           fileContent = this.convertHtmlToMd(this.contentHTML)
@@ -320,20 +346,44 @@ export default {
         }
 
         if (fileType) {
-          FileSaver.saveAs(
-            new Blob(
-              [fileContent],
-              { type: fileType + ';charset=utf-8' }
-            ),
-            filename + '.' + ext
-          )
+          var filename = fn + '.' + ext
+
+          if (this.isElectron) {
+            require('fs').writeFile(filename, fileContent, (err) => {
+              if (err) throw err
+            })
+          }
+          else {
+            FileSaver.saveAs(
+              new Blob(
+                [fileContent],
+                { type: fileType + ';charset=utf-8' }
+              ),
+              filename
+            )
+          }
         }
       }
     },
-    printFile () {
-      if (window) {
-        window.print()
+    exportFileAs () {
+      if (this.isElectron) {
+        var fn = this.$electron.remote.dialog.showSaveDialog({
+          title: 'Export to',
+          buttonLabel: 'Export',
+          filters: [
+            { name: 'Markdown', extensions: ['md'] },
+            { name: 'Plain Text', extensions: ['txt'] }
+          ]
+        })
+        var fnTokens = fn.split('.')
+        this.exportFile(fnTokens[0], fnTokens[1])
       }
+      else {
+        this.$refs.exportModal.open()
+      }
+    },
+    printFile () {
+      window.print()
     },
     settings () {
       this.$refs.settingsModal.open()
@@ -344,7 +394,10 @@ export default {
     exit () {
       this.checkContent(this.resetContent)
 
-      // TODO close window
+      if (this.$electron) {
+        const window = this.$electron.remote.getCurrentWindow()
+        window.close()
+      }
     },
     updateContentAndStats () {
       this.content = this.convertHtmlToTxt(this.contentHTML)

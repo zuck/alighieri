@@ -11,11 +11,20 @@ require(`./themes/app.${__THEME}.styl`)
 // require(`quasar/dist/quasar.ie.${__THEME}.css`)
 
 import Vue from 'vue'
+import VueElectron from 'vue-electron'
+import isElectron from 'is-electron'
 import Quasar from 'quasar'
 import router from './router'
 
 Vue.config.productionTip = false
-Vue.use(Quasar) // Install Quasar Framework
+
+// Install Quasar Framework
+Vue.use(Quasar)
+
+// Install Electron (if enabled)
+if (isElectron()) {
+  Vue.use(VueElectron)
+}
 
 if (__THEME === 'mat') {
   require('quasar-extras/roboto-font')

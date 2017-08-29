@@ -17,7 +17,7 @@ console.log(' Do NOT use VueRouter\'s "history" mode if')
 console.log(' building for Cordova or Electron.\n')
 
 require('./script.clean.js')
-console.log((' Building Quasar App with "' + env.platform.theme + '" theme...\n').bold)
+console.log((' Building Quasar App with "' + env.platform.theme + '" theme, with target "' + env.platform.target + '"...\n').bold)
 
 shell.mkdir('-p', targetPath)
 shell.cp('-R', 'src/statics', targetPath)
@@ -27,8 +27,16 @@ function finalize () {
     '\n Build complete with "' + env.platform.theme.bold + '" theme in ' +
     '"/dist"'.bold + ' folder.\n').cyan)
 
+  console.log((' Built with target "' + webpackConfig.target.bold + '".\n').cyan)
+
   console.log(' Built files are meant to be served over an HTTP server.'.bold)
   console.log(' Opening index.html over file:// won\'t work.'.bold)
+}
+
+webpackConfig.target = env.platform.target
+
+if (env.platform.target == 'web') {
+  webpackConfig.node = { fs: 'empty' }
 }
 
 webpack(webpackConfig, function (err, stats) {

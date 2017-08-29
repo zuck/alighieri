@@ -1,6 +1,16 @@
 var
   config = require('../config'),
-  theme = process.argv[2] || config.defaultTheme
+  theme = config.defaultTheme,
+  target = 'web'
+
+process.argv.some(function (item, index) {
+  if (item.startsWith('--theme')) {
+    theme = item.split('=')[1]
+  }
+  else if (item.startsWith('--target')) {
+    target = item.split('=')[1]
+  }
+})
 
 module.exports = {
   dev: process.env.NODE_ENV === 'development',
@@ -8,6 +18,7 @@ module.exports = {
 
   platform: {
     theme: theme,
+    target: target,
     cordovaAssets: './cordova/platforms/' + (theme === 'mat' ? 'android' : 'ios') + '/platform_www'
   }
 }

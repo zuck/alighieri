@@ -15,10 +15,16 @@ var
   port = process.env.PORT || config.dev.port,
   uri = 'http://localhost:' + port
 
-console.log(' Starting dev server with "' + (process.argv[2] || env.platform.theme).bold + '" theme...')
+console.log(' Starting dev server with "' + env.platform.theme.bold + '" theme, with target "' + env.platform.target.bold + '"...')
 console.log(' Will listen at ' + uri.bold)
 if (config.dev.openBrowser) {
   console.log(' Browser will open when build is ready.\n')
+}
+
+webpackConfig.target = env.platform.target
+
+if (env.platform.target == 'web') {
+  webpackConfig.node = { fs: 'empty' }
 }
 
 var compiler = webpack(webpackConfig)

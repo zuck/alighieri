@@ -19,13 +19,13 @@ module.exports = merge(baseWebpackConfig, {
   },
   devtool: config.build.productionSourceMap ? '#source-map' : false,
   plugins: [
-    new webpack.optimize.UglifyJsPlugin({
+    /*new webpack.optimize.UglifyJsPlugin({
       sourceMap: config.build.productionSourceMap,
       minimize: true,
       compress: {
         warnings: false
       }
-    }),
+    }),*/
     // Compress extracted CSS. We are using this plugin so that possible
     // duplicated CSS from different components can be deduped.
     new OptimizeCSSPlugin({
