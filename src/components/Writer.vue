@@ -211,7 +211,7 @@ export default {
             this.contentHTML = data
               .split('<body>')[1]
               .replace('</body>', '')
-              .replace('</html', '')
+              .replace('</html>', '')
 
             SessionStorage.set(CONTENT_LAST_SAVED_KEY, this.contentHTML)
           }
