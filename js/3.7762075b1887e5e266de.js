@@ -1,20 +1,20 @@
-webpackJsonp([4],{
+webpackJsonp([3],{
 
-/***/ 29:
+/***/ 34:
 /***/ (function(module, exports, __webpack_require__) {
 
 function injectStyle (ssrContext) {
-  __webpack_require__(48)
+  __webpack_require__(56)
 }
-var Component = __webpack_require__(3)(
+var Component = __webpack_require__(4)(
   /* script */
-  __webpack_require__(50),
+  __webpack_require__(58),
   /* template */
-  __webpack_require__(51),
+  __webpack_require__(59),
   /* styles */
   injectStyle,
   /* scopeId */
-  null,
+  "data-v-7bbc7b32",
   /* moduleIdentifier (server only) */
   null
 )
@@ -24,24 +24,24 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 48:
+/***/ 56:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(49);
+var content = __webpack_require__(57);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(25)("1bbe3f77", content, true);
+var update = __webpack_require__(29)("7eb2c709", content, true);
 
 /***/ }),
 
-/***/ 49:
+/***/ 57:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(24)(undefined);
+exports = module.exports = __webpack_require__(28)(undefined);
 // imports
 
 
@@ -53,23 +53,26 @@ exports.push([module.i, "", ""]);
 
 /***/ }),
 
-/***/ 50:
+/***/ 58:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_quasar__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_quasar__ = __webpack_require__(3);
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'save-as-modal',
+  name: 'settings-modal',
   components: {
     QModal: __WEBPACK_IMPORTED_MODULE_0_quasar__["l" /* QModal */],
     QBtn: __WEBPACK_IMPORTED_MODULE_0_quasar__["c" /* QBtn */]
   },
-  props: ['filename'],
+  data: function data() {
+    return {};
+  },
+
   methods: {
     open: function open() {
       this.$refs.modal.open();
@@ -79,17 +82,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     toggle: function toggle() {
       this.$refs.modal.toggle();
-    },
-    confirmFilename: function confirmFilename() {
-      this.$emit('save', this.$refs.filenameInput.value);
-      this.close();
     }
   }
 });
 
 /***/ }),
 
-/***/ 51:
+/***/ 59:
 /***/ (function(module, exports) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -102,15 +101,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "layout-padding"
-  }, [_c('h4', [_vm._v("Choose a name")]), _vm._v(" "), _c('input', {
-    ref: "filenameInput",
-    attrs: {
-      "type": "text"
-    },
-    domProps: {
-      "value": _vm.filename
-    }
-  })]), _vm._v(" "), _c('div', {
+  }, [_c('h4', [_vm._v("Settings")]), _vm._v(" "), _c('p', [_vm._v("Not implemented yet...")])]), _vm._v(" "), _c('div', {
     staticClass: "modal-buttons row"
   }, [_c('q-btn', {
     attrs: {
@@ -121,16 +112,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.close()
       }
     }
-  }, [_vm._v("Cancel")]), _vm._v(" "), _c('q-btn', {
-    attrs: {
-      "flat": ""
-    },
-    on: {
-      "click": function($event) {
-        _vm.confirmFilename()
-      }
-    }
-  }, [_vm._v("Confirm")])], 1)])
+  }, [_vm._v("Cancel")])], 1)])
 },staticRenderFns: []}
 
 /***/ })

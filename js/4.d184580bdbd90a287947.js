@@ -1,12 +1,12 @@
-webpackJsonp([3],{
+webpackJsonp([4],{
 
-/***/ 30:
+/***/ 33:
 /***/ (function(module, exports, __webpack_require__) {
 
 function injectStyle (ssrContext) {
   __webpack_require__(52)
 }
-var Component = __webpack_require__(3)(
+var Component = __webpack_require__(4)(
   /* script */
   __webpack_require__(54),
   /* template */
@@ -14,7 +14,7 @@ var Component = __webpack_require__(3)(
   /* styles */
   injectStyle,
   /* scopeId */
-  "data-v-7bbc7b32",
+  null,
   /* moduleIdentifier (server only) */
   null
 )
@@ -34,14 +34,14 @@ var content = __webpack_require__(53);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(25)("7eb2c709", content, true);
+var update = __webpack_require__(29)("1bbe3f77", content, true);
 
 /***/ }),
 
 /***/ 53:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(24)(undefined);
+exports = module.exports = __webpack_require__(28)(undefined);
 // imports
 
 
@@ -58,21 +58,18 @@ exports.push([module.i, "", ""]);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_quasar__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_quasar__ = __webpack_require__(3);
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'settings-modal',
+  name: 'save-as-modal',
   components: {
     QModal: __WEBPACK_IMPORTED_MODULE_0_quasar__["l" /* QModal */],
     QBtn: __WEBPACK_IMPORTED_MODULE_0_quasar__["c" /* QBtn */]
   },
-  data: function data() {
-    return {};
-  },
-
+  props: ['filename'],
   methods: {
     open: function open() {
       this.$refs.modal.open();
@@ -82,6 +79,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     toggle: function toggle() {
       this.$refs.modal.toggle();
+    },
+    confirmFilename: function confirmFilename() {
+      this.$emit('save', this.$refs.filenameInput.value);
+      this.close();
     }
   }
 });
@@ -101,7 +102,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "layout-padding"
-  }, [_c('h4', [_vm._v("Settings")]), _vm._v(" "), _c('p', [_vm._v("Not implemented yet...")])]), _vm._v(" "), _c('div', {
+  }, [_c('h4', [_vm._v("Choose a name")]), _vm._v(" "), _c('input', {
+    ref: "filenameInput",
+    attrs: {
+      "type": "text"
+    },
+    domProps: {
+      "value": _vm.filename
+    }
+  })]), _vm._v(" "), _c('div', {
     staticClass: "modal-buttons row"
   }, [_c('q-btn', {
     attrs: {
@@ -112,7 +121,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.close()
       }
     }
-  }, [_vm._v("Cancel")])], 1)])
+  }, [_vm._v("Cancel")]), _vm._v(" "), _c('q-btn', {
+    attrs: {
+      "flat": ""
+    },
+    on: {
+      "click": function($event) {
+        _vm.confirmFilename()
+      }
+    }
+  }, [_vm._v("Confirm")])], 1)])
 },staticRenderFns: []}
 
 /***/ })
