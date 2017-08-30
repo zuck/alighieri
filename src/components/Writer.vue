@@ -492,7 +492,7 @@ export default {
 
 #writer
   @media print
-    .layout-header, .layout-aside
+    .layout-header, .layout-aside, .layout-backdrop
       display none
 
     .layout-page-container, .layout-page

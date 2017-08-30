@@ -19,9 +19,11 @@ body
   justify-content space-between
 
 hr
+  display inline-block
+  width 100%
   border none
   border-top 1px solid $neutral
-  margin-bottom 1rem
+  margin 2rem 0 2.5rem
 
 input
   display block
@@ -41,9 +43,6 @@ input
     orphans 4
     widows 4
 
-    @bottom-center
-      content "…"
-
   body
     font-size 16px
     background-color transparent
@@ -54,8 +53,17 @@ input
   h1:not(:first-child)
     page-break-before always
 
+  hr
+    display block
+    margin 0
+    border none
+    visibility hidden
+    page-break-before always
+
   h1, h2, h3, h4, h5, h6
     page-break-after avoid
 
   table, figure, blockquote
+    display block
+    width 100%
     page-break-inside avoid
