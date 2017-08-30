@@ -1,5 +1,5 @@
 <template>
-  <q-layout ref="layout" view="lHh LpR lFf">
+  <q-layout id="writer" ref="layout" view="lHh LpR lFf">
     <toolbar
       id="toolbar"
       slot="header"
@@ -40,7 +40,7 @@
     >
 
     <vue-medium-editor
-      id="writer"
+      id="editor"
       custom-tag="div"
       :text="contentHTML"
       :options="options"
@@ -184,7 +184,7 @@ export default {
     this.contentHTML = LocalStorage.get.item(CONTENT_BACKUP_KEY) || DEFAULT_CONTENT_HTML
     SessionStorage.set(CONTENT_LAST_SAVED_KEY, this.contentHTML)
 
-    document.querySelector('#writer').focus()
+    document.querySelector('#editor').focus()
   },
   methods: {
     resetFile () {
@@ -488,37 +488,22 @@ export default {
 </script>
 
 <style lang="stylus">
-@require '../themes/app.variables'
-
-body
-  font-family 'LibreBaskerville', serif
-  background-color #fff
-  overflow-x hidden
-
-.layout-header, .layout-aside
-  box-shadow none !important
-
-.layout-padding
-  padding 2rem 2rem 1rem
-
-.modal-buttons
-  padding 0 2rem 2rem
-  justify-content space-between
-
-hr
-  border none
-  border-top 1px solid $neutral
-  margin-bottom 1rem
-
-input
-  display block
-  width 100%
-  padding 8px
-  margin-bottom .5rem
-  border 1px solid $tertiary
-  outline none
+@require '../themes/quasar.variables'
 
 #writer
+  @media print
+    .layout-header, .layout-aside
+      display none
+
+    .layout-page-container, .layout-page
+      display inline
+      width 100% !important
+      max-width 100% !important
+      padding 0 !important
+      margin 0 !important
+      overflow visible
+
+#editor
   display block
   box-sizing border-box
   min-width 256px
@@ -598,30 +583,12 @@ input
 
   blockquote
     border-left-color $neutral
+    line-height 1.5
 
     :last-child
       margin-bottom 0
 
-/* Printing */
-
-@page
-  size auto
-  margin 20mm 25mm 25mm
-
-@media print
-  body
-    font-size 16px
-    background-color transparent
-    padding 0 !important
-    margin 0 !important
-
-  .layout-header, .layout-aside
-    display none
-
-  .layout-page-container, .layout-page, #writer
-    display inline-block
-    width 100% !important
-    max-width 100% !important
-    padding 0 !important
-    margin 0 !important
+  @media print
+    display inline
+    padding 0
 </style>
