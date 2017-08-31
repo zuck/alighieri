@@ -333,7 +333,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* 46 */
 /***/ (function(module, exports) {
 
-module.exports = {"name":"alighieri","version":"0.3.0","description":"A distraction-free tool for novelists and writers","author":{"name":"Emanuele Bertoldi","email":"emanuele.bertoldi@gmail.com"},"license":"MIT","repository":{"type":"git","url":"git@github.com:zuck/alighieri.git"},"scripts":{"clean":"node build/script.clean.js","dev":"node build/script.dev.js","build":"node build/script.build.js","build-electron":"node build/script.build.js target=electron-renderer","package-electron":"npm run build-electron && cd electron && quasar build","lint":"eslint --ext .js,.vue src","deploy":"npm run build && gh-pages -d dist"},"dependencies":{"babel-runtime":"^6.25.0","quasar-extras":"0.x","quasar-framework":"^0.14.1","vue":"~2.3.4","vue-router":"^2.7.0","font-awesome":"^4.7.0","vue2-medium-editor":"^1.1.1","medium-editor-autolist":"^1.0.1","showdown":"^1.7.3","to-markdown":"^3.0.1","file-saver":"^1.3.3","is-electron":"^2.1.0","vue-electron":"^1.0.6","screenfull":"^3.3.1"},"devDependencies":{"autoprefixer":"^6.4.0","babel-core":"^6.0.0","babel-eslint":"^7.0.0","babel-loader":"^7.0.0","babel-plugin-transform-runtime":"^6.0.0","babel-preset-es2015":"^6.0.0","babel-preset-stage-2":"^6.0.0","colors":"^1.1.2","connect-history-api-fallback":"^1.1.0","css-loader":"^0.28.0","es6-promise":"^4.1.1","eslint":"^4.4.1","eslint-config-standard":"^10.2.1","eslint-friendly-formatter":"^3.0.0","eslint-loader":"^1.9.0","eslint-plugin-html":"^3.1.1","eslint-plugin-import":"^2.7.0","eslint-plugin-node":"^5.1.1","eslint-plugin-promise":"^3.5.0","eslint-plugin-standard":"^3.0.1","eventsource-polyfill":"^0.9.6","express":"^4.15.4","extract-text-webpack-plugin":"^3.0.0","file-loader":"^0.11.1","friendly-errors-webpack-plugin":"^1.1.3","glob":"^7.1.2","html-webpack-plugin":"^2.30.1","http-proxy-middleware":"^0.17.0","json-loader":"^0.5.7","opn":"^5.0.0","optimize-css-assets-webpack-plugin":"^3.0.0","postcss-loader":"^1.0.0","progress-bar-webpack-plugin":"^1.10.0","purify-css":"^1.2.6","shelljs":"^0.7.0","stylus":"^0.54.5","stylus-loader":"^3.0.1","url-loader":"^0.5.7","vue-loader":"~12.2.2","vue-style-loader":"^3.0.1","vue-template-compiler":"~2.3.4","webpack":"^3.5.2","webpack-dev-middleware":"^1.12.0","webpack-hot-middleware":"^2.18.2","webpack-merge":"^4.1.0","gh-pages":"^1.0.0","raw-loader":"^0.5.1","electron":"^1.7.5"}}
+module.exports = {"name":"alighieri","version":"0.3.1","description":"A distraction-free tool for novelists and writers","author":{"name":"Emanuele Bertoldi","email":"emanuele.bertoldi@gmail.com"},"license":"MIT","repository":{"type":"git","url":"git@github.com:zuck/alighieri.git"},"scripts":{"clean":"node build/script.clean.js","dev":"node build/script.dev.js","build":"node build/script.build.js","build-electron":"node build/script.build.js target=electron-renderer","package-electron":"npm run build-electron && cd electron && quasar build","lint":"eslint --ext .js,.vue src","deploy":"npm run build && gh-pages -d dist"},"dependencies":{"babel-runtime":"^6.25.0","quasar-extras":"0.x","quasar-framework":"^0.14.1","vue":"~2.3.4","vue-router":"^2.7.0","font-awesome":"^4.7.0","vue2-medium-editor":"^1.1.1","medium-editor-autolist":"^1.0.1","showdown":"^1.7.3","to-markdown":"^3.0.1","file-saver":"^1.3.3","is-electron":"^2.1.0","vue-electron":"^1.0.6","screenfull":"^3.3.1"},"devDependencies":{"autoprefixer":"^6.4.0","babel-core":"^6.0.0","babel-eslint":"^7.0.0","babel-loader":"^7.0.0","babel-plugin-transform-runtime":"^6.0.0","babel-preset-es2015":"^6.0.0","babel-preset-stage-2":"^6.0.0","colors":"^1.1.2","connect-history-api-fallback":"^1.1.0","css-loader":"^0.28.0","es6-promise":"^4.1.1","eslint":"^4.4.1","eslint-config-standard":"^10.2.1","eslint-friendly-formatter":"^3.0.0","eslint-loader":"^1.9.0","eslint-plugin-html":"^3.1.1","eslint-plugin-import":"^2.7.0","eslint-plugin-node":"^5.1.1","eslint-plugin-promise":"^3.5.0","eslint-plugin-standard":"^3.0.1","eventsource-polyfill":"^0.9.6","express":"^4.15.4","extract-text-webpack-plugin":"^3.0.0","file-loader":"^0.11.1","friendly-errors-webpack-plugin":"^1.1.3","glob":"^7.1.2","html-webpack-plugin":"^2.30.1","http-proxy-middleware":"^0.17.0","json-loader":"^0.5.7","opn":"^5.0.0","optimize-css-assets-webpack-plugin":"^3.0.0","postcss-loader":"^1.0.0","progress-bar-webpack-plugin":"^1.10.0","purify-css":"^1.2.6","shelljs":"^0.7.0","stylus":"^0.54.5","stylus-loader":"^3.0.1","url-loader":"^0.5.7","vue-loader":"~12.2.2","vue-style-loader":"^3.0.1","vue-template-compiler":"~2.3.4","webpack":"^3.5.2","webpack-dev-middleware":"^1.12.0","webpack-hot-middleware":"^2.18.2","webpack-merge":"^4.1.0","gh-pages":"^1.0.0","raw-loader":"^0.5.1","electron":"^1.7.5"}}
 
 /***/ }),
 /* 47 */
@@ -1217,6 +1217,8 @@ var htmlToMdConverter = {
   }
 };
 
+var initialWinTitle = 'Alighieri';
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'writer',
   components: {
@@ -1262,16 +1264,17 @@ var htmlToMdConverter = {
     sentenceCount: function sentenceCount() {
       return this.sentences.length;
     },
-    isChanged: {
-      cache: false,
-      get: function get() {
-        return this.contentHTML !== __WEBPACK_IMPORTED_MODULE_0_quasar__["q" /* SessionStorage */].get.item(CONTENT_LAST_SAVED_KEY);
-      }
+    isChanged: function isChanged() {
+      return this.contentHTML !== __WEBPACK_IMPORTED_MODULE_0_quasar__["q" /* SessionStorage */].get.item(CONTENT_LAST_SAVED_KEY);
+    },
+    windowTitle: function windowTitle() {
+      return (this.filename ? this.filename : 'No title') + (this.isChanged ? '*' : '') + ' - ' + initialWinTitle;
     }
   },
   mounted: function mounted() {
     window.onbeforeunload = this.exit;
     document.onkeyup = this.onKeyPress;
+    document.title = this.windowTitle;
 
     this.$refs.layout.hideLeft();
 
@@ -1348,27 +1351,32 @@ var htmlToMdConverter = {
       }
     },
     saveFile: function saveFile(fn) {
+      var filename = this.filename;
+
       if (fn) {
-        this.filename = fn;
+        filename = fn;
       }
 
-      if (this.filename) {
-        var fileContent = '<!DOCTYPE html><html>' + '<head>' + '<meta charset="utf-8">' + '<title>' + this.filename + '</title>' + '</head>' + '<body>' + this.contentHTML + '</body>' + '</html>';
-
-        if (this.filename.split('.')[1] !== 'html') {
-          this.filename += '.html';
+      if (filename) {
+        if (filename.split('.').pop() !== 'html') {
+          filename += '.html';
         }
 
+        var fileContent = '<!DOCTYPE html><html>' + '<head>' + '<meta charset="utf-8">' + '<title>' + filename + '</title>' + '</head>' + '<body>' + this.contentHTML + '</body>' + '</html>';
+
         if (this.isElectron) {
-          __webpack_require__(5).writeFile(this.filename, fileContent, function (err) {
+          __webpack_require__(5).writeFile(filename, fileContent, function (err) {
             if (err) throw err;
           });
         } else {
-          __WEBPACK_IMPORTED_MODULE_5_file_saver___default.a.saveAs(new Blob([fileContent], { type: 'text/html;charset=utf-8' }), this.filename);
+          __WEBPACK_IMPORTED_MODULE_5_file_saver___default.a.saveAs(new Blob([fileContent], { type: 'text/html;charset=utf-8' }), filename);
         }
 
+        this.filename = filename;
         __WEBPACK_IMPORTED_MODULE_0_quasar__["q" /* SessionStorage */].set(CONTENT_LAST_SAVED_KEY, this.contentHTML);
-        this.$forceUpdate();
+
+        this.contentHTML = ' ' + this.contentHTML;
+        this.contentHTML = this.contentHTML.substr(1);
       } else {
         this.saveFileAs();
       }
@@ -1544,6 +1552,9 @@ var htmlToMdConverter = {
     },
     isFullscreen: function isFullscreen(val) {
       this.$refs.layout.hideLeft();
+    },
+    windowTitle: function windowTitle(val) {
+      document.title = val;
     }
   }
 });
