@@ -7,7 +7,9 @@
     >
       <q-icon name="menu" />
     </q-btn>
-    <q-toolbar-title>{{ wordCount }} <abbr title="Words">ws</abbr> | {{ sentenceCount }} <abbr title="Sentences">ss</abbr></q-toolbar-title>
+    <q-toolbar-title>
+      <save-status :status="isSaved"/> {{ wordCount }} / {{ sentenceCount }}
+    </q-toolbar-title>
     <q-btn
       flat round
       color="grey-13"
@@ -15,6 +17,7 @@
       <q-icon name="help_outline" />
       <q-tooltip anchor="bottom right" self="top right" :offset="[0, 16]">
         <dl>
+          <dt><q-icon name="lens"/> X / Y</dt><dd><q-icon name="lens"/> Words / Sents</dd>
           <dt><kbd>Enter</kbd></dt><dd>New paragraph</dd>
           <dt><kbd>Shift + Enter</kbd></dt><dd>New line</dd>
           <dt><kbd>'1.' + Space</kbd></dt><dd>New numbered list</dd>
@@ -37,6 +40,8 @@ import {
   QTooltip
 } from 'quasar'
 
+import SaveStatus from 'components/SaveStatus'
+
 export default {
   name: 'toolbar',
   components: {
@@ -44,17 +49,10 @@ export default {
     QToolbarTitle,
     QBtn,
     QIcon,
-    QTooltip
+    QTooltip,
+    SaveStatus
   },
-  props: ['wordCount', 'sentenceCount'],
-  data () {
-    return {
-    }
-  },
-  mounted () {
-  },
-  methods: {
-  }
+  props: ['isSaved', 'wordCount', 'sentenceCount']
 }
 </script>
 
@@ -63,16 +61,13 @@ export default {
 
 .q-btn
   .q-icon
-    opacity .3
-    transition opacity .2s, color .2s
+    color $neutral
 
   &:hover .q-icon
-    opacity 1
     color $primary
 
 .q-toolbar-title
-  color #333
-  opacity .3
+  color $neutral
   text-align center
 
   abbr
@@ -84,6 +79,10 @@ export default {
 
   dt, dd
     float left
+
+    .q-icon
+      margin-top -.2rem
+      font-size 10px
 
   dt
     clear both

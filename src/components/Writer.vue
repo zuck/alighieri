@@ -3,6 +3,7 @@
     <toolbar
       id="toolbar"
       slot="header"
+      :isSaved="!isChanged"
       :wordCount="wordCount"
       :sentenceCount="sentenceCount"
       @menuToggle="$refs.layout.toggleLeft()"
@@ -173,6 +174,12 @@ export default {
     },
     sentenceCount: function () {
       return this.sentences.length
+    },
+    isChanged: {
+      cache: false,
+      get: function () {
+        return (this.contentHTML !== SessionStorage.get.item(CONTENT_LAST_SAVED_KEY))
+      }
     }
   },
   mounted () {
@@ -193,7 +200,7 @@ export default {
       this.filename = null
     },
     newFile () {
-      if (this.hasContentChanges()) {
+      if (this.isChanged) {
         this.showConfirmDialog(this.resetFile)
       }
       else {
@@ -289,6 +296,7 @@ export default {
         }
 
         SessionStorage.set(CONTENT_LAST_SAVED_KEY, this.contentHTML)
+        this.$forceUpdate()
       }
       else {
         this.saveFileAs()
@@ -379,7 +387,7 @@ export default {
       this.$refs.aboutModal.open()
     },
     exit (evt) {
-      if (this.hasContentChanges()) {
+      if (this.isChanged) {
         if (evt) {
           evt.returnValue = false
         }
@@ -464,9 +472,6 @@ export default {
         .replace(/\n\n\n/g, '\n\n')
         .replace(/<(?:.|\n)*?>/gm, '')
         .trim()
-    },
-    hasContentChanges () {
-      return (this.contentHTML !== SessionStorage.get.item(CONTENT_LAST_SAVED_KEY))
     },
     showConfirmDialog (handlerFunc, title, message) {
       Dialog.create({
