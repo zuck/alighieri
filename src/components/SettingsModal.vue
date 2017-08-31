@@ -3,8 +3,8 @@
     ref="modal"
     @escape-key="close()"
   >
-    <div class="layout-padding">
-      <h4>Settings</h4>
+    <div class="modal-header">Settings</div>
+    <div class="modal-body">
       <p>Not implemented yet...</p>
     </div>
     <div class="modal-buttons row">

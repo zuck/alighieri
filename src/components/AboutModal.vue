@@ -3,10 +3,12 @@
     ref="modal"
     @escape-key="close()"
   >
-    <div class="layout-padding">
+    <div class="modal-header">
       <img id="logo" src="statics/icon.png"/>
       <h4>{{ name }}</h4>
       <h6>{{ description }}</h6>
+    </div>
+    <div class="modal-body">
       <p>Built on <a href="https://quasar-framework.org">Quasar Framework</a> by <a :href="'mailto:' + author.email">{{ author.name }}</a></p>
       <p id="version">v{{ version }} - <a :href="'http://en.wikipedia.org/wiki/' + license + '_License'">{{ license }}</a></p>
     </div>
@@ -72,16 +74,16 @@ export default {
   display block
   margin 16px auto
 
-  &+h4:first-letter
-    text-transform capitalize
+  &+h4
+    font-family 'LibreBaskerville', serif !important
+
+    &:first-letter
+      text-transform capitalize
 
   &+h4+h6
     color $tertiary
     margin-bottom 1rem
 
-h4, h5, h6, p
+.modal-header, .modal-body
   text-align center
-
-#version
-  margin-top 16px
 </style>

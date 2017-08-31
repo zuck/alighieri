@@ -3,9 +3,9 @@
     ref="modal"
     @escape-key="close()"
   >
-    <div class="layout-padding">
-      <h4>Export to...</h4>
-      <input ref="filenameInput" :value="filename" type="text"/>
+    <div class="modal-header">Export to...</div>
+    <div class="modal-body">
+      <q-input v-model="filenameValue" placeholder="Type a filename..."/>
       <q-list no-border>
         <q-item
           link
@@ -37,6 +37,7 @@
 <script>
 import {
   QModal,
+  QInput,
   QList,
   QItem,
   QItemSide,
@@ -48,6 +49,7 @@ export default {
   name: 'export-modal',
   components: {
     QModal,
+    QInput,
     QList,
     QItem,
     QItemSide,
@@ -55,6 +57,14 @@ export default {
     QBtn
   },
   props: ['filename'],
+  data () {
+    return {
+      filenameValue: null
+    }
+  },
+  mounted () {
+    this.filenameValue = this.filename
+  },
   methods: {
     open () {
       this.$refs.modal.open()
@@ -66,7 +76,7 @@ export default {
       this.$refs.modal.toggle()
     },
     confirmExt (ext) {
-      this.$emit('export', this.$refs.filenameInput.value, ext)
+      this.$emit('export', this.filenameValue || this.filename, ext)
       this.close()
     }
   }

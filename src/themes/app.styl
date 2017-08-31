@@ -4,37 +4,8 @@
 /* General */
 
 body
-  font-family 'LibreBaskerville', serif
   background-color #fff
   overflow-x hidden
-
-.layout-header, .layout-aside
-  box-shadow none !important
-
-.layout-padding
-  padding 2rem 2rem 1rem
-
-.modal-buttons
-  padding 0 2rem 2rem
-  justify-content space-between
-
-hr
-  display inline-block
-  width 100%
-  border none
-  border-top 1px solid $neutral
-  margin 2rem 0 2.5rem
-
-input
-  display block
-  width 100%
-  padding 8px
-  margin-bottom .5rem
-  border 1px solid $tertiary
-  outline none
-
-
-/* Printing */
 
 @media print
   @page
@@ -49,21 +20,3 @@ input
     overflow auto
     padding 0 !important
     margin 0 !important
-
-  h1:not(:first-child)
-    page-break-before always
-
-  hr
-    display block
-    margin 0
-    border none
-    visibility hidden
-    page-break-before always
-
-  h1, h2, h3, h4, h5, h6
-    page-break-after avoid
-
-  table, figure, blockquote
-    display block
-    width 100%
-    page-break-inside avoid

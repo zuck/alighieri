@@ -3,9 +3,9 @@
     ref="modal"
     @escape-key="close()"
   >
-    <div class="layout-padding">
-      <h4>Choose a name</h4>
-      <input ref="filenameInput" :value="filename" type="text"/>
+    <div class="modal-header">Choose a name</div>
+    <div class="modal-body">
+      <q-input v-model="filename" placeholder="Type a filename..."/>
     </div>
     <div class="modal-buttons row">
       <q-btn
@@ -23,6 +23,7 @@
 <script>
 import {
   QModal,
+  QInput,
   QBtn
 } from 'quasar'
 
@@ -30,9 +31,18 @@ export default {
   name: 'save-as-modal',
   components: {
     QModal,
+    QInput,
     QBtn
   },
   props: ['filename'],
+  data () {
+    return {
+      filenameValue: null
+    }
+  },
+  mounted () {
+    this.filenameValue = this.filename
+  },
   methods: {
     open () {
       this.$refs.modal.open()
@@ -44,7 +54,7 @@ export default {
       this.$refs.modal.toggle()
     },
     confirmFilename () {
-      this.$emit('save', this.$refs.filenameInput.value)
+      this.$emit('save', this.filenameValue || this.filename)
       this.close()
     }
   }

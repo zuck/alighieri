@@ -494,6 +494,17 @@ export default {
 @require '../themes/quasar.variables'
 
 #writer
+  .layout-header, .layout-aside
+    box-shadow none !important
+    border-color $neutral
+
+  .layout-header
+    border-bottom none
+
+  .layout-aside
+    border-right-width 1px
+    border-right-style solid
+
   @media print
     .layout-header, .layout-aside, .layout-backdrop
       display none
@@ -514,11 +525,12 @@ export default {
   max-width 640px
   min-height 5rem
   margin 0 auto
-  padding 16px 32px
+  padding 1rem 2rem
   outline none
   border none
   line-height 2
   color #333
+  font-family 'LibreBaskerville', serif !important
 
   h1, h2, h3, h4
     margin 0 0 .5em
@@ -580,7 +592,7 @@ export default {
       white-space pre-wrap
 
   code
-    padding 4px
+    padding .25rem
     white-space nowrap
     background-color $neutral
 
@@ -591,7 +603,34 @@ export default {
     :last-child
       margin-bottom 0
 
+  hr
+    display inline-block
+    width 100%
+    border none
+    border-top 1px solid $neutral
+    margin 2rem 0 2.5rem
+
+  /* Printing */
+
   @media print
     display inline
     padding 0
+
+    h1:not(:first-child)
+      page-break-before always
+
+    hr
+      display block
+      margin 0
+      border none
+      visibility hidden
+      page-break-before always
+
+    h1, h2, h3, h4, h5, h6
+      page-break-after avoid
+
+    table, figure, blockquote
+      display block
+      width 100%
+      page-break-inside avoid
 </style>
