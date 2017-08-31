@@ -18,6 +18,7 @@
       <q-tooltip anchor="bottom right" self="top right" :offset="[0, 16]">
         <dl>
           <dt><q-icon name="lens"/> X / Y</dt><dd><q-icon name="lens"/> Words / Sents</dd>
+          <dt>Select something</dt><dd>Open toolbar</dd>
           <dt><kbd>Enter</kbd></dt><dd>New paragraph</dd>
           <dt><kbd>Shift + Enter</kbd></dt><dd>New line</dd>
           <dt><kbd>'1.' + Space</kbd></dt><dd>New numbered list</dd>
