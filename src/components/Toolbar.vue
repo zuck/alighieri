@@ -69,7 +69,7 @@ export default {
 
 .q-toolbar-title
   color $neutral
-  text-align center
+  text-align left
 
   abbr
     cursor help
@@ -82,8 +82,7 @@ export default {
     float left
 
     .q-icon
-      margin-top -.2rem
-      font-size 10px
+      margin-top -.25rem
 
   dt
     clear both

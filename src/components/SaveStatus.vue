@@ -1,5 +1,5 @@
 <template>
-  <q-icon name="lens" :color="color" size="12px">
+  <q-icon name="lens" :color="color">
     <q-tooltip>{{ tooltipMsg }}</q-tooltip>
   </q-icon>
 </template>

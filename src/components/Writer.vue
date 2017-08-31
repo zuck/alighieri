@@ -498,6 +498,42 @@ export default {
 <style lang="stylus">
 @require '../themes/quasar.variables'
 
+.medium-editor-toolbar
+  top 0 !important
+  width 100%
+  margin 0
+  border-radius 0
+
+  li button.medium-editor-action
+    color $neutral
+    background-color transparent
+
+    &:hover
+      color $warning
+      background-color #333
+
+    &.medium-editor-button-active
+      color $primary
+
+    &.medium-editor-button-first,
+    &.medium-editor-button-last
+      border-radius 0
+      padding-left 12px
+      padding-right 12px
+      margin 0
+
+  @media screen and (min-width $breakpoint-sm)
+    top 12px !important
+    width auto
+    border-radius 20px
+
+    li button.medium-editor-action
+      &.medium-editor-button-first
+        margin-left 20px
+
+      &.medium-editor-button-last
+        margin-right 20px
+
 #writer
   .layout-header, .layout-aside
     box-shadow none !important
@@ -575,7 +611,7 @@ export default {
     thead td, thead th
       border-color $tertiary
 
-    @media screen and (max-width 576px)
+    @media screen and (max-width $breakpoint-xs)
       tr
         display flex
         flex-direction column
@@ -615,6 +651,9 @@ export default {
     border-top 1px solid $neutral
     margin 2rem 0 2.5rem
 
+  @media screen and (min-width $breakpoint-sm)
+    padding-top 0
+
   /* Printing */
 
   @media print
@@ -635,7 +674,6 @@ export default {
       page-break-after avoid
 
     table, figure, blockquote
-      display block
       width 100%
       page-break-inside avoid
 </style>
