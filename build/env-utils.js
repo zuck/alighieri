@@ -3,11 +3,11 @@ var
   theme = config.defaultTheme,
   target = 'web'
 
-process.argv.some(function (item, index) {
-  if (item.startsWith('--theme')) {
+process.argv.slice(2).forEach(function (item, index) {
+  if (item.startsWith('theme')) {
     theme = item.split('=')[1]
   }
-  else if (item.startsWith('--target')) {
+  else if (item.startsWith('target')) {
     target = item.split('=')[1]
   }
 })

@@ -15,7 +15,7 @@
     "clean": "node build/script.clean.js",
     "dev": "node build/script.dev.js",
     "build": "node build/script.build.js",
-    "build-electron": "node build/script.build.js --target=electron-renderer",
+    "build-electron": "node build/script.build.js target=electron-renderer",
     "package-electron": "npm run build-electron && cd electron && quasar build",
     "lint": "eslint --ext .js,.vue src",
     "deploy": "npm run build && gh-pages -d dist"
