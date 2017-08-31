@@ -387,16 +387,21 @@ export default {
       this.$refs.aboutModal.open()
     },
     exit (evt) {
-      if (this.isChanged) {
-        if (evt) {
-          evt.returnValue = false
+      if (evt && this.isChanged) {
+        evt.returnValue = false
+      }
+
+      if (this.$electron) {
+        const closeFunc = () => {
+          window.onbeforeunload = null
+          this.$electron.remote.getCurrentWindow().close()
         }
 
-        if (this.$electron) {
-          this.showConfirmDialog(() => {
-            window.onbeforeunload = null
-            this.$electron.remote.getCurrentWindow().close()
-          })
+        if (this.isChanged) {
+          this.showConfirmDialog(closeFunc)
+        }
+        else {
+          closeFunc()
         }
       }
     },
@@ -442,8 +447,6 @@ export default {
         evt.returnValue = false
 
         if (evt.ctrlKey) {
-          evt.preventDefault()
-
           if (this.isElectron) {
             const win = this.$electron.remote.getCurrentWindow()
             win.setFullScreen(!win.isFullScreen())
