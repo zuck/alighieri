@@ -1,16 +1,16 @@
-webpackJsonp([6],{
+webpackJsonp([7],{
 
-/***/ 31:
+/***/ 32:
 /***/ (function(module, exports, __webpack_require__) {
 
 function injectStyle (ssrContext) {
-  __webpack_require__(44)
+  __webpack_require__(49)
 }
 var Component = __webpack_require__(4)(
   /* script */
-  __webpack_require__(46),
+  __webpack_require__(51),
   /* template */
-  __webpack_require__(47),
+  __webpack_require__(52),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -24,13 +24,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 44:
+/***/ 49:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(45);
+var content = __webpack_require__(50);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -38,7 +38,7 @@ var update = __webpack_require__(29)("92b70744", content, true);
 
 /***/ }),
 
-/***/ 45:
+/***/ 50:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(28)(undefined);
@@ -53,7 +53,7 @@ exports.push([module.i, "", ""]);
 
 /***/ }),
 
-/***/ 46:
+/***/ 51:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -66,14 +66,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'export-modal',
   components: {
-    QModal: __WEBPACK_IMPORTED_MODULE_0_quasar__["l" /* QModal */],
-    QList: __WEBPACK_IMPORTED_MODULE_0_quasar__["j" /* QList */],
-    QItem: __WEBPACK_IMPORTED_MODULE_0_quasar__["e" /* QItem */],
-    QItemSide: __WEBPACK_IMPORTED_MODULE_0_quasar__["h" /* QItemSide */],
-    QItemMain: __WEBPACK_IMPORTED_MODULE_0_quasar__["f" /* QItemMain */],
+    QModal: __WEBPACK_IMPORTED_MODULE_0_quasar__["m" /* QModal */],
+    QInput: __WEBPACK_IMPORTED_MODULE_0_quasar__["e" /* QInput */],
+    QList: __WEBPACK_IMPORTED_MODULE_0_quasar__["k" /* QList */],
+    QItem: __WEBPACK_IMPORTED_MODULE_0_quasar__["f" /* QItem */],
+    QItemSide: __WEBPACK_IMPORTED_MODULE_0_quasar__["i" /* QItemSide */],
+    QItemMain: __WEBPACK_IMPORTED_MODULE_0_quasar__["g" /* QItemMain */],
     QBtn: __WEBPACK_IMPORTED_MODULE_0_quasar__["c" /* QBtn */]
   },
   props: ['filename'],
+  data: function data() {
+    return {
+      filenameValue: null
+    };
+  },
+  mounted: function mounted() {
+    this.filenameValue = this.filename;
+  },
+
   methods: {
     open: function open() {
       this.$refs.modal.open();
@@ -85,7 +95,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.$refs.modal.toggle();
     },
     confirmExt: function confirmExt(ext) {
-      this.$emit('export', this.$refs.filenameInput.value, ext);
+      this.$emit('export', this.filenameValue || this.filename, ext);
       this.close();
     }
   }
@@ -93,7 +103,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 47:
+/***/ 52:
 /***/ (function(module, exports) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -105,14 +115,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_c('div', {
-    staticClass: "layout-padding"
-  }, [_c('h4', [_vm._v("Export to...")]), _vm._v(" "), _c('input', {
-    ref: "filenameInput",
+    staticClass: "modal-header"
+  }, [_vm._v("Export to...")]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body"
+  }, [_c('q-input', {
     attrs: {
-      "type": "text"
+      "placeholder": "Type a filename..."
     },
-    domProps: {
-      "value": _vm.filename
+    model: {
+      value: (_vm.filenameValue),
+      callback: function($$v) {
+        _vm.filenameValue = $$v
+      },
+      expression: "filenameValue"
     }
   }), _vm._v(" "), _c('q-list', {
     attrs: {

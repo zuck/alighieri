@@ -1,16 +1,16 @@
-webpackJsonp([7],{
+webpackJsonp([8],{
 
-/***/ 36:
+/***/ 37:
 /***/ (function(module, exports, __webpack_require__) {
 
 function injectStyle (ssrContext) {
-  __webpack_require__(64)
+  __webpack_require__(69)
 }
 var Component = __webpack_require__(4)(
   /* script */
-  __webpack_require__(66),
+  __webpack_require__(71),
   /* template */
-  __webpack_require__(67),
+  __webpack_require__(72),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -24,13 +24,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 64:
+/***/ 69:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(65);
+var content = __webpack_require__(70);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -38,7 +38,7 @@ var update = __webpack_require__(29)("2422dc3a", content, true);
 
 /***/ }),
 
-/***/ 65:
+/***/ 70:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(28)(undefined);
@@ -53,7 +53,7 @@ exports.push([module.i, ".error-page .error-code{height:50vh;width:100%;padding-
 
 /***/ }),
 
-/***/ 66:
+/***/ 71:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -83,7 +83,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 67:
+/***/ 72:
 /***/ (function(module, exports) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;

@@ -1,16 +1,16 @@
-webpackJsonp([5],{
+webpackJsonp([6],{
 
-/***/ 32:
+/***/ 33:
 /***/ (function(module, exports, __webpack_require__) {
 
 function injectStyle (ssrContext) {
-  __webpack_require__(48)
+  __webpack_require__(53)
 }
 var Component = __webpack_require__(4)(
   /* script */
-  __webpack_require__(50),
+  __webpack_require__(55),
   /* template */
-  __webpack_require__(51),
+  __webpack_require__(56),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -24,13 +24,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 48:
+/***/ 53:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(49);
+var content = __webpack_require__(54);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -38,7 +38,7 @@ var update = __webpack_require__(29)("a9e457dc", content, true);
 
 /***/ }),
 
-/***/ 49:
+/***/ 54:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(28)(undefined);
@@ -46,14 +46,14 @@ exports = module.exports = __webpack_require__(28)(undefined);
 
 
 // module
-exports.push([module.i, ".q-item:hover .q-icon{color:#c83737}", ""]);
+exports.push([module.i, ".q-item:hover .q-icon{color:#d84747}", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 50:
+/***/ 55:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -66,12 +66,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'left-menu',
   components: {
-    QList: __WEBPACK_IMPORTED_MODULE_0_quasar__["j" /* QList */],
-    QListHeader: __WEBPACK_IMPORTED_MODULE_0_quasar__["k" /* QListHeader */],
-    QItem: __WEBPACK_IMPORTED_MODULE_0_quasar__["e" /* QItem */],
-    QItemSeparator: __WEBPACK_IMPORTED_MODULE_0_quasar__["g" /* QItemSeparator */],
-    QItemSide: __WEBPACK_IMPORTED_MODULE_0_quasar__["h" /* QItemSide */],
-    QItemMain: __WEBPACK_IMPORTED_MODULE_0_quasar__["f" /* QItemMain */]
+    QList: __WEBPACK_IMPORTED_MODULE_0_quasar__["k" /* QList */],
+    QListHeader: __WEBPACK_IMPORTED_MODULE_0_quasar__["l" /* QListHeader */],
+    QItem: __WEBPACK_IMPORTED_MODULE_0_quasar__["f" /* QItem */],
+    QItemSeparator: __WEBPACK_IMPORTED_MODULE_0_quasar__["h" /* QItemSeparator */],
+    QItemSide: __WEBPACK_IMPORTED_MODULE_0_quasar__["i" /* QItemSide */],
+    QItemMain: __WEBPACK_IMPORTED_MODULE_0_quasar__["g" /* QItemMain */]
   },
   data: function data() {
     return {
@@ -82,7 +82,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 51:
+/***/ 56:
 /***/ (function(module, exports) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
