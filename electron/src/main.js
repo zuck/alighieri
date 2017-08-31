@@ -13,8 +13,8 @@ function createWindow () {
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    height: 600,
-    width: 800,
+    width: 1024,
+    height: 768,
     icon: path.join(__dirname, '../icons/icon.png')
   })
 
