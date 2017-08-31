@@ -121,6 +121,8 @@ var htmlToMdConverter = {
   }
 }
 
+const initialWinTitle = 'Alighieri'
+
 export default {
   name: 'writer',
   components: {
@@ -175,16 +177,19 @@ export default {
     sentenceCount: function () {
       return this.sentences.length
     },
-    isChanged: {
-      cache: false,
-      get: function () {
-        return (this.contentHTML !== SessionStorage.get.item(CONTENT_LAST_SAVED_KEY))
-      }
+    isChanged: function () {
+      return this.contentHTML !== SessionStorage.get.item(CONTENT_LAST_SAVED_KEY)
+    },
+    windowTitle: function () {
+      return (this.filename ? this.filename : 'No title') +
+        (this.isChanged ? '*' : '') +
+        ' - ' + initialWinTitle
     }
   },
   mounted () {
     window.onbeforeunload = this.exit
     document.onkeyup = this.onKeyPress
+    document.title = this.windowTitle
 
     this.$refs.layout.hideLeft()
 
@@ -263,25 +268,27 @@ export default {
       }
     },
     saveFile (fn) {
+      var filename = this.filename
+
       if (fn) {
-        this.filename = fn
+        filename = fn
       }
 
-      if (this.filename) {
+      if (filename) {
+        if (filename.split('.').pop() !== 'html') {
+          filename += '.html'
+        }
+
         var fileContent = '<!DOCTYPE html><html>' +
         '<head>' +
         '<meta charset="utf-8">' +
-        '<title>' + this.filename + '</title>' +
+        '<title>' + filename + '</title>' +
         '</head>' +
         '<body>' + this.contentHTML + '</body>' +
         '</html>'
 
-        if (this.filename.split('.')[1] !== 'html') {
-          this.filename += '.html'
-        }
-
         if (this.isElectron) {
-          require('fs').writeFile(this.filename, fileContent, (err) => {
+          require('fs').writeFile(filename, fileContent, (err) => {
             if (err) throw err
           })
         }
@@ -291,12 +298,16 @@ export default {
               [fileContent],
               { type: 'text/html;charset=utf-8' }
             ),
-            this.filename
+            filename
           )
         }
 
+        this.filename = filename
         SessionStorage.set(CONTENT_LAST_SAVED_KEY, this.contentHTML)
-        this.$forceUpdate()
+        /* Hack to recompute 'isCHanged' property */
+        this.contentHTML = ' ' + this.contentHTML
+        this.contentHTML = this.contentHTML.substr(1)
+        /* */
       }
       else {
         this.saveFileAs()
@@ -493,6 +504,9 @@ export default {
     },
     isFullscreen: function (val) {
       this.$refs.layout.hideLeft()
+    },
+    windowTitle: function (val) {
+      document.title = val
     }
   }
 }

@@ -13,6 +13,7 @@ function createWindow () {
    * Initial window options
    */
   mainWindow = new BrowserWindow({
+    title: 'Alighieri',
     width: 1024,
     height: 768,
     icon: path.join(__dirname, '../icons/icon.png')
