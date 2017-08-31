@@ -85,6 +85,7 @@ import {
 } from 'quasar'
 import VueMediumEditor from 'vue2-medium-editor'
 import MediumEditorAutoList from 'medium-editor-autolist'
+import MediumEditorAutoHR from 'medium-editor-autohr'
 import showdown from 'showdown'
 import toMarkdown from 'to-markdown'
 import FileSaver from 'file-saver'
@@ -150,7 +151,8 @@ export default {
         spellcheck: false,
         autoLink: false,
         extensions: {
-          autolist: new MediumEditorAutoList()
+          autolist: new MediumEditorAutoList(),
+          autohr: new MediumEditorAutoHR()
         },
         toolbar: {
           buttons: [

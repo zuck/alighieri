@@ -18,11 +18,11 @@
       <q-tooltip anchor="bottom right" self="top right" :offset="[0, 16]">
         <dl>
           <dt><q-icon name="lens"/> X / Y</dt><dd><q-icon name="lens"/> Words / Sents</dd>
-          <dt>Select something</dt><dd>Open toolbar</dd>
           <dt><kbd>Enter</kbd></dt><dd>New paragraph</dd>
           <dt><kbd>Shift + Enter</kbd></dt><dd>New line</dd>
-          <dt><kbd>'1.' + Space</kbd></dt><dd>New numbered list</dd>
-          <dt><kbd>'*' + Space</kbd></dt><dd>New bullet list</dd>
+          <dt><kbd>1. + Space</kbd></dt><dd>New numbered list</dd>
+          <dt><kbd>* + Space</kbd></dt><dd>New bullet list</dd>
+          <dt><kbd>--- + Enter</kbd></dt><dd>New horizontal rule</dd>
           <dt><kbd>Ctrl + O</kbd></dt><dd>Open</dd>
           <dt><kbd>Ctrl + S</kbd></dt><dd>Save</dd>
           <dt><kbd>Ctrl + F11</kbd></dt><dd>Toggle "Zen Mode"</dd>
