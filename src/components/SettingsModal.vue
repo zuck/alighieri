@@ -5,13 +5,20 @@
   >
     <div class="modal-header">Settings</div>
     <div class="modal-body">
-      <p>Not implemented yet...</p>
+      <p class="caption">Paragraphs</p>
+      <q-checkbox v-model="opts.parSpaceBetween" label="Space between" />
+      <br>
+      <q-checkbox v-model="opts.parIdentFirstLine" label="Ident first line" />
     </div>
     <div class="modal-buttons row">
       <q-btn
         flat
         @click="close()"
       >Cancel</q-btn>
+      <q-btn
+        flat
+        @click="confirm()"
+      >Confirm</q-btn>
     </div>
   </q-modal>
 </template>
@@ -19,18 +26,31 @@
 <script>
 import {
   QModal,
-  QBtn
+  QCheckbox,
+  QBtn,
+  LocalStorage
 } from 'quasar'
+
+const SETTINGS_KEY = 'alighieri-settings'
 
 export default {
   name: 'settings-modal',
   components: {
     QModal,
+    QCheckbox,
     QBtn
   },
   data () {
     return {
+      opts: {}
     }
+  },
+  mounted () {
+    this.opts = Object.assign({
+      parSpaceBetween: true,
+      parIdentFirstLine: true
+    }, LocalStorage.get.item(SETTINGS_KEY))
+    this.emitChanges()
   },
   methods: {
     open () {
@@ -41,6 +61,14 @@ export default {
     },
     toggle () {
       this.$refs.modal.toggle()
+    },
+    emitChanges () {
+      this.$emit('change', this.opts)
+    },
+    confirm () {
+      LocalStorage.set(SETTINGS_KEY, this.opts)
+      this.emitChanges()
+      this.close()
     }
   }
 }

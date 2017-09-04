@@ -44,7 +44,8 @@
       id="editor"
       custom-tag="div"
       :text="contentHTML"
-      :options="options"
+      :options="meOptions"
+      :class="opts"
       @edit="processEditOperation"
     />
 
@@ -67,6 +68,7 @@
     <settings-modal
       id="settings-modal"
       ref="settingsModal"
+      @change="applySettings"
     />
 
     <about-modal
@@ -145,7 +147,8 @@ export default {
       content: null,
       words: [],
       sentences: [],
-      options: {
+      opts: {},
+      meOptions: {
         buttonLabels: 'fontawesome',
         placeholder: false,
         spellcheck: false,
@@ -418,6 +421,9 @@ export default {
         }
       }
     },
+    applySettings (opts) {
+      this.opts = opts
+    },
     updateContentAndStats () {
       this.content = this.convertHtmlToTxt(this.contentHTML)
       // Store backup content (only if there is valid text)
@@ -592,14 +598,20 @@ export default {
   color #111
   font-family 'LibreBaskerville', serif !important
 
+  p
+    line-height 2
+
+    &+h1, &+h2, &+h3, &+h4
+      margin-top 5.656rem
+
   h1, h2, h3, h4
-    margin 0 0 .5em
+    margin 0 0 .707rem
     font-weight inherit
     line-height 1.2
     color $tertiary
 
     &+p
-      margin-top 1.414em
+      margin-top 2.828rem
 
   h1
     font-size 2.369em
@@ -670,6 +682,12 @@ export default {
     border-top 1px solid $neutral
     margin 2rem 0 2.5rem
 
+  &:not(.parSpaceBetween) p
+    margin-bottom 0
+
+  &.parIdentFirstLine p
+    text-indent 2rem
+
   @media screen and (min-width $breakpoint-sm)
     padding-top 0
 
@@ -685,12 +703,16 @@ export default {
     hr
       display block
       margin 0
+      padding 0
       border none
       visibility hidden
       page-break-before always
 
     h1, h2, h3, h4, h5, h6
       page-break-after avoid
+
+    p+h1
+      margin-top 0
 
     table, figure, blockquote
       width 100%
