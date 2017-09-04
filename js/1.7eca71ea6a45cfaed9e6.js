@@ -219,7 +219,7 @@ var SETTINGS_KEY = 'alighieri-settings';
       this.$refs.modal.toggle();
     },
     emitChanges: function emitChanges() {
-      this.$emit('change', this.opts);
+      this.$emit('confirm', __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign___default()({}, this.opts));
     },
     confirm: function confirm() {
       __WEBPACK_IMPORTED_MODULE_1_quasar__["b" /* LocalStorage */].set(SETTINGS_KEY, this.opts);
