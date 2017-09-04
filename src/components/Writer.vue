@@ -598,24 +598,27 @@ export default {
   color #111
   font-family 'LibreBaskerville', serif !important
 
-  p
+  p, table, pre
     line-height 2
 
-    &+h1, &+h2, &+h3, &+h4
+    &+h1
       margin-top 5.656rem
 
+    &+h2, &+h3, &+h4
+      margin-top 2.828rem
+
   h1, h2, h3, h4
-    margin 0 0 .707rem
+    margin 0 0 1.414rem
     font-weight inherit
     line-height 1.2
     color $tertiary
 
-    &+p
-      margin-top 2.828rem
-
   h1
     font-size 2.369em
     color #000
+
+    &+p
+      margin-top 2.828rem
 
   h2
     font-size 1.777em
@@ -676,7 +679,7 @@ export default {
       margin-bottom 0
 
   hr
-    display inline-block
+    display block
     width 100%
     border none
     border-top 1px solid $neutral
@@ -711,7 +714,7 @@ export default {
     h1, h2, h3, h4, h5, h6
       page-break-after avoid
 
-    p+h1
+    p+h1, table+h1, pre+h1
       margin-top 0
 
     table, figure, blockquote
