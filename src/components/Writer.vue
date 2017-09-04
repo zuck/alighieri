@@ -589,7 +589,7 @@ export default {
   outline none
   border none
   line-height 2
-  color #333
+  color #111
   font-family 'LibreBaskerville', serif !important
 
   h1, h2, h3, h4
@@ -603,7 +603,7 @@ export default {
 
   h1
     font-size 2.369em
-    color #111
+    color #000
 
   h2
     font-size 1.777em
