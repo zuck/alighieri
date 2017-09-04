@@ -63,7 +63,7 @@ export default {
       this.$refs.modal.toggle()
     },
     emitChanges () {
-      this.$emit('change', this.opts)
+      this.$emit('confirm', Object.assign({}, this.opts))
     },
     confirm () {
       LocalStorage.set(SETTINGS_KEY, this.opts)

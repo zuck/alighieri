@@ -68,7 +68,7 @@
     <settings-modal
       id="settings-modal"
       ref="settingsModal"
-      @change="applySettings"
+      @confirm="applySettings"
     />
 
     <about-modal
