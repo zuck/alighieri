@@ -31,7 +31,7 @@ __webpack_require__(12);
 
 __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].config.productionTip = false;
 
-__WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODULE_3_quasar__["r" /* default */]);
+__WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODULE_3_quasar__["s" /* default */]);
 
 if (__WEBPACK_IMPORTED_MODULE_2_is_electron___default()()) {
   __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODULE_1_vue_electron___default.a);
@@ -43,7 +43,7 @@ if (true) {
 
 
 
-__WEBPACK_IMPORTED_MODULE_3_quasar__["r" /* default */].start(function () {
+__WEBPACK_IMPORTED_MODULE_3_quasar__["s" /* default */].start(function () {
   new __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */]({
     el: '#q-app',
     router: __WEBPACK_IMPORTED_MODULE_4__router__["a" /* default */],
@@ -109,7 +109,7 @@ function load(component) {
 var map = {
 	"./AboutModal.vue": [
 		31,
-		2
+		3
 	],
 	"./Error404.vue": [
 		37,
@@ -133,11 +133,11 @@ var map = {
 	],
 	"./SettingsModal.vue": [
 		35,
-		3
+		1
 	],
 	"./Toolbar.vue": [
 		36,
-		1
+		2
 	],
 	"./Writer.vue": [
 		38,

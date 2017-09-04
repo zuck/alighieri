@@ -1,36 +1,12 @@
 webpackJsonp([8],{
 
-/***/ 37:
-/***/ (function(module, exports, __webpack_require__) {
-
-function injectStyle (ssrContext) {
-  __webpack_require__(70)
-}
-var Component = __webpack_require__(4)(
-  /* script */
-  __webpack_require__(72),
-  /* template */
-  __webpack_require__(73),
-  /* styles */
-  injectStyle,
-  /* scopeId */
-  null,
-  /* moduleIdentifier (server only) */
-  null
-)
-
-module.exports = Component.exports
-
-
-/***/ }),
-
-/***/ 70:
+/***/ 107:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(71);
+var content = __webpack_require__(108);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -38,7 +14,7 @@ var update = __webpack_require__(29)("2422dc3a", content, true);
 
 /***/ }),
 
-/***/ 71:
+/***/ 108:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(28)(undefined);
@@ -53,7 +29,7 @@ exports.push([module.i, ".error-page .error-code{height:50vh;width:100%;padding-
 
 /***/ }),
 
-/***/ 72:
+/***/ 109:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -66,7 +42,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     QBtn: __WEBPACK_IMPORTED_MODULE_0_quasar__["c" /* QBtn */],
-    QIcon: __WEBPACK_IMPORTED_MODULE_0_quasar__["d" /* QIcon */]
+    QIcon: __WEBPACK_IMPORTED_MODULE_0_quasar__["e" /* QIcon */]
   },
   data: function data() {
     return {
@@ -83,7 +59,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 73:
+/***/ 110:
 /***/ (function(module, exports) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -124,6 +100,30 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("\n          Go home\n        ")])], 1)], 1)])])
 },staticRenderFns: []}
+
+/***/ }),
+
+/***/ 37:
+/***/ (function(module, exports, __webpack_require__) {
+
+function injectStyle (ssrContext) {
+  __webpack_require__(107)
+}
+var Component = __webpack_require__(4)(
+  /* script */
+  __webpack_require__(109),
+  /* template */
+  __webpack_require__(110),
+  /* styles */
+  injectStyle,
+  /* scopeId */
+  null,
+  /* moduleIdentifier (server only) */
+  null
+)
+
+module.exports = Component.exports
+
 
 /***/ })
 
