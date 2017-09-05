@@ -31,6 +31,7 @@
     "vue2-medium-editor": "^1.1.1",
     "medium-editor-autolist": "^1.0.1",
     "medium-editor-autohr": "^0.2.0",
+    "medium-editor-autoanglequotes": "^0.2.1",
     "showdown": "^1.7.3",
     "to-markdown": "^3.0.1",
     "file-saver": "^1.3.3",

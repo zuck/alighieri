@@ -88,6 +88,7 @@ import {
 import VueMediumEditor from 'vue2-medium-editor'
 import MediumEditorAutoList from 'medium-editor-autolist'
 import MediumEditorAutoHR from 'medium-editor-autohr'
+import MediumEditorAutoAngleQuotes from 'medium-editor-autoanglequotes'
 import showdown from 'showdown'
 import toMarkdown from 'to-markdown'
 import FileSaver from 'file-saver'
@@ -155,7 +156,8 @@ export default {
         autoLink: false,
         extensions: {
           autolist: new MediumEditorAutoList(),
-          autohr: new MediumEditorAutoHR()
+          autohr: new MediumEditorAutoHR(),
+          autoangles: new MediumEditorAutoAngleQuotes()
         },
         toolbar: {
           buttons: [
