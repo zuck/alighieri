@@ -1705,7 +1705,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "name": "lens"
     }
-  }), _vm._v(" Words / Sents")], 1), _vm._v(" "), _c('dt', [_c('kbd', [_vm._v("Enter")])]), _c('dd', [_vm._v("New paragraph")]), _vm._v(" "), _c('dt', [_c('kbd', [_vm._v("Shift + Enter")])]), _c('dd', [_vm._v("New line")]), _vm._v(" "), _c('dt', [_c('kbd', [_vm._v("1. + Space")])]), _c('dd', [_vm._v("New numbered list")]), _vm._v(" "), _c('dt', [_c('kbd', [_vm._v("* + Space")])]), _c('dd', [_vm._v("New bullet list")]), _vm._v(" "), _c('dt', [_c('kbd', [_vm._v("<< + any")])]), _c('dd', [_vm._v("«")]), _vm._v(" "), _c('dt', [_c('kbd', [_vm._v(">> + any")])]), _c('dd', [_vm._v("»")]), _vm._v(" "), _c('dt', [_c('kbd', [_vm._v("--- + Enter")])]), _c('dd', [_vm._v("New horizontal rule")]), _vm._v(" "), _c('dt', [_c('kbd', [_vm._v("Ctrl + O")])]), _c('dd', [_vm._v("Open")]), _vm._v(" "), _c('dt', [_c('kbd', [_vm._v("Ctrl + S")])]), _c('dd', [_vm._v("Save")]), _vm._v(" "), _c('dt', [_c('kbd', [_vm._v("Ctrl + F11")])]), _c('dd', [_vm._v("Toggle \"Zen Mode\"")])])])], 1)], 1)
+  }), _vm._v(" Words / Sents")], 1), _vm._v(" "), _c('dt', [_c('kbd', [_vm._v("Enter")])]), _c('dd', [_vm._v("New paragraph")]), _vm._v(" "), _c('dt', [_c('kbd', [_vm._v("Shift + Enter")])]), _c('dd', [_vm._v("New line")]), _vm._v(" "), _c('dt', [_c('kbd', [_vm._v("1. + Space")])]), _c('dd', [_vm._v("New numbered list")]), _vm._v(" "), _c('dt', [_c('kbd', [_vm._v("* + Space")])]), _c('dd', [_vm._v("New bullet list")]), _vm._v(" "), _c('dt', [_c('kbd', [_vm._v("<<")])]), _c('dd', [_vm._v("«")]), _vm._v(" "), _c('dt', [_c('kbd', [_vm._v(">>")])]), _c('dd', [_vm._v("»")]), _vm._v(" "), _c('dt', [_c('kbd', [_vm._v("--- + Enter")])]), _c('dd', [_vm._v("New horizontal rule")]), _vm._v(" "), _c('dt', [_c('kbd', [_vm._v("Ctrl + O")])]), _c('dd', [_vm._v("Open")]), _vm._v(" "), _c('dt', [_c('kbd', [_vm._v("Ctrl + S")])]), _c('dd', [_vm._v("Save")]), _vm._v(" "), _c('dt', [_c('kbd', [_vm._v("Ctrl + F11")])]), _c('dd', [_vm._v("Toggle \"Zen Mode\"")])])])], 1)], 1)
 },staticRenderFns: []}
 
 /***/ }),
@@ -18279,22 +18279,23 @@ process.umask = function() { return 0; };
     }
 }(this, function (MediumEditor) {
 
-var AutoList = MediumEditor.Extension.extend({
+  var AutoList = MediumEditor.Extension.extend({
     name: 'autolist',
     init: function(){
-      this.subscribe('editableKeypress', this.onKeypress.bind(this));
+      this.subscribe('editableInput', this.onInput.bind(this));
     },
-    onKeypress: function (keyPressEvent) {
-     if (MediumEditor.util.isKey(keyPressEvent, [MediumEditor.util.keyCode.SPACE])) {
-          var list_start = this.base.getSelectedParentElement().textContent;
-          if (list_start == "1."  && this.base.getExtensionByName('orderedlist')){
-            this.base.execAction('insertorderedlist');
-            this.base.getSelectedParentElement().textContent = this.base.getSelectedParentElement().textContent.slice(2).trim();
-          }
-          else if( list_start == "*" && this.base.getExtensionByName('unorderedlist')){
-            this.base.execAction('insertunorderedlist');
-            this.base.getSelectedParentElement().textContent = this.base.getSelectedParentElement().textContent.slice(1).trim();
-          }
+    onInput: function (evt) {
+      var list_start = this.base.getSelectedParentElement().textContent;
+      if (/1\.\s/.test(list_start) && this.base.getExtensionByName('orderedlist')){
+        this.base.execAction('delete');
+        this.base.execAction('delete');
+        this.base.execAction('delete');
+        this.base.execAction('insertorderedlist');
+      }
+      else if (/\*\s/.test(list_start) && this.base.getExtensionByName('unorderedlist')){
+        this.base.execAction('delete');
+        this.base.execAction('delete');
+        this.base.execAction('insertunorderedlist');
       }
     }
   });
@@ -18327,17 +18328,15 @@ var AutoList = MediumEditor.Extension.extend({
   var AutoHR = MediumEditor.Extension.extend({
     name: 'autohr',
     init: function () {
-      this.subscribe('editableKeypress', this.onKeypress.bind(this));
+      this.subscribe('editableKeydownEnter', this.onInput.bind(this));
     },
-    onKeypress: function (keyPressEvent) {
-      if (MediumEditor.util.isKey(keyPressEvent, [MediumEditor.util.keyCode.ENTER])) {
-        var parentElement = this.base.getSelectedParentElement();
-        var hrStart = parentElement.textContent;
-        if (hrStart === HR_TOKEN) {
-          this.base.execAction('insertHorizontalRule');
-          this.base.execAction('insertParagraph');
-          parentElement.parentNode.removeChild(parentElement);
-        }
+    onInput: function (evt) {
+      var parentElement = this.base.getSelectedParentElement();
+      if (parentElement.textContent === HR_TOKEN) {
+        this.base.execAction('delete');
+        this.base.execAction('delete');
+        this.base.execAction('delete');
+        this.base.execAction('insertHorizontalRule');
       }
     }
   });
@@ -18371,9 +18370,9 @@ var AutoList = MediumEditor.Extension.extend({
   var AutoAngleQuotes = MediumEditor.Extension.extend({
     name: 'autoanglequotes',
     init: function () {
-      this.subscribe('editableKeypress', this.onKeypress.bind(this));
+      this.subscribe('editableInput', this.onInput.bind(this));
     },
-    onKeypress: function (evt) {
+    onInput: function (evt) {
       var parentElement = this.base.getSelectedParentElement();
       var range = document.getSelection().getRangeAt(0);
       var token = parentElement.textContent.substring(range.startOffset - 2, range.startOffset);
