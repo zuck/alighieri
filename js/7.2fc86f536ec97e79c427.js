@@ -1,20 +1,20 @@
-webpackJsonp([5],{
+webpackJsonp([7],{
 
-/***/ 34:
+/***/ 33:
 /***/ (function(module, exports, __webpack_require__) {
 
 function injectStyle (ssrContext) {
-  __webpack_require__(66)
+  __webpack_require__(58)
 }
 var Component = __webpack_require__(4)(
   /* script */
-  __webpack_require__(68),
+  __webpack_require__(60),
   /* template */
-  __webpack_require__(69),
+  __webpack_require__(61),
   /* styles */
   injectStyle,
   /* scopeId */
-  null,
+  "data-v-91868994",
   /* moduleIdentifier (server only) */
   null
 )
@@ -24,24 +24,24 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 66:
+/***/ 58:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(67);
+var content = __webpack_require__(59);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(29)("1bbe3f77", content, true);
+var update = __webpack_require__(30)("92b70744", content, true);
 
 /***/ }),
 
-/***/ 67:
+/***/ 59:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(28)(undefined);
+exports = module.exports = __webpack_require__(29)(undefined);
 // imports
 
 
@@ -53,7 +53,7 @@ exports.push([module.i, "", ""]);
 
 /***/ }),
 
-/***/ 68:
+/***/ 60:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -64,10 +64,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'save-as-modal',
+  name: 'export-modal',
   components: {
     QModal: __WEBPACK_IMPORTED_MODULE_0_quasar__["n" /* QModal */],
     QInput: __WEBPACK_IMPORTED_MODULE_0_quasar__["f" /* QInput */],
+    QList: __WEBPACK_IMPORTED_MODULE_0_quasar__["l" /* QList */],
+    QItem: __WEBPACK_IMPORTED_MODULE_0_quasar__["g" /* QItem */],
+    QItemSide: __WEBPACK_IMPORTED_MODULE_0_quasar__["j" /* QItemSide */],
+    QItemMain: __WEBPACK_IMPORTED_MODULE_0_quasar__["h" /* QItemMain */],
     QBtn: __WEBPACK_IMPORTED_MODULE_0_quasar__["c" /* QBtn */]
   },
   props: ['filename'],
@@ -90,8 +94,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     toggle: function toggle() {
       this.$refs.modal.toggle();
     },
-    confirmFilename: function confirmFilename() {
-      this.$emit('save', this.filenameValue || this.filename);
+    confirmExt: function confirmExt(ext) {
+      this.$emit('export', this.filenameValue || this.filename, ext);
       this.close();
     }
   }
@@ -99,7 +103,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 69:
+/***/ 61:
 /***/ (function(module, exports) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -112,20 +116,68 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "modal-header"
-  }, [_vm._v("Choose a name")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Export to...")]), _vm._v(" "), _c('div', {
     staticClass: "modal-body"
   }, [_c('q-input', {
     attrs: {
       "placeholder": "Type a filename..."
     },
     model: {
-      value: (_vm.filename),
+      value: (_vm.filenameValue),
       callback: function($$v) {
-        _vm.filename = $$v
+        _vm.filenameValue = $$v
       },
-      expression: "filename"
+      expression: "filenameValue"
     }
-  })], 1), _vm._v(" "), _c('div', {
+  }), _vm._v(" "), _c('q-list', {
+    attrs: {
+      "no-border": ""
+    }
+  }, [_c('q-item', {
+    attrs: {
+      "link": ""
+    },
+    on: {
+      "click": function($event) {
+        _vm.confirmExt('md')
+      }
+    }
+  }, [_c('q-item-side', {
+    attrs: {
+      "icon": "open_in_new"
+    }
+  }), _vm._v(" "), _c('q-item-main', {
+    attrs: {
+      "label": "Markdown (.md)"
+    }
+  }), _vm._v(" "), _c('q-item-side', {
+    attrs: {
+      "right": "",
+      "icon": "keyboard_arrow_right"
+    }
+  })], 1), _vm._v(" "), _c('q-item', {
+    attrs: {
+      "link": ""
+    },
+    on: {
+      "click": function($event) {
+        _vm.confirmExt('txt')
+      }
+    }
+  }, [_c('q-item-side', {
+    attrs: {
+      "icon": "open_in_new"
+    }
+  }), _vm._v(" "), _c('q-item-main', {
+    attrs: {
+      "label": "Plain text (.txt)"
+    }
+  }), _vm._v(" "), _c('q-item-side', {
+    attrs: {
+      "right": "",
+      "icon": "keyboard_arrow_right"
+    }
+  })], 1)], 1)], 1), _vm._v(" "), _c('div', {
     staticClass: "modal-buttons row"
   }, [_c('q-btn', {
     attrs: {
@@ -136,16 +188,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.close()
       }
     }
-  }, [_vm._v("Cancel")]), _vm._v(" "), _c('q-btn', {
-    attrs: {
-      "flat": ""
-    },
-    on: {
-      "click": function($event) {
-        _vm.confirmFilename()
-      }
-    }
-  }, [_vm._v("Confirm")])], 1)])
+  }, [_vm._v("Cancel")])], 1)])
 },staticRenderFns: []}
 
 /***/ })

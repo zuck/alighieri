@@ -20201,15 +20201,16 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
-/* 5 */
+/* 5 */,
+/* 6 */
 /***/ (function(module, exports) {
 
 
 
 /***/ }),
-/* 6 */,
 /* 7 */,
-/* 8 */
+/* 8 */,
+/* 9 */
 /***/ (function(module, exports) {
 
 /**
@@ -20242,7 +20243,7 @@ module.exports = function listToStyles (parentId, list) {
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -20252,7 +20253,7 @@ module.exports = function listToStyles (parentId, list) {
  */
 /* eslint-disable no-extend-native */
 
-__webpack_require__(10).polyfill();
+__webpack_require__(11).polyfill();
 
 if (!Number.isInteger) {
   Number.isInteger = function (value) {
@@ -20304,7 +20305,7 @@ if (!Array.prototype.findIndex) {
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process, global) {var require;/*!
@@ -20444,7 +20445,7 @@ function flush() {
 function attemptVertx() {
   try {
     var r = require;
-    var vertx = __webpack_require__(11);
+    var vertx = __webpack_require__(12);
     vertxNext = vertx.runOnLoop || vertx.runOnContext;
     return useVertxTimer();
   } catch (e) {
@@ -21468,24 +21469,24 @@ return Promise$2;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(1)))
 
 /***/ }),
-/* 11 */,
 /* 12 */,
-/* 13 */
+/* 13 */,
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = {
   install: function (Vue) {
-    Vue.prototype.$electron = __webpack_require__(14)
+    Vue.prototype.$electron = __webpack_require__(15)
   }
 }
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(__dirname) {var fs = __webpack_require__(5)
-var path = __webpack_require__(15)
+/* WEBPACK VAR INJECTION */(function(__dirname) {var fs = __webpack_require__(6)
+var path = __webpack_require__(16)
 
 var pathFile = path.join(__dirname, 'path.txt')
 
@@ -21498,7 +21499,7 @@ if (fs.existsSync(pathFile)) {
 /* WEBPACK VAR INJECTION */}.call(exports, "/"))
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -21729,7 +21730,7 @@ var substr = 'ab'.substr(-1) === 'b'
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {// https://github.com/electron/electron/issues/2288
@@ -21757,8 +21758,8 @@ module.exports = isElectron;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 17 */,
-/* 18 */
+/* 18 */,
+/* 19 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24270,28 +24271,28 @@ if (inBrowser && window.Vue) {
 
 
 /***/ }),
-/* 19 */,
-/* 20 */
+/* 20 */,
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(21)
+__webpack_require__(22)
 
 
 /***/ }),
-/* 21 */,
-/* 22 */
+/* 22 */,
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(23)
+__webpack_require__(24)
 
 
 /***/ }),
-/* 23 */,
 /* 24 */,
 /* 25 */,
 /* 26 */,
 /* 27 */,
-/* 28 */
+/* 28 */,
+/* 29 */
 /***/ (function(module, exports) {
 
 /*
@@ -24373,7 +24374,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -24392,7 +24393,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(8)
+var listToStyles = __webpack_require__(9)
 
 /*
 type StyleObject = {
