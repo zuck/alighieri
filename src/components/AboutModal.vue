@@ -26,12 +26,12 @@
 </template>
 
 <script>
-import * as INFO from '../../package.json'
-import * as LICENSE from '../../LICENSE.txt'
 import {
   QModal,
   QBtn
 } from 'quasar'
+import * as INFO from '../../package.json'
+import * as LICENSE from '../../LICENSE.txt'
 
 export default {
   name: 'about-modal',

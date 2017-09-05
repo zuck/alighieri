@@ -30,8 +30,9 @@ import {
   QBtn,
   LocalStorage
 } from 'quasar'
+import * as INFO from '../../package.json'
 
-const SETTINGS_KEY = 'alighieri-settings'
+const SETTINGS_KEY = INFO.name + '-settings'
 
 export default {
   name: 'settings-modal',

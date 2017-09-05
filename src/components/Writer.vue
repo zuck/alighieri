@@ -99,6 +99,7 @@ import SaveAsModal from 'components/SaveAsModal'
 import ExportModal from 'components/ExportModal'
 import SettingsModal from 'components/SettingsModal'
 import AboutModal from 'components/AboutModal'
+import * as INFO from '../../package.json'
 
 import 'font-awesome/css/font-awesome.min.css'
 import 'medium-editor/dist/css/medium-editor.min.css'
@@ -106,9 +107,10 @@ import 'medium-editor/dist/css/themes/beagle.min.css'
 
 import 'assets/fonts/LibreBaskerville/stylesheet.css'
 
-const CONTENT_BACKUP_KEY = 'alighieri-content-backup'
-const CONTENT_LAST_SAVED_KEY = 'alighieri-content-last-saved'
-const DEFAULT_CONTENT_HTML = '<h1>Welcome to «Alighieri»</h1>' +
+const PRODUCT_NAME = INFO.productName
+const CONTENT_BACKUP_KEY = INFO.name + '-content-backup'
+const CONTENT_LAST_SAVED_KEY = INFO.name + '-content-last-saved'
+const DEFAULT_CONTENT_HTML = '<h1>Welcome to «' + PRODUCT_NAME + '»</h1>' +
   '<p>When you feel <i>ready</i>, start to type your <b>masterpiece</b>...</p>'
 
 var mdToHtmlConverter = new showdown.Converter({
@@ -123,8 +125,6 @@ var htmlToMdConverter = {
     return toMarkdown(html)
   }
 }
-
-const initialWinTitle = 'Alighieri'
 
 export default {
   name: 'writer',
@@ -188,7 +188,7 @@ export default {
     windowTitle: function () {
       return (this.filename ? this.filename : 'No title') +
         (this.isChanged ? '*' : '') +
-        ' - ' + initialWinTitle
+        ' - ' + PRODUCT_NAME
     }
   },
   mounted () {

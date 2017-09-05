@@ -4,7 +4,8 @@ const
   electron = require('electron'),
   path = require('path'),
   app = electron.app,
-  BrowserWindow = electron.BrowserWindow
+  BrowserWindow = electron.BrowserWindow,
+  INFO = require('../../package.json')
 
 let mainWindow
 
@@ -13,7 +14,7 @@ function createWindow () {
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    title: 'Alighieri',
+    title: INFO.productName,
     width: 1024,
     height: 768,
     icon: path.join(__dirname, '../icons/icon.png')
