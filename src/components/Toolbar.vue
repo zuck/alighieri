@@ -22,8 +22,8 @@
           <dt><kbd>Shift + Enter</kbd></dt><dd>New line</dd>
           <dt><kbd>1. + Space</kbd></dt><dd>New numbered list</dd>
           <dt><kbd>* + Space</kbd></dt><dd>New bullet list</dd>
-          <dt><kbd>&lt;&lt; + any</kbd></dt><dd>&laquo;</dd>
-          <dt><kbd>&gt;&gt; + any</kbd></dt><dd>&raquo;</dd>
+          <dt><kbd>&lt;&lt;</kbd></dt><dd>&laquo;</dd>
+          <dt><kbd>&gt;&gt;</kbd></dt><dd>&raquo;</dd>
           <dt><kbd>--- + Enter</kbd></dt><dd>New horizontal rule</dd>
           <dt><kbd>Ctrl + O</kbd></dt><dd>Open</dd>
           <dt><kbd>Ctrl + S</kbd></dt><dd>Save</dd>
