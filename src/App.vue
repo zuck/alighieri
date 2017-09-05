@@ -6,10 +6,16 @@
 </template>
 
 <script>
+import * as INFO from '../package.json'
+
 /*
  * Root component
  */
-export default {}
+export default {
+  mounted () {
+    document.title = INFO.productName || INFO.name || 'Quasar App'
+  }
+}
 </script>
 
 <style lang="stylus">
