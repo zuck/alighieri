@@ -43,14 +43,14 @@ export default {
   },
   data () {
     return {
-      opts: {}
+      opts: {
+        parSpaceBetween: true,
+        parIdentFirstLine: true
+      }
     }
   },
   mounted () {
-    this.opts = Object.assign({
-      parSpaceBetween: true,
-      parIdentFirstLine: true
-    }, LocalStorage.get.item(SETTINGS_KEY))
+    this.opts = Object.assign(this.opts, LocalStorage.get.item(SETTINGS_KEY))
     this.emitChanges()
   },
   methods: {
