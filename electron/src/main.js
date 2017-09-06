@@ -9,6 +9,9 @@ const
 
 let mainWindow
 
+// Enable HW acceleration on most machines
+app.commandLine.appendSwitch('ignore-gpu-blacklist')
+
 function createWindow () {
   /**
    * Initial window options
