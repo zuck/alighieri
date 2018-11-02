@@ -14,7 +14,7 @@
   "scripts": {
     "lint": "eslint --ext .js,.vue src",
     "test": "echo \"No test specified\" && exit 0",
-    "deploy": "quasar build -m pwa && gh-pages -d dist/pwa-mat/"
+    "deploy": "quasar build && gh-pages -d dist/spa-mat/"
   },
   "dependencies": {
     "axios": "^0.18.0",
