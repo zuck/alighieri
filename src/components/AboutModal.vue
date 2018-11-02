@@ -1,7 +1,7 @@
 <template>
   <q-dialog v-model="isOpen" prevent-close @ok="close()" @escape-key="close()">
     <div slot="title" class="text-center">
-      <img id="logo" src="~assets/logo.svg">
+      <img id="logo" src="~assets/logo.svg" width="128px">
       <h5 class="product-name">{{ $options.name }}</h5>
       <h6 class="product-description">{{ $options.description }}</h6>
     </div>
