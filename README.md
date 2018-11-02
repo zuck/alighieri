@@ -1,10 +1,10 @@
-![Alighieri logo](https://rawgit.com/zuck/alighieri/master/art/logo.svg)
+![Alighieri logo](https://cdn.jsdelivr.net/gh/zuck/alighieri@master/art/logo.svg | width=128)
 
 # Alighieri
 
 > A distraction-free tool for novelists and writers
 
-![Alighieri UX](https://raw.githubusercontent.com/zuck/alighieri/master/art/screenshot.png?raw=true)
+![Alighieri UX](https://cdn.jsdelivr.net/gh/zuck/alighieri@master/art/screenshot.png)
 
 ## Start your masterpiece
 
@@ -14,19 +14,19 @@ You can try **Alighieri** in your browser:
 
 ## Main features
 
-* Distraction-free text editor
-* Zen mode (fullscreen)
-* Dark mode (don't tire your eyes!)
-* Auto-format of typographical symbols (quotes, separators, etc.)
-* Char/word/sentence counters
-* Markdown import/export
-* Plain-text import/export
-* HTML5 export
-* PDF export
-* Multi-platform (Win/Mac/Linux)
-* Browser-friendly ([test it!](https://zuck.github.io/alighieri/))
-* Mobile-friendly (Android/iOS as a PWA)
-* **FREE & Open Source**
+- Distraction-free text editor
+- Zen mode (fullscreen)
+- Dark mode (don't tire your eyes!)
+- Auto-format of typographical symbols (quotes, separators, etc.)
+- Char/word/sentence counters
+- Markdown import/export
+- Plain-text import/export
+- HTML5 export
+- PDF export
+- Multi-platform (Win/Mac/Linux)
+- Browser-friendly ([test it!](https://zuck.github.io/alighieri/))
+- Mobile-friendly (Android/iOS as a PWA)
+- **FREE & Open Source**
 
 ## Contribute to development
 
