@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "precache-manifest.8bf96a6134a12096273f4dcc6961d5de.js"
+  "precache-manifest.bf6f059da9a106293f1689d5397bfbcd.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "alighieri"});
