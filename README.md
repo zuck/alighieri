@@ -10,11 +10,27 @@
 
 You can try **Alighieri** in your browser:
 
-https://zuck.github.io/alighieri/
+[zuck.github.io/alighieri](https://zuck.github.io/alighieri)
+
+## Main features
+
+* Distraction-free text editor
+* Zen mode (fullscreen)
+* Dark mode (don't tire your eyes!)
+* Auto-format of typographical symbols (quotes, separators, etc.)
+* Char/word/sentence counters
+* Markdown import/export
+* Plain-text import/export
+* HTML5 export
+* PDF export
+* Multi-platform (Win/Mac/Linux)
+* Browser-friendly ([test it!](https://zuck.github.io/alighieri/))
+* Mobile-friendly (Android/iOS as a PWA)
+* **FREE & Open Source**
 
 ## Contribute to development
 
-``` bash
+```bash
 # Clone repository
 $ git clone https://github.com/zuck/alighieri.git
 
@@ -25,20 +41,17 @@ $ cd alighieri
 $ npm install
 
 # Serve with hot reload at localhost:8080
-$ quasar dev
+$ quasar dev [-m pwa]
 
 # Build for production with minification
-$ quasar build
-
-# Lint code
-$ quasar lint
+$ quasar build [-m pwa]
 
 # Package the final Electron app
-$ npm run package-electron [linux|darwin|win]
+$ quasar build -m electron
 ```
 
 ## License
 
-Copyright (c) 2017 Emanuele Bertoldi
+Copyright (c) 2017 - 2018 Emanuele Bertoldi
 
 [MIT License](http://en.wikipedia.org/wiki/MIT_License)

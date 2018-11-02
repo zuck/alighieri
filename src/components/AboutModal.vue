@@ -1,89 +1,117 @@
 <template>
-  <q-modal
-    ref="modal"
-    @escape-key="close()"
-  >
-    <div class="modal-header">
-      <img id="logo" src="statics/icon.png"/>
-      <h4>{{ name }}</h4>
-      <h6>{{ description }}</h6>
+  <q-dialog v-model="isOpen" prevent-close @ok="close()" @escape-key="close()">
+    <div slot="title" class="text-center">
+      <img id="logo" src="~assets/logo.svg">
+      <h5 class="product-name">{{ $options.name }}</h5>
+      <h6 class="product-description">{{ $options.description }}</h6>
     </div>
-    <div class="modal-body">
-      <p>Built on <a href="https://quasar-framework.org">Quasar Framework</a> by <a :href="'mailto:' + author.email">{{ author.name }}</a></p>
-      <p id="version">v{{ version }} - <a :href="'http://en.wikipedia.org/wiki/' + license + '_License'">{{ license }}</a></p>
+    <div slot="body" class="text-center">
+      <p class="row items-center justify-center">
+        <span>
+          {{ $t('Built by') }}
+          <strong>{{ $options.authorName }}</strong>
+          {{ $t('with') }}
+        </span>
+        <a href="#" @click="openQuasar()">
+          <img
+            id="quasar-logo"
+            width="32px"
+            src="https://cdn.rawgit.com/quasarframework/quasar-art/cbbbb4b0/dist/svg/quasar-logo.svg"
+          >
+        </a>
+      </p>
+      <q-btn outline :label="$t('Contribute')" @click="goToGitHub()"/>
     </div>
-    <div class="modal-buttons row">
-      <q-btn
-        flat
-        @click="close()"
-      >Cancel</q-btn>
-      <q-btn
-        flat
-        @click="goToGitHub()"
-      >Contribute</q-btn>
+    <div slot="buttons" slot-scope="props" class="row full-width items-center justify-between">
+      <span class="text-faded">
+        v{{ $options.version }} -
+        <a href="#" @click="openLicense()">{{ $options.license }}</a>
+      </span>
+      <q-btn flat :label="$t('Ok')" @click="close()"/>
     </div>
-  </q-modal>
+  </q-dialog>
 </template>
 
 <script>
-import {
-  QModal,
-  QBtn
-} from 'quasar'
+import { QDialog, openURL } from 'quasar'
+
 import * as INFO from '../../package.json'
-import * as LICENSE from '../../LICENSE.txt'
 
 export default {
   name: 'about-modal',
+
   components: {
-    QModal,
-    QBtn
+    QDialog
   },
+
   data () {
     return {
-      name: INFO.name,
-      description: INFO.description,
-      version: INFO.version,
-      license: INFO.license,
-      author: INFO.author,
-      licenseContent: LICENSE,
-      github: INFO.repository.url.replace(':', '/').replace('.git', '').replace('git@', 'https://')
+      isOpen: false,
+      resolve: null,
+      reject: null
     }
   },
+
+  mounted () {
+    this.$options.name = INFO.name
+    this.$options.description = INFO.description
+    this.$options.version = INFO.version
+    this.$options.license = INFO.license
+    this.$options.authorName = INFO.author.split('<')[0].trim()
+    this.$options.githubURL = INFO.repository.url
+      .replace(':', '/')
+      .replace('.git', '')
+      .replace('git@', 'https://')
+  },
+
   methods: {
     open () {
-      this.$refs.modal.open()
+      return new Promise((resolve, reject) => {
+        this.isOpen = true
+        this.resolve = val => resolve(val)
+        this.reject = err => reject(err)
+      })
     },
+
     close () {
-      this.$refs.modal.close()
+      this.resolve()
+      this.isOpen = false
     },
-    toggle () {
-      this.$refs.modal.toggle()
+
+    openLicense () {
+      openURL(
+        'https://en.wikipedia.org/wiki/' + this.$options.license + '_License'
+      )
     },
+
+    openQuasar () {
+      openURL('http://quasar-framework.org')
+    },
+
     goToGitHub () {
-      window.open(this.github)
+      openURL(this.$options.githubURL)
     }
   }
 }
 </script>
 
 <style scoped lang="stylus">
-@require '../themes/app.variables'
+@require '~variables';
 
-#logo
-  display block
-  margin 16px auto
+.product-name {
+  margin-top: 0;
+  margin-bottom: 0;
+  color: $tertiary;
 
-  &+h4
-    font-family 'LibreBaskerville', serif !important
+  &:first-letter {
+    text-transform: capitalize;
+  }
+}
 
-    &:first-letter
-      text-transform capitalize
-
-  &+h4+h6
-    color $tertiary
-    margin-bottom 1rem
-
-.modal-header, .modal-body
-  text-align center
+.product-description {
+  color: $faded;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 1rem;
+}
 </style>

@@ -1,33 +1,83 @@
 <template>
-  <q-toolbar color="white">
-    <q-btn
-      flat round
-      color="grey-13"
-      @click="$emit('menuToggle')"
-    >
-      <q-icon name="menu" />
-    </q-btn>
-    <q-toolbar-title>
-      <save-status :status="isSaved"/> {{ wordCount }} / {{ sentenceCount }}
+  <q-toolbar color="transparent" text-color="grey-6" class="items-center">
+    <q-btn flat dense round icon="menu" aria-label="Menu" @click="$emit('toggleMenu')"/>
+    <q-toolbar-title class="items-center">
+      <q-btn
+        flat
+        dense
+        round
+        class="q-mr-sm"
+        icon="lens"
+        :color="isChanged ? 'negative' : 'positive'"
+        @click="$emit('save')"
+      />
+      <small>{{ charCount }} / {{ wordCount }} / {{ sentenceCount }}</small>
     </q-toolbar-title>
-    <q-btn
-      flat round
-      color="grey-13"
-    >
-      <q-icon name="help_outline" />
+    <q-btn flat dense round icon="lightbulb_outline" @click="$emit('toggleDarkMode')"/>
+    <q-btn flat dense round icon="help_outline" aria-label="Help">
       <q-tooltip anchor="bottom right" self="top right" :offset="[0, 16]">
-        <dl>
-          <dt><q-icon name="lens"/> X / Y</dt><dd><q-icon name="lens"/> Words / Sents</dd>
-          <dt><kbd>Enter</kbd></dt><dd>New paragraph</dd>
-          <dt><kbd>Shift + Enter</kbd></dt><dd>New line</dd>
-          <dt><kbd>1. + Space</kbd></dt><dd>New numbered list</dd>
-          <dt><kbd>* + Space</kbd></dt><dd>New bullet list</dd>
-          <dt><kbd>&lt;&lt;</kbd></dt><dd>&laquo;</dd>
-          <dt><kbd>&gt;&gt;</kbd></dt><dd>&raquo;</dd>
-          <dt><kbd>--- + Enter</kbd></dt><dd>New horizontal rule</dd>
-          <dt><kbd>Ctrl + O</kbd></dt><dd>Open</dd>
-          <dt><kbd>Ctrl + S</kbd></dt><dd>Save</dd>
-          <dt><kbd>Ctrl + F11</kbd></dt><dd>Toggle "Zen Mode"</dd>
+        <dl class="horizontal">
+          <dt>
+            <kbd>
+              <q-icon name="keyboard_return" :title="$t('Enter')"/>
+            </kbd>
+          </dt>
+          <dd>{{ $t('New paragraph') }}</dd>
+          <dt>
+            <kbd>
+              <q-icon name="keyboard_capslock" :title="$t('Shift')"/>+
+              <q-icon name="keyboard_return" :title="$t('Enter')"/>
+            </kbd>
+          </dt>
+          <dd>{{ $t('New line') }}</dd>
+          <dt>
+            <kbd>1. +
+              <q-icon name="space_bar" :title="$t('Space')"/>
+            </kbd>
+          </dt>
+          <dd>{{ $t('New numbered list') }}</dd>
+          <dt>
+            <kbd>* +
+              <q-icon name="space_bar" :title="$t('Space')"/>
+            </kbd>
+          </dt>
+          <dd>{{ $t('New bullet list') }}</dd>
+          <dt>
+            <kbd>&lt;&lt;</kbd>
+          </dt>
+          <dd>&laquo;</dd>
+          <dt>
+            <kbd>&gt;&gt;</kbd>
+          </dt>
+          <dd>&raquo;</dd>
+          <dt>
+            <kbd>--- +
+              <q-icon name="keyboard_return" :title="$t('Enter')"/>
+            </kbd>
+          </dt>
+          <dd>{{ $t('New page break') }}</dd>
+          <template v-if="!$q.platform.is.mobile">
+            <dt>
+              <kbd>Ctrl + O</kbd>
+            </dt>
+            <dd>{{ $t('Open') }}</dd>
+            <dt>
+              <kbd>Ctrl + S</kbd>
+            </dt>
+            <dd>{{ $t('Save') }}</dd>
+            <dt>
+              <kbd>Ctrl + M</kbd>
+            </dt>
+            <dd>{{ $t('Toggle menu') }}</dd>
+            <dt>
+              <kbd>Ctrl + D</kbd>
+            </dt>
+            <dd>{{ $t('Toggle "Dark Mode"') }}</dd>
+            <dt>
+              <kbd>F11</kbd>
+            </dt>
+            <dd>{{ $t('Toggle "Zen Mode"') }}</dd>
+          </template>
         </dl>
       </q-tooltip>
     </q-btn>
@@ -35,58 +85,54 @@
 </template>
 
 <script>
-import {
-  QToolbar,
-  QToolbarTitle,
-  QBtn,
-  QIcon,
-  QTooltip
-} from 'quasar'
-
-import SaveStatus from 'components/SaveStatus'
+import { QTooltip } from 'quasar'
 
 export default {
   name: 'toolbar',
+
   components: {
-    QToolbar,
-    QToolbarTitle,
-    QBtn,
-    QIcon,
-    QTooltip,
-    SaveStatus
+    QTooltip
   },
-  props: ['isSaved', 'wordCount', 'sentenceCount']
+
+  computed: {
+    isChanged () {
+      return this.$store.getters['isChanged']
+    },
+
+    charCount () {
+      return this.$store.state.words.reduce((total, word) => {
+        return total + (word || '').length
+      }, 0)
+    },
+
+    wordCount () {
+      return this.$store.state.words.length
+    },
+
+    sentenceCount () {
+      return this.$store.state.sentences.length
+    }
+  }
 }
 </script>
 
 <style scoped lang="stylus">
-@require '../themes/app.variables'
+@require '~variables';
 
-.q-btn
-  .q-icon
-    color $neutral
+abbr {
+  cursor: help;
+}
 
-  &:hover .q-icon
-    color $primary
+.q-tooltip {
+  width: 320px;
 
-.q-toolbar-title
-  color $neutral
-  text-align left
+  dt {
+    text-align: left;
+    width: 45%;
+  }
 
-  abbr
-    cursor help
-
-.q-tooltip
-  width 100%
-  max-width 320px
-
-  dt, dd
-    float left
-
-    .q-icon
-      margin-top -.25rem
-
-  dt
-    clear both
-    width 9em
+  dd {
+    margin-left: calc(45% + 0.5rem);
+  }
+}
 </style>

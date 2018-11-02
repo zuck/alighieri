@@ -1,80 +1,75 @@
 <template>
-  <q-modal
-    ref="modal"
+  <q-dialog
+    v-model="isOpen"
+    prevent-close
+    :cancel="true"
+    :ok="$t('Save')"
+    @ok="confirm()"
+    @cancel="close()"
     @escape-key="close()"
   >
-    <div class="modal-header">Settings</div>
-    <div class="modal-body">
-      <p class="caption">Paragraphs</p>
-      <q-checkbox v-model="opts.parSpaceBetween" label="Space between" />
+    <span slot="title">{{ $t('Settings') }}</span>
+    <form slot="body" @submit.prevent.stop>
+      <legend class="caption">{{ $t('General') }}</legend>
+      <q-checkbox v-model="darkMode" :label="$t('Dark mode')"/>
+      <legend class="caption">{{ $t('Paragraphs') }}</legend>
+      <q-checkbox v-model="parSpaceBetween" :label="$t('Space between')"/>
       <br>
-      <q-checkbox v-model="opts.parIdentFirstLine" label="Ident first line" />
-    </div>
-    <div class="modal-buttons row">
-      <q-btn
-        flat
-        @click="close()"
-      >Cancel</q-btn>
-      <q-btn
-        flat
-        @click="confirm()"
-      >Confirm</q-btn>
-    </div>
-  </q-modal>
+      <q-checkbox v-model="parIdentFirstLine" :label="$t('Ident first line')"/>
+    </form>
+  </q-dialog>
 </template>
 
 <script>
-import {
-  QModal,
-  QCheckbox,
-  QBtn,
-  LocalStorage
-} from 'quasar'
-import * as INFO from '../../package.json'
-
-const SETTINGS_KEY = INFO.name + '-settings'
+import { QDialog, QCheckbox } from 'quasar'
 
 export default {
   name: 'settings-modal',
+
   components: {
-    QModal,
-    QCheckbox,
-    QBtn
+    QDialog,
+    QCheckbox
   },
+
   data () {
     return {
-      opts: {
-        parSpaceBetween: true,
-        parIdentFirstLine: true
-      }
+      isOpen: false,
+      resolve: null,
+      reject: null,
+      darkMode: null,
+      parSpaceBetween: null,
+      parIdentFirstLine: null
     }
   },
-  mounted () {
-    this.opts = Object.assign(this.opts, LocalStorage.get.item(SETTINGS_KEY))
-    this.emitChanges()
-  },
+
   methods: {
-    open () {
-      this.$refs.modal.open()
+    open (settings) {
+      return new Promise((resolve, reject) => {
+        this.isOpen = true
+        this.resolve = val => resolve(val)
+        this.reject = err => reject(err)
+        this.darkMode = settings.darkMode
+        this.parSpaceBetween = settings.parSpaceBetween
+        this.parIdentFirstLine = settings.parIdentFirstLine
+      })
     },
+
     close () {
-      this.$refs.modal.close()
+      this.reject()
+      this.isOpen = false
     },
-    toggle () {
-      this.$refs.modal.toggle()
-    },
-    emitChanges () {
-      this.$emit('confirm', Object.assign({}, this.opts))
-    },
+
     confirm () {
-      LocalStorage.set(SETTINGS_KEY, this.opts)
-      this.emitChanges()
-      this.close()
+      this.resolve({
+        darkMode: this.darkMode,
+        parSpaceBetween: this.parSpaceBetween,
+        parIdentFirstLine: this.parIdentFirstLine
+      })
+      this.isOpen = false
     }
   }
 }
 </script>
 
 <style scoped lang="stylus">
-@require '../themes/app.variables'
 </style>
