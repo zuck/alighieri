@@ -1,4 +1,4 @@
-![Alighieri logo](https://cdn.jsdelivr.net/gh/zuck/alighieri@master/art/logo.svg | width=128)
+<img src="https://cdn.jsdelivr.net/gh/zuck/alighieri@master/art/logo.svg" alt="Alighieri" width="128"/>
 
 # Alighieri
 
