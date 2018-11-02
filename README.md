@@ -1,10 +1,10 @@
-<img src="https://cdn.jsdelivr.net/gh/zuck/alighieri@master/art/logo.svg" alt="Alighieri" width="128"/>
+<img src="https://cdn.jsdelivr.net/gh/zuck/alighieri@HEAD/art/logo.svg" alt="Alighieri" width="128"/>
 
 # Alighieri
 
 > A distraction-free tool for novelists and writers
 
-![Alighieri UX](https://cdn.jsdelivr.net/gh/zuck/alighieri@master/art/screenshot.png)
+![Alighieri UX](https://cdn.jsdelivr.net/gh/zuck/alighieri@HEAD/art/screenshot.png)
 
 ## Start your masterpiece
 
