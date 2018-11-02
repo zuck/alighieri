@@ -442,10 +442,6 @@ export default {
     },
 
     exit (evt) {
-      if (evt && this.isChanged) {
-        evt.returnValue = false
-      }
-
       if (this.$q.electron) {
         const closeFunc = () => {
           window.onbeforeunload = null
