@@ -1,6 +1,6 @@
 {
   "name": "alighieri",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "A distraction-free tool for novelists and writers",
   "productName": "Alighieri",
   "cordovaId": "org.cordova.alighieri",
