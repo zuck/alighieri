@@ -50,6 +50,12 @@ $ quasar build [-m pwa]
 $ quasar build -m electron
 ```
 
+## Have you found a bug?
+
+Please open a new issue on:
+
+https://github.com/zuck/alighieri/issues
+
 ## License
 
 Copyright (c) 2017 - 2018 Emanuele Bertoldi
