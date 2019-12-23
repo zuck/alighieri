@@ -243,7 +243,7 @@ export default {
     margin-bottom: 0;
   }
 
-  &.parIdentFirstLine p {
+  &.parIndentFirstLine p {
     text-indent: 2rem;
   }
 

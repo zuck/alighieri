@@ -15,7 +15,7 @@
       <legend class="caption">{{ $t('Paragraphs') }}</legend>
       <q-checkbox v-model="parSpaceBetween" :label="$t('Space between')"/>
       <br>
-      <q-checkbox v-model="parIdentFirstLine" :label="$t('Ident first line')"/>
+      <q-checkbox v-model="parIndentFirstLine" :label="$t('Indent first line')"/>
     </form>
   </q-dialog>
 </template>
@@ -38,7 +38,7 @@ export default {
       reject: null,
       darkMode: null,
       parSpaceBetween: null,
-      parIdentFirstLine: null
+      parIndentFirstLine: null
     }
   },
 
@@ -50,7 +50,7 @@ export default {
         this.reject = err => reject(err)
         this.darkMode = settings.darkMode
         this.parSpaceBetween = settings.parSpaceBetween
-        this.parIdentFirstLine = settings.parIdentFirstLine
+        this.parIndentFirstLine = settings.parIndentFirstLine
       })
     },
 
@@ -63,7 +63,7 @@ export default {
       this.resolve({
         darkMode: this.darkMode,
         parSpaceBetween: this.parSpaceBetween,
-        parIdentFirstLine: this.parIdentFirstLine
+        parIndentFirstLine: this.parIndentFirstLine
       })
       this.isOpen = false
     }

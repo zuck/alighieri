@@ -14,7 +14,7 @@ const initialSettings = Object.assign(
   {
     darkMode: false,
     parSpaceBetween: true,
-    parIdentFirstLine: false
+    parIndentFirstLine: false
   },
   LocalStorage.get.item(SETTINGS_KEY)
 )
@@ -37,7 +37,7 @@ const store = new Vuex.Store({
     settings: {
       darkMode: initialSettings.darkMode,
       parSpaceBetween: initialSettings.parSpaceBetween,
-      parIdentFirstLine: initialSettings.parIdentFirstLine
+      parIndentFirstLine: initialSettings.parIndentFirstLine
     }
   },
 
