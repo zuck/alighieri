@@ -61,6 +61,6 @@ https://github.com/zuck/alighieri/issues
 
 ## License
 
-Copyright (c) 2017 - 2018 Emanuele Bertoldi
+Copyright (c) Emanuele Bertoldi
 
 [MIT License](http://en.wikipedia.org/wiki/MIT_License)
