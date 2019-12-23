@@ -41,13 +41,16 @@ $ cd alighieri
 $ npm install
 
 # Serve with hot reload at localhost:8080
-$ npx quasar dev [-m pwa]
+$ quasar dev [-m pwa]
 
 # Build for production with minification
-$ npx quasar build [-m pwa]
+$ quasar build [-m pwa]
 
 # Package the final Electron app
-$ npx quasar build -m electron
+$ quasar build -m electron
+
+# To deploy the bundle to GitHub Pages
+$ npm run deploy
 ```
 
 ## Have you found a bug?
