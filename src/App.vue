@@ -1,5 +1,10 @@
 <template>
-  <div id="q-app">
+  <div
+    id="q-app"
+    :class="{
+      'dark-mode': $store.state.settings.darkMode
+    }"
+  >
     <router-view />
   </div>
 </template>
@@ -9,3 +14,6 @@ export default {
   name: 'App'
 }
 </script>
+
+<style>
+</style>
