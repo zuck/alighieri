@@ -96,7 +96,7 @@ export default {
 
   computed: {
     isChanged () {
-      return this.$store.getters['isChanged']
+      return this.$store.getters.isChanged
     },
 
     charCount () {
