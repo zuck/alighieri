@@ -22,7 +22,7 @@
       </p>
       <q-btn outline :label="$t('Contribute')" @click="goToGitHub()"/>
     </div>
-    <div slot="buttons" slot-scope="props" class="row full-width items-center justify-between">
+    <div slot="buttons" class="row full-width items-center justify-between">
       <span class="text-faded">
         v{{ $options.version }} -
         <a href="#" @click="openLicense()">{{ $options.license }}</a>
@@ -96,22 +96,4 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-@require '~variables';
-
-.product-name {
-  margin-top: 0;
-  margin-bottom: 0;
-  color: $tertiary;
-
-  &:first-letter {
-    text-transform: capitalize;
-  }
-}
-
-.product-description {
-  color: $faded;
-  margin-top: 0;
-  margin-bottom: 0;
-  font-size: 1rem;
-}
 </style>
