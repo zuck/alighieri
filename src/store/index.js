@@ -16,7 +16,7 @@ const initialSettings = Object.assign(
     parSpaceBetween: true,
     parIndentFirstLine: false
   },
-  LocalStorage.get.item(SETTINGS_KEY)
+  LocalStorage.getItem(SETTINGS_KEY)
 )
 
 const updateAddressbarColor = darkMode => {
@@ -45,7 +45,7 @@ const store = new Vuex.Store({
     isChanged (state) {
       return (
         state.lastChange > state.lastSaved &&
-        SessionStorage.get.item(CONTENT_LAST_SAVED_KEY) !== state.contentHTML
+        SessionStorage.getItem(CONTENT_LAST_SAVED_KEY) !== state.contentHTML
       )
     }
   },

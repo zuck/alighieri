@@ -441,9 +441,9 @@ export default {
     },
 
     toggleDarkMode () {
-      this.$store.commit('updateSettings', {
-        darkMode: !this.$store.state.settings.darkMode
-      })
+      const darkMode = !this.$store.state.settings.darkMode
+      this.$store.commit('updateSettings', { darkMode })
+      this.$q.dark.set(darkMode)
     },
 
     exit (evt) {

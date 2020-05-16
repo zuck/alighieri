@@ -1,6 +1,13 @@
 <template>
-  <q-toolbar color="transparent" text-color="grey-6" class="items-center">
-    <q-btn flat dense round icon="menu" aria-label="Menu" @click="$emit('toggleMenu')"/>
+  <q-toolbar :class="style">
+    <q-btn
+      flat
+      dense
+      round
+      aria-label="Menu"
+      icon="menu"
+      @click="$emit('toggleMenu')"
+    />
     <q-toolbar-title class="items-center">
       <q-btn
         flat
@@ -11,7 +18,13 @@
         :color="isChanged ? 'negative' : 'positive'"
         @click="$emit('save')"
       />
-      <small>{{ charCount }} / {{ wordCount }} / {{ sentenceCount }}</small>
+      <small class="counters">
+        <span :title="$t('Chars')">{{ charCount }}</span>
+        /
+        <span :title="$t('Words')">{{ wordCount }}</span>
+        /
+        <span :title="$t('Sentences')">{{ sentenceCount }}</span>
+      </small>
     </q-toolbar-title>
     <q-btn flat dense round icon="lightbulb_outline" @click="$emit('toggleDarkMode')"/>
     <q-btn flat dense round icon="help_outline" aria-label="Help">
@@ -111,15 +124,21 @@ export default {
 
     sentenceCount () {
       return this.$store.state.sentences.length
+    },
+
+    style () {
+      const colors = (this.$store.state.settings.darkMode)
+        ? 'bg-primary text-white'
+        : 'bg-white text-primary'
+      return `${colors} item-center`
     }
   }
 }
 </script>
 
 <style scoped lang="stylus">
-@require '~variables';
-
-abbr {
+abbr,
+.counters {
   cursor: help;
 }
 

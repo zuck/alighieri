@@ -90,7 +90,7 @@ export default {
 
   mounted () {
     // Get last session content
-    const html = this.$q.localStorage.get.item(CONTENT_BACKUP_KEY) || ''
+    const html = this.$q.localStorage.getItem(CONTENT_BACKUP_KEY) || ''
     this.$store.dispatch('updateContent', html)
 
     // Focus editor
@@ -114,9 +114,6 @@ export default {
 </script>
 
 <style lang="stylus">
-@import '~variables';
-@import url('https://fonts.googleapis.com/css?family=Spectral|Spectral+SC');
-
 #editor {
   display: block;
   box-sizing: border-box;
@@ -201,7 +198,7 @@ export default {
     }
 
     thead td, thead th {
-      border-color: $tertiary;
+      border-color: $accent;
     }
 
     @media screen and (max-width: $breakpoint-xs) {
@@ -247,15 +244,17 @@ export default {
     text-indent: 2rem;
   }
 
+/*
   &.darkMode {
     hr, blockquote {
-      border-color: lighten($tertiary, 10%);
+      border-color: lighten($accent, 10%);
     }
 
     pre {
-      background-color: lighten($tertiary, 10%);
+      background-color: lighten($accent, 10%);
     }
   }
+*/
 
   @media screen and (min-width: $breakpoint-sm-min) {
     h1 {

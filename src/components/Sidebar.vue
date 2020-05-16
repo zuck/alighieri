@@ -1,52 +1,135 @@
 <template>
-  <q-list no-border link="">
-    <q-list-header class="q-pa-md text-center">
-      <img src="~assets/logo.svg" width="90px">
-    </q-list-header>
-    <q-item @click.native="$emit('new')">
-      <q-item-side icon="add"/>
-      <q-item-main :label="$t('New...')" :sublabel="$t('Create a new file')"/>
+  <q-list>
+    <q-item-label header class="text-center">
+      <img
+        src="~assets/logo.svg"
+        width="80px"
+        class="cursor-pointer"
+        :title="$t('What\'s this?')"
+        @click="$emit('about')"
+      >
+    </q-item-label>
+    <q-separator />
+    <q-item
+      clickable
+      v-ripple
+      :title="$t('Create a new file')"
+      @click.native="$emit('new')"
+    >
+      <q-item-section avatar>
+        <q-icon name="add" />
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>{{ $t('New...') }}</q-item-label>
+      </q-item-section>
     </q-item>
-    <q-item-separator/>
-    <q-item @click.native="$emit('open')">
-      <q-item-side icon="folder open"/>
-      <q-item-main :label="$t('Open')" :sublabel="$t('Open an existing file')"/>
+    <q-item
+      clickable
+      v-ripple
+      :title="$t('Open an existing file')"
+      @click.native="$emit('open')"
+    >
+      <q-item-section avatar>
+        <q-icon name="folder_open" />
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>{{ $t('Open') }}</q-item-label>
+      </q-item-section>
     </q-item>
-    <q-item @click.native="$emit('import')">
-      <q-item-side icon="file upload"/>
-      <q-item-main :label="$t('Import')" :sublabel="$t('Import from other formats')"/>
+    <q-item
+      clickable
+      v-ripple
+      :title="$t('Save your work')"
+      @click.native="$emit('save')"
+    >
+      <q-item-section avatar>
+        <q-icon name="save" />
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>{{ $t('Save') }}</q-item-label>
+      </q-item-section>
     </q-item>
-    <q-item-separator/>
-    <q-item @click.native="$emit('save')">
-      <q-item-side icon="save"/>
-      <q-item-main :label="$t('Save')" :sublabel="$t('Save your work')"/>
+    <q-item
+      clickable
+      v-ripple
+      :title="$t('Save to destination')"
+      @click.native="$emit('saveAs')"
+    >
+      <q-item-section avatar>
+        <q-icon name="save" />
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>{{ $t('Save as') }}</q-item-label>
+      </q-item-section>
     </q-item>
-    <q-item @click.native="$emit('saveAs')">
-      <q-item-side icon="save"/>
-      <q-item-main :label="$t('Save as')" :sublabel="$t('Save to destination')"/>
+    <q-separator />
+    <q-item
+      clickable
+      v-ripple
+      :title="$t('Import from other formats')"
+      @click.native="$emit('import')"
+    >
+      <q-item-section avatar>
+        <q-icon name="file_upload" />
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>{{ $t('Import') }}</q-item-label>
+      </q-item-section>
     </q-item>
-    <q-item @click.native="$emit('exportAs')">
-      <q-item-side icon="file download"/>
-      <q-item-main :label="$t('Export')" :sublabel="$t('Export to another format')"/>
+    <q-item
+      clickable
+      v-ripple
+      :title="$t('Export to another format')"
+      @click.native="$emit('exportAs')"
+    >
+      <q-item-section avatar>
+        <q-icon name="file_download" />
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>{{ $t('Export') }}</q-item-label>
+      </q-item-section>
     </q-item>
-    <q-item-separator/>
-    <q-item @click.native="$emit('print')">
-      <q-item-side icon="print"/>
-      <q-item-main :label="$t('Print')" :sublabel="$t('Print your work')"/>
+    <q-item
+      clickable
+      v-ripple
+      :title="$t('Print your work')"
+      @click.native="$emit('print')"
+    >
+      <q-item-section avatar>
+        <q-icon name="print" />
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>{{ $t('Print') }}</q-item-label>
+      </q-item-section>
     </q-item>
-    <q-item-separator/>
-    <q-item @click.native="$emit('settings')">
-      <q-item-side icon="settings"/>
-      <q-item-main :label="$t('Settings')" :sublabel="$t('Adjust to your taste')"/>
+    <q-separator />
+    <q-item
+      clickable
+      v-ripple
+      :title="$t('Adjust to your taste')"
+      @click.native="$emit('settings')"
+    >
+      <q-item-section avatar>
+        <q-icon name="settings" />
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>{{ $t('Settings') }}</q-item-label>
+      </q-item-section>
     </q-item>
-    <q-item @click.native="$emit('about')">
-      <q-item-side icon="school"/>
-      <q-item-main :label="$t('About')" :sublabel="$t('What\'s this?')"/>
-    </q-item>
-    <q-item-separator v-if="$q.platform.is.electron"/>
-    <q-item @click.native="$emit('exit')" v-if="$q.platform.is.electron">
-      <q-item-side icon="exit to app"/>
-      <q-item-main :label="$t('Exit')" :sublabel="$t('Close the application')"/>
+    <q-separator v-if="$q.platform.is.electron"/>
+    <q-item
+      v-if="$q.platform.is.electron"
+      clickable
+      v-ripple
+      :title="$t('Close the application')"
+      @click.native="$emit('exit')"
+    >
+      <q-item-section avatar>
+        <q-icon name="exit_to_app"/>
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>{{ $t('Exit') }}</q-item-label>
+      </q-item-section>
     </q-item>
   </q-list>
 </template>
@@ -56,6 +139,3 @@ export default {
   name: 'sidebar'
 }
 </script>
-
-<style scoped lang="stylus">
-</style>

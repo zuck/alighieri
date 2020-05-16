@@ -1,1 +1,19 @@
 // app global css in Stylus form
+@import url('https://fonts.googleapis.com/css?family=Spectral|Spectral+SC')
+
+@media print {
+  @page {
+    size: auto;
+    margin: 25mm;
+    orphans: 2;
+    widows: 3;
+  }
+
+  body {
+    font-size: 10pt;
+    background-color: transparent;
+    overflow: auto;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+}
