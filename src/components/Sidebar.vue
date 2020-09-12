@@ -1,15 +1,21 @@
 <template>
-  <q-list>
-    <q-item-label header class="text-center">
-      <img
-        src="~assets/logo.svg"
-        width="80px"
-        class="cursor-pointer"
-        :title="$t('What\'s this?')"
-        @click="$emit('about')"
-      >
-    </q-item-label>
-    <q-separator />
+  <q-list class="text-uppercase">
+    <q-item header>
+      <q-item-section avatar>
+        <q-avatar>
+          <img
+            src="~assets/logo.svg"
+            class="cursor-pointer"
+            :title="$t('What\'s this?')"
+            @click="$emit('about')"
+          >
+        </q-avatar>
+      </q-item-section>
+      <q-item-section class="text-right">
+        <q-item-label>v{{ appInfo.version }}</q-item-label>
+      </q-item-section>
+    </q-item>
+    <q-separator/>
     <q-item
       clickable
       v-ripple
@@ -17,7 +23,7 @@
       @click.native="$emit('new')"
     >
       <q-item-section avatar>
-        <q-icon name="add" />
+        <q-icon name="add_circle" />
       </q-item-section>
       <q-item-section>
         <q-item-label>{{ $t('New...') }}</q-item-label>
@@ -56,7 +62,7 @@
       @click.native="$emit('saveAs')"
     >
       <q-item-section avatar>
-        <q-icon name="save" />
+        <q-icon name="move_to_inbox" />
       </q-item-section>
       <q-item-section>
         <q-item-label>{{ $t('Save as') }}</q-item-label>
@@ -70,7 +76,7 @@
       @click.native="$emit('import')"
     >
       <q-item-section avatar>
-        <q-icon name="file_upload" />
+        <q-icon name="cloud_upload" />
       </q-item-section>
       <q-item-section>
         <q-item-label>{{ $t('Import') }}</q-item-label>
@@ -83,7 +89,7 @@
       @click.native="$emit('exportAs')"
     >
       <q-item-section avatar>
-        <q-icon name="file_download" />
+        <q-icon name="cloud_download" />
       </q-item-section>
       <q-item-section>
         <q-item-label>{{ $t('Export') }}</q-item-label>
@@ -136,6 +142,12 @@
 
 <script>
 export default {
-  name: 'sidebar'
+  name: 'siebar',
+
+  computed: {
+    appInfo () {
+      return this.$store.getters['base/appInfo']
+    }
+  }
 }
 </script>
