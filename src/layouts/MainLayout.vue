@@ -27,8 +27,6 @@
 <script>
 import Navbar from 'components/Navbar'
 import Sidebar from 'components/Sidebar'
-import { LocalStorage } from 'quasar'
-import { MENU_OPEN_CACHE_KEY, DARK_MODE_CACHE_KEY } from '../config'
 
 export default {
   name: 'MainLayout',
@@ -38,31 +36,29 @@ export default {
     Sidebar
   },
 
+  computed: {
+    menuOpen () {
+      return this.$store.state.base.menuOpen
+    }
+  },
+
   data () {
     return {
-      menuOpen: false,
       menuMini: true
     }
   },
 
   mounted () {
-    this.menuOpen = LocalStorage.getItem(MENU_OPEN_CACHE_KEY)
-    this.$q.dark.set(LocalStorage.getItem(DARK_MODE_CACHE_KEY))
+    this.$q.dark.set(this.$store.state.base.darkMode)
   },
 
   methods: {
     toggleMenu () {
-      this.menuOpen = !this.menuOpen
-      this.$nextTick().then(() => {
-        LocalStorage.set(MENU_OPEN_CACHE_KEY, this.menuOpen)
-      })
+      this.$store.commit('base/toggleMenu')
     },
 
     toggleDarkMode () {
-      this.$q.dark.toggle()
-      this.$nextTick().then(() => {
-        LocalStorage.set(DARK_MODE_CACHE_KEY, this.$q.dark.isActive)
-      })
+      this.$store.commit('base/toggleDarkMode')
     }
   }
 }

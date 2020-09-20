@@ -1,8 +1,7 @@
 import { debounce } from 'quasar'
 import { calculateStats } from '../../utils/counter'
 import { convertHtmlToTxt } from '../../utils/conversion'
-
-const DEBOUNCE_TIME = 150
+import { UPDATE_STATS_DEBOUNCE_TIME } from '../../config'
 
 export function updateContent ({ commit, dispatch }, html) {
   commit('setContentHTML', html)
@@ -19,4 +18,9 @@ function _updateStats ({ state, commit }) {
   commit('setParagraphCount', paragraphCount)
 }
 
-export const updateStats = debounce(_updateStats, DEBOUNCE_TIME)
+export const updateStats = debounce(_updateStats, UPDATE_STATS_DEBOUNCE_TIME)
+
+export function saveFile ({ commit }) {
+  commit('saveContentHTML')
+  commit('setLastSave')
+}

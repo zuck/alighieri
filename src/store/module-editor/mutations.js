@@ -1,9 +1,23 @@
 import { LocalStorage } from 'quasar'
-import { CONTENT_CACHE_KEY } from '../../config'
+import {
+  CONTENT_CACHE_KEY,
+  CONTENT_LAST_SAVE_CACHE_KEY,
+  CONTENT_LAST_SAVE_DATETIME_CACHE_KEY
+} from '../../config'
 
 export function setContentHTML (state, html) {
   state.contentHTML = html
   LocalStorage.set(CONTENT_CACHE_KEY, html)
+}
+
+export function saveContentHTML (state, html) {
+  LocalStorage.set(CONTENT_LAST_SAVE_CACHE_KEY, state.contentHTML)
+}
+
+export function setLastSave (state, lastSave) {
+  const value = lastSave || new Date()
+  state.lastSave = value
+  LocalStorage.set(CONTENT_LAST_SAVE_DATETIME_CACHE_KEY, value)
 }
 
 export function setLastChange (state, lastChange) {
