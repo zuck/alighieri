@@ -1,6 +1,6 @@
 <template>
   <q-page padding class="column full-height">
-    <editor class="col editor"/>
+    <editor class="col"/>
   </q-page>
 </template>
 
@@ -56,6 +56,4 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-.editor
-  cursor text
 </style>
