@@ -1,3 +1,10 @@
-// app global css in Stylus form
 .bg-dark-page
   background-color $dark-page
+
+@media print
+  .q-header,
+  .q-drawer
+    display none
+
+  .q-page-container
+    padding 0 !important
