@@ -171,6 +171,9 @@ export default {
   &:focus
     outline: none
 
+  @media print
+    font-size 1rem
+
   h1, h2, h3, h4, h5, h6
     margin 1em 0
     font-family 'Spectral', serif
@@ -204,15 +207,14 @@ export default {
     margin-top -.5em
 
   p,
-  blockquote,
   pre
     margin-bottom 1.25em
 
   code,
   pre
     border-radius: .5rem
-    color: white
-    background-color: black
+    color: $grey-1
+    background-color: $grey-10
 
   code
     padding: .25rem .5rem
@@ -223,6 +225,14 @@ export default {
     code
       padding: 0
 
+  blockquote
+    margin 2.5rem 0
+    padding-left 2rem
+    padding-right 2rem
+    border-left 5px solid $grey-5
+    font-size 1.25em
+    line-height 1.75em
+
   hr
     margin 4rem auto
     max-width 10rem
@@ -231,11 +241,15 @@ export default {
     color $accent
     cursor pointer
 
+  strong,
+  b
+    font-weight 800
+
 .editor-menububble
   position absolute
   display flex
   z-index $z-top
-  background black
+  background $grey-10
   border-radius 5px
   padding 0.3rem
   margin-bottom 0.5rem
@@ -253,7 +267,7 @@ export default {
     background transparent
     border 0
     outline none
-    color white
+    color $grey-5
     font-size 1.5rem
     padding 0.2rem 0.5rem
     margin-right 0.2rem
@@ -264,22 +278,27 @@ export default {
       margin-right 0
 
     &:hover
+      color $grey-5 !important
       background-color rgba(white, 0.2)
 
     &.is-active
       background-color $accent
-      color white !important
+      color $grey-1 !important
 
 .body--dark
   .ProseMirror
     pre,
     code
-      color: black
-      background-color: white
+      color $grey-10
+      background-color $grey-1
 
   .editor-menububble
-    background white
+    background $grey-1
 
     button
-      color black
+      color $grey-10
+
+      &:hover
+        color $grey-10 !important
+        background-color rgba(black, 0.2)
 </style>
