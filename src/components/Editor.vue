@@ -128,6 +128,26 @@ export default {
 
   beforeDestroy () {
     this.editor.destroy()
+  },
+
+  methods: {
+    focus () {
+      this.editor.focus()
+    },
+
+    setContent (content) {
+      const current = this.editor.getHTML()
+      if (content !== current) {
+        this.editor.setContent(content)
+        this.editor.focus()
+      }
+    }
+  },
+
+  watch: {
+    '$store.state.editor.contentHTML': function (val) {
+      this.setContent(val)
+    }
   }
 }
 </script>
@@ -138,6 +158,7 @@ export default {
 
 .editor
   cursor text
+  padding-top 1rem
 
 .ProseMirror
   max-width 700px
@@ -213,7 +234,7 @@ export default {
 .editor-menububble
   position absolute
   display flex
-  z-index 20
+  z-index $z-top
   background black
   border-radius 5px
   padding 0.3rem

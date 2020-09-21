@@ -1,6 +1,6 @@
 <template>
-  <q-page padding class="column full-height">
-    <editor class="col"/>
+  <q-page padding class="column full-height" @click.native="onFocus">
+    <editor ref="editor" class="col"/>
   </q-page>
 </template>
 
@@ -25,8 +25,8 @@ export default {
   },
 
   methods: {
-    onExit (evt) {
-      // TODO: ...
+    onFocus (evt) {
+      this.$refs.editor.focus()
     },
 
     onKeyDown (evt) {
