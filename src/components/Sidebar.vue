@@ -20,7 +20,7 @@
       clickable
       v-ripple
       :title="$t('Create a new file')"
-      @click.native="$emit('new')"
+      @click.native="$emit('newFile')"
     >
       <q-item-section avatar>
         <q-icon name="add_circle" />
@@ -33,7 +33,7 @@
       clickable
       v-ripple
       :title="$t('Open an existing file')"
-      @click.native="$emit('open')"
+      @click.native="$emit('openFile')"
     >
       <q-item-section avatar>
         <q-icon name="folder_open" />
@@ -46,7 +46,7 @@
       clickable
       v-ripple
       :title="$t('Save your work')"
-      @click.native="$emit('save')"
+      @click.native="$emit('saveFile')"
     >
       <q-item-section avatar>
         <q-icon name="save" />
@@ -59,7 +59,7 @@
       clickable
       v-ripple
       :title="$t('Save to destination')"
-      @click.native="$emit('saveAs')"
+      @click.native="$emit('saveFileAs')"
     >
       <q-item-section avatar>
         <q-icon name="move_to_inbox" />
@@ -73,7 +73,7 @@
       clickable
       v-ripple
       :title="$t('Import from other formats')"
-      @click.native="$emit('import')"
+      @click.native="$emit('importFile')"
     >
       <q-item-section avatar>
         <q-icon name="cloud_upload" />
@@ -86,7 +86,7 @@
       clickable
       v-ripple
       :title="$t('Export to another format')"
-      @click.native="$emit('exportAs')"
+      @click.native="$emit('exportFileAs')"
     >
       <q-item-section avatar>
         <q-icon name="cloud_download" />
@@ -99,7 +99,7 @@
       clickable
       v-ripple
       :title="$t('Print your work')"
-      @click.native="$emit('print')"
+      @click.native="$emit('printFile')"
     >
       <q-item-section avatar>
         <q-icon name="print" />

@@ -16,3 +16,11 @@ export function toggleDarkMode (state) {
   Dark.set(value)
   LocalStorage.set(DARK_MODE_CACHE_KEY, value)
 }
+
+export function setAboutVisible (state, value) {
+  state.aboutVisible = value
+}
+
+export function setSettingsVisible (state, value) {
+  state.settingsVisible = value
+}

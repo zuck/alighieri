@@ -2,20 +2,32 @@
   <q-layout view="lHh lpr lFf">
     <q-header class="bg-transparent">
       <navbar
-        @toggleDarkMode="toggleDarkMode"
-        @toggleMenu="toggleMenu"
+        @toggleDarkMode="onToggleDarkMode"
+        @toggleMenu="onToggleMenu"
       />
     </q-header>
 
     <q-drawer
       mini-to-overlay
       bordered
-      v-model="menuOpen"
+      :value="menuOpen"
       :mini="menuMini"
       @mouseover="menuMini = false"
       @mouseout="menuMini = true"
+      @input="onToggleMenu"
     >
-      <sidebar/>
+      <sidebar
+        @about="onAbout"
+        @newFile="onNewFile"
+        @openFile="onOpenFile"
+        @saveFile="onSaveFile"
+        @saveFileAs="onSaveFileAs"
+        @importFile="onImportFile"
+        @exportFileAs="onExportFileAs"
+        @printFile="onPrintFile"
+        @settings="onSettings"
+        @exit="onExit"
+      />
     </q-drawer>
 
     <q-page-container>
@@ -53,12 +65,52 @@ export default {
   },
 
   methods: {
-    toggleMenu () {
+    onToggleMenu () {
       this.$store.commit('base/toggleMenu')
     },
 
-    toggleDarkMode () {
+    onToggleDarkMode () {
       this.$store.commit('base/toggleDarkMode')
+    },
+
+    onAbout () {
+      this.$store.dispatch('base/about')
+    },
+
+    onNewFile () {
+      this.$store.dispatch('editor/newFile')
+    },
+
+    onOpenFile () {
+      this.$store.dispatch('editor/openFile')
+    },
+
+    onSaveFile () {
+      this.$store.dispatch('editor/saveFile')
+    },
+
+    onSaveFileAs () {
+      this.$store.dispatch('editor/saveFileAs')
+    },
+
+    onImportFile () {
+      this.$store.dispatch('editor/importFile')
+    },
+
+    onExportFileAs () {
+      this.$store.dispatch('editor/exportFileAs')
+    },
+
+    onPrintFile () {
+      this.$store.dispatch('editor/printFile')
+    },
+
+    onSettings () {
+      this.$store.dispatch('base/settings')
+    },
+
+    onExit () {
+      this.$store.dispatch('base/exit')
     }
   }
 }

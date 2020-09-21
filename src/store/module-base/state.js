@@ -7,6 +7,8 @@ import {
 export default function () {
   return {
     menuOpen: LocalStorage.getItem(MENU_OPEN_CACHE_KEY),
-    darkMode: LocalStorage.getItem(DARK_MODE_CACHE_KEY)
+    darkMode: LocalStorage.getItem(DARK_MODE_CACHE_KEY),
+    aboutVisible: false,
+    settingsVisible: false
   }
 }

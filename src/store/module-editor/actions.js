@@ -20,7 +20,32 @@ function _updateStats ({ state, commit }) {
 
 export const updateStats = debounce(_updateStats, UPDATE_STATS_DEBOUNCE_TIME)
 
+export function newFile ({ commit, dispatch }) {
+  dispatch('updateContent', '')
+  commit('setLastSave')
+}
+
+export function openFile ({ commit }) {
+  // TODO: ...
+}
+
 export function saveFile ({ commit }) {
   commit('saveContentHTML')
   commit('setLastSave')
+}
+
+export function saveFileAs ({ commit }) {
+  // TODO: ...
+}
+
+export function importFile ({ commit }) {
+  // TODO: ...
+}
+
+export function exportFileAs ({ commit }) {
+  // TODO: ...
+}
+
+export function printFile ({ commit }) {
+  window.print()
 }
