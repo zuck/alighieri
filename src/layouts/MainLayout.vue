@@ -65,6 +65,28 @@ export default {
   },
 
   methods: {
+    async showConfirmDlg (opts) {
+      return new Promise((resolve, reject) => {
+        try {
+          this.$q.dialog(opts)
+            .onOk(data => resolve(data || true))
+            .onCancel(() => resolve(false))
+        } catch (err) {
+          reject(err)
+        }
+      })
+    },
+
+    async confirmChangeDiscard () {
+      const isChanged = this.$store.getters['editor/isChanged']
+      return !isChanged || await this.showConfirmDlg({
+        title: 'There are unsaved changes',
+        message: 'Do you confirm you want to discard them?',
+        cancel: true,
+        persistent: true
+      })
+    },
+
     onToggleMenu () {
       this.$store.commit('base/toggleMenu')
     },
@@ -77,12 +99,18 @@ export default {
       this.$store.dispatch('base/about')
     },
 
-    onNewFile () {
-      this.$store.dispatch('editor/newFile')
+    async onNewFile () {
+      const confirmed = await this.confirmChangeDiscard()
+      if (confirmed) {
+        this.$store.dispatch('editor/newFile')
+      }
     },
 
-    onOpenFile () {
-      this.$store.dispatch('editor/openFile')
+    async onOpenFile () {
+      const confirmed = await this.confirmChangeDiscard()
+      if (confirmed) {
+        this.$store.dispatch('editor/openFile')
+      }
     },
 
     onSaveFile () {
@@ -93,8 +121,11 @@ export default {
       this.$store.dispatch('editor/saveFileAs')
     },
 
-    onImportFile () {
-      this.$store.dispatch('editor/importFile')
+    async onImportFile () {
+      const confirmed = await this.confirmChangeDiscard()
+      if (confirmed) {
+        this.$store.dispatch('editor/importFile')
+      }
     },
 
     onExportFileAs () {
