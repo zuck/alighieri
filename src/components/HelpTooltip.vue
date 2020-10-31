@@ -20,7 +20,7 @@
         <dd>{{ $t('New paragraph') }}</dd>
         <dt>
           <kbd>
-            <q-icon name="keyboard_capslock" :title="$t('Shift')"/>+
+            Shift  +
             <q-icon name="keyboard_return" :title="$t('Enter')"/>
           </kbd>
         </dt>
