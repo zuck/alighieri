@@ -10,6 +10,49 @@
         :class="{ 'is-active': menu.isActive }"
         :style="`left: ${menu.left}px; bottom: ${menu.bottom}px;`"
       >
+        <button
+          :class="{ 'is-active': isActive.heading() }"
+        >
+          <q-icon name="title" />
+          <div class="editor-menububble-popup">
+            <button
+              :class="{ 'is-active': isActive.heading({ level: 1 }) }"
+              @click="commands.heading({ level: 1 })"
+            >
+              H1
+            </button>
+            <button
+              :class="{ 'is-active': isActive.heading({ level: 2 }) }"
+              @click="commands.heading({ level: 2 })"
+            >
+              H2
+            </button>
+            <button
+              :class="{ 'is-active': isActive.heading({ level: 3 }) }"
+              @click="commands.heading({ level: 3 })"
+            >
+              H3
+            </button>
+            <button
+              :class="{ 'is-active': isActive.heading({ level: 4 }) }"
+              @click="commands.heading({ level: 4 })"
+            >
+              H4
+            </button>
+            <button
+              :class="{ 'is-active': isActive.heading({ level: 5 }) }"
+              @click="commands.heading({ level: 5 })"
+            >
+              H5
+            </button>
+            <button
+              :class="{ 'is-active': isActive.heading({ level: 6 }) }"
+              @click="commands.heading({ level: 6 })"
+            >
+              H6
+            </button>
+          </div>
+        </button>
 
         <button
           :class="{ 'is-active': isActive.bold() }"
@@ -37,6 +80,13 @@
           @click="commands.strike"
         >
           <q-icon name="format_strikethrough" />
+        </button>
+
+        <button
+          :class="{ 'is-active': isActive.blockquote() }"
+          @click="commands.blockquote"
+        >
+          <q-icon name="format_quote" />
         </button>
 
         <button
@@ -258,32 +308,60 @@ export default {
   opacity 0
   transition opacity 0.2s, visibility 0.2s
 
-  &.is-active
-    opacity 1
-    visibility visible
+  .editor-menububble-popup
+    position absolute
+    flex-direction column
+    left 0
+    top 0
+    background $grey-10
+
+    button
+      display none
+      margin 0
+
+      &.is-active
+        display inline-flex
 
   button
     display inline-flex
+    position relative
     background transparent
     border 0
     outline none
     color $grey-5
-    font-size 1.5rem
+    font-size 1.2rem
+    font-weight bold
+    line-height 1.5rem
+    vertical-align middle
     padding 0.2rem 0.5rem
     margin-right 0.2rem
     border-radius 3px
     cursor pointer
 
+    .q-icon
+      font-size 1.5rem
+
     &last-child
       margin-right 0
 
     &:hover
+    &:focus
       color $grey-5 !important
       background-color rgba(white, 0.2)
+
+      .editor-menububble-popup
+        display inline-flex
+
+        button
+          display inline-flex
 
     &.is-active
       background-color $accent
       color $grey-1 !important
+
+  &.is-active
+    opacity 1
+    visibility visible
 
 .body--dark
   .ProseMirror
@@ -294,6 +372,9 @@ export default {
 
   .editor-menububble
     background $grey-1
+
+    .editor-menububble-popup
+      background $grey-1
 
     button
       color $grey-10
