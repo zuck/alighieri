@@ -21,29 +21,20 @@ function _updateStats ({ state, commit }) {
 export const updateStats = debounce(_updateStats, UPDATE_STATS_DEBOUNCE_TIME)
 
 export function newFile ({ commit, dispatch }) {
-  dispatch('updateContent', '')
+  dispatch('updateContent', 'Type your masterpiece here...')
+  commit('setFilename', 'masterpiece.html')
   commit('setLastSave')
 }
 
-export function openFile ({ commit }) {
-  // TODO: ...
+export function loadFile ({ commit, dispatch }, file = {}) {
+  commit('setFilename', file.name)
+  dispatch('updateContent', file.html)
+  dispatch('saveFile')
 }
 
 export function saveFile ({ commit }) {
   commit('saveContentHTML')
   commit('setLastSave')
-}
-
-export function saveFileAs ({ commit }) {
-  // TODO: ...
-}
-
-export function importFile ({ commit }) {
-  // TODO: ...
-}
-
-export function exportFileAs ({ commit }) {
-  // TODO: ...
 }
 
 export function printFile ({ commit }) {

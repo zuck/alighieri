@@ -1,6 +1,6 @@
 export default function () {
   return {
-    filename: null,
+    filename: '',
     contentHTML: '',
     charCount: 0,
     wordCount: 0,

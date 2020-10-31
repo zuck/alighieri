@@ -37,8 +37,18 @@
 </template>
 
 <script>
+import { exportFile } from 'quasar'
+import { importFile } from '../utils/loadfile'
+import {
+  extractHtmlContent,
+  convertMdToHtml,
+  convertTxtToHtml,
+  convertHtmlToMd,
+  convertHtmlToTxt
+} from '../utils/conversion'
 import Navbar from 'components/Navbar'
 import Sidebar from 'components/Sidebar'
+import SaveDialog from 'components/SaveDialog'
 
 export default {
   name: 'MainLayout',
@@ -77,11 +87,27 @@ export default {
       })
     },
 
+    async showSaveAsDlg (opts) {
+      return new Promise((resolve, reject) => {
+        try {
+          this.$q.dialog({
+            component: SaveDialog,
+            parent: this,
+            ...opts
+          })
+            .onOk(data => resolve(data || true))
+            .onCancel(() => resolve(false))
+        } catch (err) {
+          reject(err)
+        }
+      })
+    },
+
     async confirmChangeDiscard () {
       const isChanged = this.$store.getters['editor/isChanged']
       return !isChanged || await this.showConfirmDlg({
-        title: 'There are unsaved changes',
-        message: 'Do you confirm you want to discard them?',
+        title: this.$t('There are unsaved changes'),
+        message: this.$t('Do you confirm you want to discard them?'),
         cancel: true,
         persistent: true
       })
@@ -109,7 +135,11 @@ export default {
     async onOpenFile () {
       const confirmed = await this.confirmChangeDiscard()
       if (confirmed) {
-        this.$store.dispatch('editor/openFile')
+        const file = await importFile(['text/html'])
+        this.$store.dispatch('editor/loadFile', {
+          name: file.name,
+          html: extractHtmlContent(file.content)
+        })
       }
     },
 
@@ -117,19 +147,59 @@ export default {
       this.$store.dispatch('editor/saveFile')
     },
 
-    onSaveFileAs () {
-      this.$store.dispatch('editor/saveFileAs')
+    async onSaveFileAs () {
+      const res = await this.showSaveAsDlg({
+        filename: this.$store.state.editor.filename
+      })
+      if (res.filename) {
+        const filename = `${res.filename}.${res.ext}`
+        const content = this.$store.state.editor.contentHTML
+        const confirmed = exportFile(filename, content, 'text/html')
+        if (confirmed) {
+          this.$store.commit('editor/setFilename', filename)
+          this.$store.dispatch('editor/saveFile')
+        }
+      }
     },
 
     async onImportFile () {
       const confirmed = await this.confirmChangeDiscard()
       if (confirmed) {
-        this.$store.dispatch('editor/importFile')
+        const file = await importFile(['.md', 'text/plain'])
+        let html = ''
+        switch (file.type) {
+          case 'text/markdown':
+            html = convertMdToHtml(file.content)
+            break
+          default:
+            html = convertTxtToHtml(file.content)
+            break
+        }
+        this.$store.dispatch('editor/loadFile', {
+          name: file.name,
+          html
+        })
       }
     },
 
-    onExportFileAs () {
-      this.$store.dispatch('editor/exportFileAs')
+    async onExportFileAs () {
+      const res = await this.showSaveAsDlg({
+        filename: this.$store.state.editor.filename,
+        title: this.$t('Export as'),
+        extensions: ['md', 'txt']
+      })
+      if (res) {
+        const html = this.$store.state.editor.contentHTML
+        const filename = `${res.filename}.${res.ext}`
+        switch (res.ext) {
+          case 'md':
+            exportFile(filename, convertHtmlToMd(html), 'text/markdown')
+            break
+          default:
+            exportFile(filename, convertHtmlToTxt(html), 'text/plain')
+            break
+        }
+      }
     },
 
     onPrintFile () {

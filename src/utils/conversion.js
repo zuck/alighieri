@@ -1,10 +1,28 @@
+import { Converter } from 'showdown'
+import { htmlToText } from 'html-to-text'
+
+const mdConverter = new Converter()
+mdConverter.setFlavor('github')
+
 export function convertHtmlToTxt (html) {
-  return (html || '')
-    .replace(/<p(?:.|\n)*?>/gm, '\n\n')
-    .replace(/<h\d+(?:.|\n)*?>/gm, '\n\n')
-    .replace(/<li(?:.|\n)*?>/gm, '\n\n')
-    .replace(/<br\s*\/*>/g, '\n')
-    .replace(/\n\n\n/g, '\n\n')
-    .replace(/<(?:.|\n)*?>/gm, '')
-    .trim()
+  return htmlToText(html || '')
+}
+
+export function convertTxtToHtml (txt) {
+  return `<!DOCTYPE html><html><body>${txt || ''}</body></html>`
+}
+
+export function convertHtmlToMd (html) {
+  return mdConverter.makeMarkdown(html || '')
+}
+
+export function convertMdToHtml (md) {
+  return mdConverter.makeHtml(md || '')
+}
+
+export function extractHtmlContent (html) {
+  const tokens = (html || '').split('<body>')
+  return (tokens.length > 1)
+    ? tokens[1].replace('</body>', '').replace('</html>', '')
+    : tokens[0]
 }

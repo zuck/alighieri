@@ -1,12 +1,18 @@
 import { LocalStorage } from 'quasar'
 import {
+  FILENAME_CACHE_KEY,
   CONTENT_CACHE_KEY,
   CONTENT_LAST_SAVE_CACHE_KEY,
   CONTENT_LAST_SAVE_DATETIME_CACHE_KEY
 } from '../../config'
 
+export function setFilename (state, filename) {
+  state.filename = filename || ''
+  LocalStorage.set(FILENAME_CACHE_KEY, filename)
+}
+
 export function setContentHTML (state, html) {
-  state.contentHTML = html
+  state.contentHTML = html || ''
   LocalStorage.set(CONTENT_CACHE_KEY, html)
 }
 
