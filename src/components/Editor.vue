@@ -260,6 +260,10 @@ export default {
   pre
     margin-bottom 1.25em
 
+  li
+    p
+      margin-bottom 0
+
   code,
   pre
     border-radius: .5rem
