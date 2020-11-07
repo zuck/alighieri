@@ -1,5 +1,5 @@
 <template>
-  <div class="editor">
+  <div :class="classNames">
     <editor-menu-bubble
       :editor="editor"
       :keep-in-bounds="keepInBounds"
@@ -141,6 +141,17 @@ export default {
     }
   },
 
+  computed: {
+    classNames () {
+      const value = this.$store.getters['base/settings']
+      return {
+        editor: true,
+        'par-space-between': value.parSpaceBetween,
+        'par-indent-first-line': value.parIndentFirstLine
+      }
+    }
+  },
+
   mounted () {
     const html = LocalStorage.getItem(CONTENT_CACHE_KEY)
     this.$store.dispatch('editor/updateContent', html)
@@ -259,7 +270,7 @@ export default {
 
   p,
   pre
-    margin-bottom 1.25em
+    margin-bottom 0
 
   li
     p
@@ -387,4 +398,15 @@ export default {
       &:hover
         color $grey-10 !important
         background-color rgba(black, 0.2)
+
+.par-space-between
+  .ProseMirror
+    p,
+    pre
+      margin-bottom 0.5em
+
+.par-indent-first-line
+  .ProseMirror
+    p
+      text-indent 2rem
 </style>

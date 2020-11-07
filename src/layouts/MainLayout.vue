@@ -49,6 +49,7 @@ import {
 import Navbar from 'components/Navbar'
 import Sidebar from 'components/Sidebar'
 import SaveDialog from 'components/SaveDialog'
+import SettingsDialog from 'components/SettingsDialog'
 
 export default {
   name: 'MainLayout',
@@ -103,6 +104,22 @@ export default {
       })
     },
 
+    async showSettingsDlg (opts) {
+      return new Promise((resolve, reject) => {
+        try {
+          this.$q.dialog({
+            component: SettingsDialog,
+            parent: this,
+            ...opts
+          })
+            .onOk(data => resolve(data || true))
+            .onCancel(() => resolve(false))
+        } catch (err) {
+          reject(err)
+        }
+      })
+    },
+
     async confirmChangeDiscard () {
       const isChanged = this.$store.getters['editor/isChanged']
       return !isChanged || await this.showConfirmDlg({
@@ -118,7 +135,7 @@ export default {
     },
 
     onToggleDarkMode () {
-      this.$store.commit('base/toggleDarkMode')
+      this.$store.dispatch('base/toggleDarkMode')
     },
 
     onAbout () {
@@ -206,12 +223,18 @@ export default {
       this.$store.dispatch('editor/printFile')
     },
 
-    onSettings () {
-      this.$store.dispatch('base/settings')
+    async onSettings () {
+      const settings = await this.showSettingsDlg()
+      if (settings) {
+        this.$store.dispatch('base/updateSettings', settings)
+      }
     },
 
-    onExit () {
-      this.$store.dispatch('base/exit')
+    async onExit () {
+      const confirmed = await this.confirmChangeDiscard()
+      if (confirmed) {
+        this.$store.dispatch('base/exit')
+      }
     }
   }
 }

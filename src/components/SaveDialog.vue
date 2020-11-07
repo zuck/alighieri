@@ -1,7 +1,7 @@
 <template>
   <q-dialog ref="dialog" @hide="onDialogHide">
     <q-card class="q-dialog-plugin">
-      <q-card-section class="row items-center q-pb-none">
+      <q-card-section class="row items-center">
         <div class="text-h6">{{ title || $t('Save as') }}</div>
       </q-card-section>
       <q-card-section>
@@ -32,8 +32,12 @@
 </template>
 
 <script>
+import DialogMixin from '../mixins/DialogMixin'
+
 export default {
   name: 'SaveDialog',
+
+  mixins: [DialogMixin],
 
   props: {
     title: String,
@@ -56,28 +60,11 @@ export default {
   },
 
   methods: {
-    show () {
-      this.$refs.dialog.show()
-    },
-
-    hide () {
-      this.$refs.dialog.hide()
-    },
-
-    onDialogHide () {
-      this.$emit('hide')
-    },
-
-    onOKClick () {
-      this.$emit('ok', {
+    getOkResponse () {
+      return {
         filename: this.fn,
         ext: this.ext
-      })
-      this.hide()
-    },
-
-    onCancelClick () {
-      this.hide()
+      }
     }
   }
 }
