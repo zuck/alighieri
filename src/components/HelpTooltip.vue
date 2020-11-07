@@ -38,6 +38,12 @@
         </dt>
         <dd>{{ $t('New bullet list') }}</dd>
         <dt>
+          <kbd>--- +
+            <q-icon name="keyboard_return" :title="$t('Enter')"/>
+          </kbd>
+        </dt>
+        <dd>{{ $t('New page break') }}</dd>
+        <dt>
           <kbd>&lt;&lt;</kbd>
         </dt>
         <dd>&laquo;</dd>
@@ -45,12 +51,6 @@
           <kbd>&gt;&gt;</kbd>
         </dt>
         <dd>&raquo;</dd>
-        <dt>
-          <kbd>--- +
-            <q-icon name="keyboard_return" :title="$t('Enter')"/>
-          </kbd>
-        </dt>
-        <dd>{{ $t('New page break') }}</dd>
         <template v-if="!$q.platform.is.mobile">
           <dt>
             <kbd>Ctrl + O</kbd>
