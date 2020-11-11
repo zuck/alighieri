@@ -2,7 +2,7 @@
   <q-list class="text-uppercase">
     <q-item header>
       <q-item-section avatar>
-        <q-avatar>
+        <q-avatar class="full-width text-center">
           <img
             src="~assets/logo.svg"
             class="cursor-pointer"
@@ -10,9 +10,6 @@
             @click="$emit('about')"
           >
         </q-avatar>
-      </q-item-section>
-      <q-item-section class="text-right">
-        <q-item-label>v{{ appInfo.version }}</q-item-label>
       </q-item-section>
     </q-item>
     <q-separator/>

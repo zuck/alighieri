@@ -1,4 +1,4 @@
-import { name, version, description, productName, author } from '../../../package.json'
+import { name, version, description, productName, author, repository, license } from '../../../package.json'
 
 export function appInfo () {
   return {
@@ -6,7 +6,9 @@ export function appInfo () {
     version,
     description,
     productName,
-    author
+    author,
+    repository,
+    license
   }
 }
 

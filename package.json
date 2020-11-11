@@ -1,10 +1,15 @@
 {
   "name": "alighieri",
-  "version": "0.0.1",
+  "version": "0.9.0",
   "description": "A distraction-free tool for novelists and writers",
   "productName": "Alighieri",
   "author": "Emanuele Bertoldi <emanuele.bertoldi@gmail.com>",
   "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:zuck/alighieri.git"
+  },
   "scripts": {
     "lint": "eslint --ext .js,.vue ./",
     "test": "echo \"No test specified\" && exit 0"

@@ -50,6 +50,7 @@ import Navbar from 'components/Navbar'
 import Sidebar from 'components/Sidebar'
 import SaveDialog from 'components/SaveDialog'
 import SettingsDialog from 'components/SettingsDialog'
+import AboutDialog from 'src/components/AboutDialog.vue'
 
 export default {
   name: 'MainLayout',
@@ -80,6 +81,22 @@ export default {
       return new Promise((resolve, reject) => {
         try {
           this.$q.dialog(opts)
+            .onOk(data => resolve(data || true))
+            .onCancel(() => resolve(false))
+        } catch (err) {
+          reject(err)
+        }
+      })
+    },
+
+    async showAboutDlg (opts) {
+      return new Promise((resolve, reject) => {
+        try {
+          this.$q.dialog({
+            component: AboutDialog,
+            parent: this,
+            ...opts
+          })
             .onOk(data => resolve(data || true))
             .onCancel(() => resolve(false))
         } catch (err) {
@@ -138,8 +155,8 @@ export default {
       this.$store.dispatch('base/toggleDarkMode')
     },
 
-    onAbout () {
-      this.$store.dispatch('base/about')
+    async onAbout () {
+      await this.showAboutDlg()
     },
 
     async onNewFile () {
