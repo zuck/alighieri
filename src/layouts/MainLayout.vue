@@ -250,7 +250,10 @@ export default {
     async onExit () {
       const confirmed = await this.confirmChangeDiscard()
       if (confirmed) {
-        this.$store.dispatch('base/exit')
+        window.onbeforeunload = null
+        if (this.$q.electron) {
+          this.$q.electron.remote.getCurrentWindow().close()
+        }
       }
     }
   }
