@@ -3,7 +3,7 @@
     <editor-menu-bubble
       :editor="editor"
       :keep-in-bounds="keepInBounds"
-      v-slot="{ commands, isActive, menu }"
+      v-slot="{ commands, isActive, getMarkAttrs, menu }"
     >
       <div
         class="editor-menububble"
@@ -95,6 +95,38 @@
         >
           <q-icon name="code" />
         </button>
+
+        <button
+          :class="{ 'is-active': !!getMarkAttrs('alignment').align }"
+        >
+          <q-icon name="format_align_left" />
+          <div class="editor-menububble-popup">
+            <button
+              :class="{ 'is-active': getMarkAttrs('alignment').align === 'left' }"
+              @click="commands.alignment({ align: 'left' })"
+            >
+              <q-icon name="format_align_left" />
+            </button>
+            <button
+              :class="{ 'is-active': getMarkAttrs('alignment').align === 'center' }"
+              @click="commands.alignment({ align: 'center' })"
+            >
+              <q-icon name="format_align_center" />
+            </button>
+            <button
+              :class="{ 'is-active': getMarkAttrs('alignment').align === 'right' }"
+              @click="commands.alignment({ align: 'right' })"
+            >
+              <q-icon name="format_align_right" />
+            </button>
+            <button
+              :class="{ 'is-active': getMarkAttrs('alignment').align === 'justify' }"
+              @click="commands.alignment({ align: 'justify' })"
+            >
+              <q-icon name="format_align_justify" />
+            </button>
+          </div>
+        </button>
       </div>
     </editor-menu-bubble>
     <editor-content :editor="editor" />
@@ -123,6 +155,7 @@ import {
   History,
   TrailingNode
 } from 'tiptap-extensions'
+import Alignment from '../utils/tiptap/Alignment'
 import { LocalStorage } from 'quasar'
 import { CONTENT_CACHE_KEY } from '../config'
 
@@ -177,7 +210,8 @@ export default {
         new TrailingNode({
           node: 'paragraph',
           notAfter: ['paragraph']
-        })
+        }),
+        new Alignment()
       ],
       content: html,
       autoFocus: true,
