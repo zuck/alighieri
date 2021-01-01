@@ -216,7 +216,9 @@ export default {
       content: html,
       autoFocus: true,
       onUpdate: ctx => {
-        this.$store.dispatch('editor/updateContent', ctx.getHTML())
+        const html = ctx.getHTML()
+        const content = this.finalizeContent(html)
+        this.$store.dispatch('editor/updateContent', content)
       }
     })
   },
@@ -236,6 +238,13 @@ export default {
         this.editor.setContent(content)
         this.editor.focus()
       }
+    },
+
+    finalizeContent (html) {
+      // TODO: avoid full-text search & replace
+      return html
+        .replace(/&lt;&lt;/, '&laquo;')
+        .replace(/&gt;&gt;/, '&raquo;')
     }
   },
 
