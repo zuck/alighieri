@@ -38,7 +38,7 @@ export default {
       // Toggle dark mode
       if (evt.key === 'd' && evt.ctrlKey) {
         evt.preventDefault()
-        this.$store.commit('base/toggleDarkMode')
+        this.$store.dispatch('base/toggleDarkMode')
       }
       // Open file
       if (evt.key === 'o' && evt.ctrlKey) {
