@@ -1,8 +1,16 @@
 fieldset
   border none
 
+.body--dark
+  @media print
+    background-color transparent !important
+    color black !important
+
 .bg-dark-page
   background-color $dark-page
+
+  @media print
+    background-color transparent !important
 
 .text-caption
   text-transform uppercase

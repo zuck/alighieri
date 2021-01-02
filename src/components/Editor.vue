@@ -264,20 +264,26 @@ export default {
   cursor text
   padding-top 1rem
 
+  @media print
+    padding 0
+
 .ProseMirror
   max-width 700px
   margin 0 auto
   padding 0 1.5rem
-  font-size: 1rem
+  font-size 1rem
   font-family 'Martel', serif
   line-height 1.75em
 
   &:focus
-    outline: none
+    outline none
 
   @media print
-    font-size 1rem
+    font-size 0.8rem
     max-width 100%
+
+    :first-child
+      margin-top 0 !important
 
   h1, h2, h3, h4, h5, h6
     margin 1em 0
@@ -289,8 +295,8 @@ export default {
     font-size 3em
 
   h2
-    font-weight 600
-    font-size 2em
+    font-weight 400
+    font-size 1.8em
 
   h3
     font-weight 600
@@ -309,7 +315,16 @@ export default {
     font-size 1em
 
   h1+h2, h2+h3, h3+h4, h4+h5, h5+h6
-    margin-top -.5em
+    margin-top -1.25em
+
+  h1+h2
+    color $grey-9
+
+    @media print
+      color: $grey-9 !important
+
+  h1+h2+h3
+    margin-top 3em
 
   h3, h4, h5, h6
     text-transform uppercase
@@ -327,6 +342,10 @@ export default {
     border-radius: .5rem
     color: $grey-1
     background-color: $grey-10
+
+    @media print
+      color: $grey-1 !important
+      background-color: $grey-10 !important
 
   code
     padding: .25rem .5rem
@@ -427,6 +446,9 @@ export default {
 
 .body--dark
   .ProseMirror
+    h1+h2
+      color $grey-5
+
     pre,
     code
       color $grey-10
