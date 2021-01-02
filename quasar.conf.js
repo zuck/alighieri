@@ -99,6 +99,7 @@ module.exports = function (/* ctx */) {
 
       // Quasar plugins
       plugins: [
+        'Meta',
         'LocalStorage',
         'Dialog'
       ],
