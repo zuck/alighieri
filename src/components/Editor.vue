@@ -268,7 +268,7 @@ export default {
   max-width 700px
   margin 0 auto
   padding 0 1.5rem
-  font-size: 1.25rem
+  font-size: 1rem
   font-family 'Martel', serif
   line-height 1.75em
 
@@ -286,30 +286,33 @@ export default {
 
   h1
     font-weight 800
-    font-size 3rem
+    font-size 3em
 
   h2
     font-weight 600
-    font-size 2.25rem
+    font-size 2em
 
   h3
     font-weight 600
-    font-size 1.875rem
+    font-size 1.3em
 
   h4
     font-weight 600
-    font-size 1.5rem
+    font-size 1.2em
 
   h5
     font-weight 600
-    font-size 1.3125rem
+    font-size 1.1em
 
   h6
     font-weight 600
-    font-size 1.125rem
+    font-size 1em
 
   h1+h2, h2+h3, h3+h4, h4+h5, h5+h6
     margin-top -.5em
+
+  h3, h4, h5, h6
+    text-transform uppercase
 
   p,
   pre
@@ -335,7 +338,7 @@ export default {
       padding: 0
 
   blockquote
-    margin 2.5rem 0
+    margin 2.5em 0
     padding-left 2rem
     padding-right 2rem
     border-left 5px solid $grey-5
@@ -446,10 +449,10 @@ export default {
   .ProseMirror
     p,
     pre
-      margin-bottom 0.5em
+      margin-bottom 0.75em
 
 .par-indent-first-line
   .ProseMirror
     p
-      text-indent 2rem
+      text-indent 2em
 </style>
