@@ -127,6 +127,13 @@
             </button>
           </div>
         </button>
+
+        <button
+          :class="{ 'is-active': isActive.image() }"
+          @click="showImagePrompt(commands.image)"
+        >
+          <q-icon name="image" />
+        </button>
       </div>
     </editor-menu-bubble>
     <editor-content :editor="editor" />
@@ -153,7 +160,8 @@ import {
   Underline,
   Link,
   History,
-  TrailingNode
+  TrailingNode,
+  Image
 } from 'tiptap-extensions'
 import Alignment from '../utils/tiptap/Alignment'
 import { LocalStorage } from 'quasar'
@@ -211,6 +219,7 @@ export default {
           node: 'paragraph',
           notAfter: ['paragraph']
         }),
+        new Image(),
         new Alignment()
       ],
       content: html,
@@ -245,6 +254,23 @@ export default {
       return html
         .replace(/&lt;&lt;/, '&laquo;')
         .replace(/&gt;&gt;/, '&raquo;')
+    },
+
+    showImagePrompt (command) {
+      this.$q.dialog({
+        title: this.$t('Add image'),
+        message: 'Please, enter the image source URL:',
+        prompt: {
+          model: '',
+          type: 'text'
+        },
+        cancel: true,
+        persistent: true
+      }).onOk(src => {
+        if (src !== null) {
+          command({ src })
+        }
+      })
     }
   },
 
@@ -371,6 +397,9 @@ export default {
   a
     color $accent
     cursor pointer
+
+  img
+    max-width 100%
 
   strong,
   b

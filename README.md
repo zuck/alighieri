@@ -18,7 +18,8 @@ You can try **Alighieri** in your browser:
 - Zen mode (fullscreen)
 - Dark mode (don't tire your eyes!)
 - Auto-format of typographical symbols (quotes, separators, etc.)
-- Char/word/sentence counters
+- Counters of chars/words/sentences/paragraphs
+- Images
 - Markdown import/export
 - Plain-text import/export
 - HTML5 export
