@@ -1,13 +1,19 @@
-export default [
+
+const routes = [
   {
     path: '/',
-    component: () => import('layouts/Default'),
-    children: [{ path: '', component: () => import('pages/Index') }]
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/Index.vue') }
+    ]
   },
 
+  // Always leave this as last one,
+  // but you can also remove it
   {
-    // Always leave this as last one
     path: '*',
-    component: () => import('pages/404')
+    component: () => import('pages/Error404.vue')
   }
 ]
+
+export default routes
