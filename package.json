@@ -13,7 +13,7 @@
   "scripts": {
     "lint": "eslint --ext .js,.vue ./",
     "test": "echo \"No test specified\" && exit 0",
-    "deploy": "quasar build && gh-pages -d dist/spa-mat/"
+    "deploy": "quasar build -m pwa && gh-pages -d dist/pwa-mat/"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
