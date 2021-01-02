@@ -73,7 +73,14 @@ export default {
   },
 
   mounted () {
+    window.addEventListener('beforeunload', this.onExit)
+    document.addEventListener('keydown', this.onKeyDown)
     this.$q.dark.set(this.$store.state.base.darkMode)
+  },
+
+  beforeDestroy () {
+    window.removeEventListener('beforeunload', this.onExit)
+    document.removeEventListener('keydown', this.onKeyDown)
   },
 
   methods: {
@@ -254,6 +261,34 @@ export default {
         if (this.$q.electron) {
           this.$q.electron.remote.getCurrentWindow().close()
         }
+      }
+    },
+
+    onKeyDown (evt) {
+      // Toggle menu
+      if (evt.key === 'm' && evt.ctrlKey) {
+        evt.preventDefault()
+        this.onToggleMenu()
+      }
+      // Toggle dark mode
+      if (evt.key === 'd' && evt.ctrlKey) {
+        evt.preventDefault()
+        this.onToggleDarkMode()
+      }
+      // Open file
+      if (evt.key === 'o' && evt.ctrlKey) {
+        evt.preventDefault()
+        this.onOpenFile()
+      }
+      // Save file
+      if (evt.key === 's' && evt.ctrlKey) {
+        evt.preventDefault()
+        this.onSaveFile()
+      }
+      // Print file
+      if (evt.key === 'p' && evt.ctrlKey) {
+        evt.preventDefault()
+        this.onPrintFile()
       }
     }
   }

@@ -53,13 +53,17 @@
         <dd>&raquo;</dd>
         <template v-if="!$q.platform.is.mobile">
           <dt>
-            <kbd>Ctrl + O</kbd>
-          </dt>
-          <dd>{{ $t('Open') }}</dd>
-          <dt>
             <kbd>Ctrl + S</kbd>
           </dt>
-          <dd>{{ $t('Save') }}</dd>
+          <dd>{{ $t('Save changes') }}</dd>
+          <dt>
+            <kbd>Ctrl + O</kbd>
+          </dt>
+          <dd>{{ $t('Open document') }}</dd>
+          <dt>
+            <kbd>Ctrl + P</kbd>
+          </dt>
+          <dd>{{ $t('Print document') }}</dd>
           <dt>
             <kbd>Ctrl + M</kbd>
           </dt>
