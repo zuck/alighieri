@@ -1,11 +1,13 @@
 <template>
   <q-dialog ref="dialog" @hide="onDialogHide">
     <q-card class="q-dialog-plugin">
-      <q-card-section class="row items-center">
+      <q-card-section class="row justify-between">
         <div class="text-h6">{{ $t('Alighieri') }} v{{ appInfo.version }}</div>
+        <q-btn flat dense icon="close" @click="onOKClick" />
       </q-card-section>
       <q-card-section class="text-center">
         <img id="logo" src="~assets/logo.svg">
+        <p class="text-center text-subtitle1">{{ appInfo.description }}</p>
         <p class="row items-center justify-center">
           <span>
             {{ $t('Built by') }}
@@ -20,11 +22,13 @@
             >
           </a>
         </p>
-        <q-btn outline :label="$t('Contribute')" @click="goToGitHub()"/>
       </q-card-section>
-      <q-card-actions align="right">
-        <q-btn flat color="primary" :label="$t('Ok')" @click="onOKClick" />
-      </q-card-actions>
+      <q-card-section>
+        <div class="row items-center justify-around">
+          <q-btn outline :label="$t('Contribute')" @click="goToGitHub()"/>
+          <q-btn outline color="amber-9" :label="$t('Donate')" @click="goToDonation()"/>
+        </div>
+      </q-card-section>
     </q-card>
   </q-dialog>
 </template>
@@ -70,6 +74,10 @@ export default {
 
     goToGitHub () {
       openURL(this.appInfo.gitURL)
+    },
+
+    goToDonation () {
+      openURL('https://paypal.me/EBertoldi')
     }
   }
 }
@@ -78,4 +86,8 @@ export default {
 <style scoped lang="stylus">
 #logo
   width 180px
+  margin 1em auto
+
+#quasar-logo
+  margin: 0 .25em
 </style>
