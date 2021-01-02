@@ -19,7 +19,6 @@ module.exports = function (/* ctx */) {
     // --> boot files are part of "main.js"
     // https://quasar.dev/quasar-cli/boot-files
     boot: [
-
       'i18n'
     ],
 
@@ -187,7 +186,6 @@ module.exports = function (/* ctx */) {
 
       builder: {
         // https://www.electron.build/configuration/configuration
-
         appId: 'alighieri'
       },
 
