@@ -4,6 +4,8 @@
 
 > A distraction-free tool for novelists and writers
 
+[![Build/release](https://github.com/zuck/alighieri/actions/workflows/build.yml/badge.svg)](https://github.com/zuck/alighieri/actions/workflows/build.yml)
+
 ![Alighieri UX](https://cdn.jsdelivr.net/gh/zuck/alighieri@HEAD/art/screenshot.png)
 
 ## Start your masterpiece

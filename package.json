@@ -14,7 +14,7 @@
     "lint": "eslint --ext .js,.vue ./",
     "test": "echo \"No test specified\" && exit 0",
     "deploy": "quasar build -m pwa && gh-pages -d dist/pwa/",
-    "package": "quasar build -m electron"
+    "package": "quasar build -m electron -P always"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",

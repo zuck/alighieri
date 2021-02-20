@@ -1,6 +1,8 @@
-name: Build/release
+name: Alighieri Build/release
 
-on: push
+on:
+  push:
+    branches: [ master ]
 
 jobs:
   release:
@@ -19,23 +21,9 @@ jobs:
         with:
           node-version: 12
 
-      - name: Install Snapcraft
-        uses: samuelmeuli/action-snapcraft@v1
-        # Only install Snapcraft on Ubuntu
-        if: startsWith(matrix.os, 'ubuntu')
+      - name: Package / Release Electron app
         with:
-          # Log in to Snap Store
-          snapcraft_token: ${{ secrets.snapcraft_token }}
-
-      - name: Build/release Electron app
-        uses: samuelmeuli/action-electron-builder@v1
-        with:
-          build_script_name: 'package'
-
-          # GitHub token, automatically provided to the action
-          # (No need to define this secret in the repo settings)
-          github_token: ${{ secrets.github_token }}
-
-          # If the commit is tagged with a version (e.g. "v1.0.0"),
-          # release the app after building
-          release: ${{ startsWith(github.ref, 'refs/tags/v') }}
+            node-version: ${{ matrix.node-version }}
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - run: npm run package
