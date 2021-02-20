@@ -14,6 +14,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - uses: samuelmeuli/action-snapcraft@v1
+        # Only install Snapcraft on Ubuntu
+        if: startsWith(matrix.os, 'ubuntu')
+        with:
+          # Log in to Snap Store
+          snapcraft_token: ${{ secrets.snapcraft_token }}
       - uses: actions/setup-node@v2
         with:
           node-version: '12.x'
