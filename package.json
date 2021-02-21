@@ -17,7 +17,7 @@
     "package": "quasar build -m electron -P always"
   },
   "dependencies": {
-    "@quasar/extras": "^1.0.0",
+    "@quasar/extras": "^1.9.17",
     "core-js": "^3.6.5",
     "html-to-text": "^6.0.0",
     "quasar": "^1.15.4",
