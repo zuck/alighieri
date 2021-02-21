@@ -17,13 +17,13 @@
     "package": "quasar build -m electron -P always"
   },
   "dependencies": {
-    "@quasar/extras": "^1.9.17",
-    "core-js": "^3.6.5",
-    "html-to-text": "^6.0.0",
-    "quasar": "^1.15.4",
-    "showdown": "^1.9.1",
-    "tiptap": "^1.32.1",
-    "tiptap-extensions": "^1.35.1",
+    "@quasar/extras": "1.9.17",
+    "core-js": "3.9.0",
+    "html-to-text": "7.0.0",
+    "quasar": "1.15.4",
+    "showdown": "1.9.1",
+    "tiptap": "1.32.1",
+    "tiptap-extensions": "1.35.1",
     "vue-i18n": "^8.0.0"
   },
   "devDependencies": {
