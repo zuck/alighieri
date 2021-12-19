@@ -83,18 +83,19 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import { QTooltip } from 'quasar'
 
-export default {
+export default defineComponent({
   name: 'help-tooltip',
 
   components: {
     QTooltip
   }
-}
+})
 </script>
 
-<style scoped lang="stylus">
+<style scoped lang="sass">
 dl
   width: 100%
   max-width: 320px

@@ -12,13 +12,18 @@
 </template>
 
 <script>
-export default {
+import { defineComponent, computed } from 'vue'
+import { useStore } from 'vuex'
+
+export default defineComponent({
   name: 'change-indicator',
 
-  computed: {
-    isChanged () {
-      return this.$store.getters['editor/isChanged']
+  setup () {
+    const store = useStore()
+    const isChanged = computed(() => store.getters['editor/isChanged'])
+    return {
+      isChanged
     }
   }
-}
+})
 </script>

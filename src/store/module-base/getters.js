@@ -1,14 +1,14 @@
-import { name, version, description, productName, author, repository, license } from '../../../package.json'
+import info from '../../../package.json'
 
 export function appInfo () {
   return {
-    name,
-    version,
-    description,
-    productName,
-    author,
-    repository,
-    license
+    name: info.name,
+    version: info.version,
+    description: info.description,
+    productName: info.productName,
+    author: info.author,
+    repository: info.repository,
+    license: info.license
   }
 }
 

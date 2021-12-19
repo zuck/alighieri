@@ -11,25 +11,25 @@
 </template>
 
 <script>
-export default {
+import { defineComponent, computed } from 'vue'
+import { useStore } from 'vuex'
+
+export default defineComponent({
   name: 'text-counter',
 
-  computed: {
-    charCount () {
-      return this.$store.state.editor.charCount
-    },
+  setup () {
+    const store = useStore()
+    const charCount = computed(() => store.state.editor.charCount)
+    const wordCount = computed(() => store.state.editor.wordCount)
+    const sentenceCount = computed(() => store.state.editor.sentenceCount)
+    const paragraphCount = computed(() => store.state.editor.paragraphCount)
 
-    wordCount () {
-      return this.$store.state.editor.wordCount
-    },
-
-    sentenceCount () {
-      return this.$store.state.editor.sentenceCount
-    },
-
-    paragraphCount () {
-      return this.$store.state.editor.paragraphCount
+    return {
+      charCount,
+      wordCount,
+      sentenceCount,
+      paragraphCount
     }
   }
-}
+})
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <q-toolbar :class="className">
+  <q-toolbar>
     <q-btn
       flat
       dense
@@ -21,12 +21,13 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import TextCounter from 'components/TextCounter'
 import ChangeIndicator from 'components/ChangeIndicator'
 import DarkToggle from 'components/DarkToggle'
 import HelpTooltip from 'components/HelpTooltip'
 
-export default {
+export default defineComponent({
   name: 'navbar',
 
   components: {
@@ -34,22 +35,6 @@ export default {
     ChangeIndicator,
     DarkToggle,
     HelpTooltip
-  },
-
-  computed: {
-    className () {
-      return this.$q.dark.isActive
-        ? 'bg-dark-page text-grey-6 shadow-dark-page'
-        : 'bg-white text-grey-7 shadow-white'
-    }
   }
-}
+})
 </script>
-
-<style scoped lang="stylus">
-.shadow-dark-page
-  box-shadow 0px 0px 20px 15px $dark-page
-
-.shadow-white
-  box-shadow 0px 0px 20px 15px white
-</style>
