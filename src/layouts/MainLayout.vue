@@ -21,8 +21,9 @@
 </template>
 
 <script>
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
+import { useQuasar } from 'quasar'
 import Navbar from 'components/Navbar'
 
 export default defineComponent({
@@ -34,7 +35,10 @@ export default defineComponent({
 
   setup () {
     const store = useStore()
+    const q = useQuasar()
     const menuOpen = computed(() => store.state.base.menuOpen)
+
+    onMounted(() => q.dark.set(store.state.base.darkMode))
 
     return {
       menuOpen,

@@ -1,5 +1,5 @@
 <template>
-  <q-btn flat dense round icon="lightbulb_outline" @click="$emit('click')"/>
+  <q-btn flat dense round icon="lightbulb_outline" />
 </template>
 
 <script>

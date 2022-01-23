@@ -1,5 +1,5 @@
 <template>
-  <q-toolbar>
+  <q-toolbar :class="className">
     <q-btn
       flat
       dense
@@ -15,13 +15,17 @@
       <text-counter/>
     </q-toolbar-title>
 
-    <dark-toggle :title="$t('Toggle dark mode')" @click="$emit('toggleDarkMode')"/>
+    <dark-toggle
+      :title="$t('Toggle dark mode')"
+      @click="$emit('toggleDarkMode')"
+    />
     <help-tooltip/>
   </q-toolbar>
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent, computed } from 'vue'
+import { useQuasar } from 'quasar'
 import TextCounter from 'components/TextCounter'
 import ChangeIndicator from 'components/ChangeIndicator'
 import DarkToggle from 'components/DarkToggle'
@@ -35,6 +39,18 @@ export default defineComponent({
     ChangeIndicator,
     DarkToggle,
     HelpTooltip
+  },
+
+  setup () {
+    const $q = useQuasar()
+    const className = computed(() => {
+      return $q.dark.isActive
+        ? 'bg-dark-page text-grey-6 shadow-dark-page'
+        : 'bg-white text-grey-7 shadow-white'
+    })
+    return {
+      className
+    }
   }
 })
 </script>

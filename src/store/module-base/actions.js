@@ -2,9 +2,11 @@ export function exit ({ commit }) {
   // ...
 }
 
-export function toggleDarkMode ({ commit, state }) {
+export function toggleDarkMode ({ dispatch, state }) {
   const value = !state.darkMode
-  commit('setDarkMode', value)
+  dispatch('updateSettings', {
+    darkMode: value
+  })
 }
 
 export function updateSettings ({ commit }, value) {
