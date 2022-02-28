@@ -9,7 +9,6 @@
 
     <q-drawer
       v-model="menuOpen"
-      show-if-above
       mini
     >
       <sidebar />
