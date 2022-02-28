@@ -11,6 +11,9 @@
       v-model="menuOpen"
       show-if-above
       bordered
+      :mini="menuMini"
+      @mouseover="menuMini = false"
+      @mouseout="menuMini = true"
     >
     </q-drawer>
 
@@ -37,11 +40,13 @@ export default defineComponent({
     const store = useStore()
     const q = useQuasar()
     const menuOpen = computed(() => store.state.base.menuOpen)
+    const menuMini = computed(() => store.state.base.menuMini)
 
     onMounted(() => q.dark.set(store.state.base.darkMode))
 
     return {
       menuOpen,
+      menuMini,
       onToggleMenu () {
         store.commit('base/toggleMenu')
       },
