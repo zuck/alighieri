@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="hHh lpr lFf">
+  <q-layout view="hHh Lpr lFf">
     <q-header class="bg-transparent text-dark">
       <navbar
         @toggleDarkMode="onToggleDarkMode"
