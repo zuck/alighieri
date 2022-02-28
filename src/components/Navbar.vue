@@ -11,6 +11,14 @@
     />
 
     <q-toolbar-title class="items-center">
+      <q-avatar class="q-mr-md">
+        <img
+          src="~assets/logo.svg"
+          class="cursor-pointer"
+          :title="$t('What\'s this?')"
+          @click="$emit('about')"
+        >
+      </q-avatar>
       <change-indicator @click="$emit('save')"/>
       <text-counter/>
     </q-toolbar-title>

@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lHh lpr lFf">
+  <q-layout view="hHh lpr lFf">
     <q-header class="bg-transparent text-dark">
       <navbar
         @toggleDarkMode="onToggleDarkMode"
@@ -10,11 +10,9 @@
     <q-drawer
       v-model="menuOpen"
       show-if-above
-      bordered
-      :mini="menuMini"
-      @mouseover="menuMini = false"
-      @mouseout="menuMini = true"
+      mini
     >
+      <sidebar />
     </q-drawer>
 
     <q-page-container>
@@ -27,26 +25,26 @@
 import { defineComponent, computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
 import { useQuasar } from 'quasar'
-import Navbar from 'components/Navbar'
+import Navbar from 'src/components/Navbar'
+import Sidebar from 'src/components/Sidebar'
 
 export default defineComponent({
   name: 'MainLayout',
 
   components: {
-    Navbar
+    Navbar,
+    Sidebar
   },
 
   setup () {
     const store = useStore()
     const q = useQuasar()
     const menuOpen = computed(() => store.state.base.menuOpen)
-    const menuMini = computed(() => store.state.base.menuMini)
 
     onMounted(() => q.dark.set(store.state.base.darkMode))
 
     return {
       menuOpen,
-      menuMini,
       onToggleMenu () {
         store.commit('base/toggleMenu')
       },
