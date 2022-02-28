@@ -1,30 +1,87 @@
 <template>
+  <bubble-menu :editor="editor" :tippy-options="{ duration: 100 }" v-if="editor">
+    <q-btn-group>
+      <q-btn
+        dense
+        icon="format_bold"
+        :color="editor.isActive('bold') ? 'accent' : color"
+        @click="editor.chain().focus().toggleBold().run()"
+      />
+      <q-btn
+        dense
+        icon="format_italic"
+        :color="editor.isActive('italic') ? 'accent' : color"
+        @click="editor.chain().focus().toggleItalic().run()"
+      />
+      <q-btn
+        dense
+        icon="format_underline"
+        :color="editor.isActive('underline') ? 'accent' : color"
+        @click="editor.chain().focus().toggleUnderline().run()"
+      />
+      <q-btn
+        dense
+        icon="format_strikethrough"
+        :color="editor.isActive('strike') ? 'accent' : color"
+        @click="editor.chain().focus().toggleStrike().run()"
+      />
+    </q-btn-group>
+  </bubble-menu>
   <editor-content :editor="editor" />
 </template>
 
 <script>
-import { useEditor, EditorContent } from '@tiptap/vue-3'
+import { computed } from 'vue'
+import { useEditor, EditorContent, BubbleMenu } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
+import Underline from '@tiptap/extension-underline'
+import Typography from '@tiptap/extension-typography'
 
 export default {
   components: {
-    EditorContent
+    EditorContent,
+    BubbleMenu
   },
 
-  setup () {
+  props: {
+    modelValue: {
+      type: String,
+      default: '<p>I’m running Tiptap with Vue.js. 🎉</p>'
+    }
+  },
+
+  setup (props, { emit }) {
+    const color = computed(() => 'black')
     const editor = useEditor({
-      content: '<p>I’m running Tiptap with Vue.js. 🎉</p>',
+      content: props.modelValue,
       extensions: [
-        StarterKit
+        StarterKit,
+        Underline,
+        Typography
       ],
       editorProps: {
         attributes: {
           class: 'q-pa-lg no-outline'
         }
+      },
+      onUpdate () {
+        emit('update:modelValue', this.getHTML())
       }
     })
 
-    return { editor }
+    return {
+      color,
+      editor
+    }
+  },
+
+  watch: {
+    modelValue (value) {
+      const isSame = this.editor.getHTML() === value
+      if (!isSame) {
+        this.editor.commands.setContent(value, false)
+      }
+    }
   }
 }
 </script>
