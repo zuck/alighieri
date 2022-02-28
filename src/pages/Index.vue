@@ -1,17 +1,22 @@
 <template>
-  <q-page class="flex flex-center">
-    <img
-      alt="Quasar logo"
-      src="~assets/quasar-logo-vertical.svg"
-      style="width: 200px; height: 200px"
-    >
+  <q-page class="flex justify-center">
+    <container>
+      <editor/>
+    </container>
   </q-page>
 </template>
 
 <script>
 import { defineComponent } from 'vue'
+import Container from 'src/components/Container'
+import Editor from 'src/components/Editor'
 
 export default defineComponent({
-  name: 'PageIndex'
+  name: 'PageIndex',
+
+  components: {
+    Container,
+    Editor
+  }
 })
 </script>
