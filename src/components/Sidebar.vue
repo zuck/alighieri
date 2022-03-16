@@ -52,7 +52,6 @@
         <q-item-label>{{ $t('Save as') }}</q-item-label>
       </q-item-section>
     </q-item>
-    <q-separator />
     <q-item
       clickable
       v-ripple
@@ -92,7 +91,6 @@
         <q-item-label>{{ $t('Print') }}</q-item-label>
       </q-item-section>
     </q-item>
-    <q-separator />
     <q-item
       clickable
       v-ripple
@@ -106,7 +104,6 @@
         <q-item-label>{{ $t('Settings') }}</q-item-label>
       </q-item-section>
     </q-item>
-    <q-separator v-if="$q.platform.is.electron"/>
     <q-item
       v-if="$q.platform.is.electron"
       clickable
