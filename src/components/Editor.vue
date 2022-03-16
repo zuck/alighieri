@@ -1,6 +1,32 @@
 <template>
-  <bubble-menu :editor="editor" :tippy-options="{ duration: 100 }" v-if="editor">
+  <bubble-menu
+    v-if="editor"
+    :editor="editor"
+    :tippy-options="{ duration: 100 }"
+  >
     <q-btn-group>
+      <q-btn-dropdown
+        dense
+        icon="title"
+        :color="editor.isActive('heading') ? 'accent' : color"
+      >
+        <q-list separator dense>
+          <q-item
+            v-for="level of 6"
+            :key="level"
+            clickable
+            v-close-popup
+            active-class="bg-accent text-white"
+            :active="editor.isActive('heading', { level })"
+            @click="editor.chain().focus().toggleHeading({ level }).run()"
+          >
+            <q-item-section>
+              <q-item-label>{{ $t(`H${level}`) }}</q-item-label>
+            </q-item-section>
+          </q-item>
+        </q-list>
+      </q-btn-dropdown>
+      <q-separator vertical/>
       <q-btn
         dense
         icon="format_bold"
@@ -51,7 +77,6 @@ export default {
   },
 
   setup (props, { emit }) {
-    const color = computed(() => 'black')
     const editor = useEditor({
       content: props.modelValue,
       extensions: [
@@ -68,10 +93,11 @@ export default {
         emit('update:modelValue', this.getHTML())
       }
     })
+    const color = computed(() => 'black')
 
     return {
-      color,
-      editor
+      editor,
+      color
     }
   },
 
