@@ -1,7 +1,7 @@
 export default function () {
   return {
     filename: '',
-    contentHTML: '',
+    content: '',
     charCount: 0,
     wordCount: 0,
     sentenceCount: 0,

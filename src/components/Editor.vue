@@ -58,10 +58,12 @@
 
 <script>
 import { computed } from 'vue'
+import { throttle } from 'quasar'
 import { useEditor, EditorContent, BubbleMenu } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 import Underline from '@tiptap/extension-underline'
 import Typography from '@tiptap/extension-typography'
+import { UPDATE_STATS_DEBOUNCE_TIME } from '../config'
 
 export default {
   components: {
@@ -72,11 +74,15 @@ export default {
   props: {
     modelValue: {
       type: String,
-      default: '<p>I’m running Tiptap with Vue.js. 🎉</p>'
+      default: ''
     }
   },
 
   setup (props, { emit }) {
+    const updateContent = throttle((content, text) => {
+      emit('update:modelValue', content)
+      emit('update:text', text)
+    }, UPDATE_STATS_DEBOUNCE_TIME)
     const editor = useEditor({
       content: props.modelValue,
       extensions: [
@@ -90,7 +96,7 @@ export default {
         }
       },
       onUpdate () {
-        emit('update:modelValue', this.getHTML())
+        updateContent(this.getHTML(), this.getText())
       }
     })
     const color = computed(() => 'black')
@@ -105,7 +111,7 @@ export default {
     modelValue (value) {
       const isSame = this.editor.getHTML() === value
       if (!isSame) {
-        this.editor.commands.setContent(value, false)
+        this.editor.commands.setContent(value, true)
       }
     }
   }
@@ -119,7 +125,7 @@ export default {
   font-size: 20px
   font-size: 300
   font-family: "Libre Baskerville", serif
-  line-height: 1.8
+  line-height: 1.5
 
   h1, h2, h3, h4, h5, h6
     margin: .3em 0

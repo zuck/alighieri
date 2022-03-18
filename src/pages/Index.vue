@@ -1,13 +1,18 @@
 <template>
   <q-page class="flex justify-center">
     <container>
-      <editor/>
+      <editor
+        :model-value="content"
+        @update:modelValue="onUpdateContent"
+        @update:text="onUpdateStats"
+      />
     </container>
   </q-page>
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent, computed, onMounted } from 'vue'
+import { useStore } from 'vuex'
 import Container from 'src/components/Container'
 import Editor from 'src/components/Editor'
 
@@ -17,6 +22,23 @@ export default defineComponent({
   components: {
     Container,
     Editor
+  },
+
+  setup () {
+    const store = useStore()
+    const content = computed(() => store.state.editor.content)
+
+    onMounted(() => store.commit('editor/reloadContent'))
+
+    return {
+      content,
+      onUpdateContent (content) {
+        store.commit('editor/setContent', content)
+      },
+      onUpdateStats (text) {
+        store.commit('editor/updateStats', text)
+      }
+    }
   }
 })
 </script>
