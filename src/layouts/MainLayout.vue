@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="hHh Lpr lFf">
+  <q-layout view="hHh lpr lFf">
     <q-header class="bg-transparent text-dark">
       <navbar
         @toggleDarkMode="onToggleDarkMode"
@@ -8,10 +8,19 @@
     </q-header>
 
     <q-drawer
-      v-model="menuOpen"
       mini
+      v-model="menuOpen"
     >
       <sidebar />
+      <q-btn
+        dense
+        round
+        color="accent"
+        icon="menu_open"
+        class="lt-md absolute-top-right q-mt-sm"
+        style="margin-right:-16px"
+        @click="onToggleMenu"
+      />
     </q-drawer>
 
     <q-page-container>

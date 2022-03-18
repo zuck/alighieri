@@ -4,7 +4,7 @@
       flat
       dense
       round
-      icon="menu"
+      :icon="isMenuOpen ? 'menu_open' : 'menu'"
       aria-label="Menu"
       :title="$t('Toggle menu')"
       @click="$emit('toggleMenu')"
@@ -33,6 +33,7 @@
 
 <script>
 import { defineComponent, computed } from 'vue'
+import { useStore } from 'vuex'
 import { useQuasar } from 'quasar'
 import TextCounter from 'components/TextCounter'
 import ChangeIndicator from 'components/ChangeIndicator'
@@ -51,12 +52,15 @@ export default defineComponent({
 
   setup () {
     const $q = useQuasar()
+    const store = useStore()
+    const isMenuOpen = computed(() => store.state.base.menuOpen)
     const className = computed(() => {
       return $q.dark.isActive
         ? 'bg-dark-page text-grey-6 shadow-dark-page'
         : 'bg-white text-grey-7 shadow-white'
     })
     return {
+      isMenuOpen,
       className
     }
   }
