@@ -124,7 +124,7 @@ export default {
 .ProseMirror
   font-size: 20px
   font-family: "Libre Baskerville", serif
-  line-height: 1.8
+  line-height: 2
 
   h1, h2, h3, h4, h5, h6
     margin: .3em 0
@@ -148,7 +148,7 @@ export default {
     font-size: 1rem
 
   p, ol, ul
-    margin-top: 1.5em
+    margin-top: 1em
 
   li p
     margin-top: 0
