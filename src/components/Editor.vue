@@ -58,7 +58,7 @@
 
 <script>
 import { computed } from 'vue'
-import { throttle } from 'quasar'
+import { debounce } from 'quasar'
 import { useEditor, EditorContent, BubbleMenu } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 import Underline from '@tiptap/extension-underline'
@@ -79,7 +79,7 @@ export default {
   },
 
   setup (props, { emit }) {
-    const updateContent = throttle((content, text) => {
+    const updateContent = debounce((content, text) => {
       emit('update:modelValue', content)
       emit('update:text', text)
     }, UPDATE_STATS_DEBOUNCE_TIME)
