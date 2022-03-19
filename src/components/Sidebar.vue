@@ -138,3 +138,8 @@ export default defineComponent({
   }
 })
 </script>
+
+<style scoped lang="sass">
+.q-item:hover
+  color: $accent
+</style>

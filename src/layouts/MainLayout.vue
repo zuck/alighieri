@@ -1,6 +1,9 @@
 <template>
-  <q-layout view="hHh lpr lFf">
-    <q-header class="bg-transparent text-dark">
+  <q-layout
+    view="hHh Lpr lFf"
+    :class="baseClass"
+  >
+    <q-header :class="baseClass">
       <navbar
         @toggleDarkMode="onToggleDarkMode"
         @toggleMenu="onToggleMenu"
@@ -9,6 +12,7 @@
 
     <q-drawer
       mini
+      :class="baseClass"
       v-model="menuOpen"
     >
       <sidebar />
@@ -48,11 +52,15 @@ export default defineComponent({
     const store = useStore()
     const q = useQuasar()
     const menuOpen = computed(() => store.state.base.menuOpen)
+    const isDark = computed(() => store.state.base.darkMode)
+    const baseClass = computed(() => isDark.value ? 'q-dark' : 'bg-white text-dark')
 
     onMounted(() => q.dark.set(store.state.base.darkMode))
 
     return {
       menuOpen,
+      isDark,
+      baseClass,
       onToggleMenu () {
         store.commit('base/toggleMenu')
       },
