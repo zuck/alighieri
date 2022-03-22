@@ -5,27 +5,46 @@
     :tippy-options="{ duration: 100 }"
   >
     <q-btn-group>
-      <q-btn-dropdown
+      <q-btn
         dense
-        icon="title"
+        icon="format_size"
         :color="editor.isActive('heading') ? 'accent' : color"
       >
-        <q-list separator dense>
-          <q-item
-            v-for="level of 6"
-            :key="level"
-            clickable
-            v-close-popup
-            active-class="bg-accent text-white"
-            :active="editor.isActive('heading', { level })"
-            @click="editor.chain().focus().toggleHeading({ level }).run()"
-          >
-            <q-item-section>
-              <q-item-label>{{ $t(`H${level}`) }}</q-item-label>
-            </q-item-section>
-          </q-item>
-        </q-list>
-      </q-btn-dropdown>
+        <q-menu>
+          <q-list separator dense>
+            <q-item
+              v-for="level of 6"
+              :key="level"
+              clickable
+              v-close-popup
+              active-class="bg-accent text-white"
+              :active="editor.isActive('heading', { level })"
+              @click="editor.chain().focus().toggleHeading({ level }).run()"
+            >
+              <q-item-section>{{ $t(`H${level}`) }}</q-item-section>
+            </q-item>
+          </q-list>
+        </q-menu>
+      </q-btn>
+      <q-separator vertical/>
+      <q-btn
+        dense
+        icon="format_align_left"
+        :color="editor.isActive({ textAlign: 'left' }) ? 'accent' : color"
+        @click="editor.chain().focus().setTextAlign('left').run()"
+      />
+      <q-btn
+        dense
+        icon="format_align_center"
+        :color="editor.isActive({ textAlign: 'center' }) ? 'accent' : color"
+        @click="editor.chain().focus().setTextAlign('center').run()"
+      />
+      <q-btn
+        dense
+        icon="format_align_right"
+        :color="editor.isActive({ textAlign: 'right' }) ? 'accent' : color"
+        @click="editor.chain().focus().setTextAlign('right').run()"
+      />
       <q-separator vertical/>
       <q-btn
         dense
@@ -51,6 +70,19 @@
         :color="editor.isActive('strike') ? 'accent' : color"
         @click="editor.chain().focus().toggleStrike().run()"
       />
+      <q-separator vertical/>
+      <q-btn
+        dense
+        icon="format_quote"
+        :color="editor.isActive('blockquote') ? 'accent' : color"
+        @click="editor.chain().focus().toggleBlockquote().run()"
+      />
+      <q-btn
+        dense
+        icon="code"
+        :color="editor.isActive('code') ? 'accent' : color"
+        @click="editor.chain().focus().toggleCode().run()"
+      />
     </q-btn-group>
   </bubble-menu>
   <editor-content :editor="editor" />
@@ -63,6 +95,7 @@ import { useEditor, EditorContent, BubbleMenu } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 import Underline from '@tiptap/extension-underline'
 import Typography from '@tiptap/extension-typography'
+import TextAlign from '@tiptap/extension-text-align'
 import { UPDATE_STATS_DEBOUNCE_TIME } from '../config'
 
 export default {
@@ -88,7 +121,10 @@ export default {
       extensions: [
         StarterKit,
         Underline,
-        Typography
+        Typography,
+        TextAlign.configure({
+          types: ['heading', 'paragraph']
+        })
       ],
       editorProps: {
         attributes: {
@@ -127,7 +163,8 @@ export default {
   line-height: 2
 
   h1, h2, h3, h4, h5, h6
-    margin: .3em 0
+    margin: 3rem 0
+    line-height: 1.3
 
   h1
     font-size: 5.653rem
@@ -153,8 +190,37 @@ export default {
   li p
     margin-top: 0
 
+  hr
+    margin: 4em
+
   blockquote
     margin-left: 0
     padding-left: 1.5rem
     border-left: 8px solid $grey-5
+
+  p,
+  pre
+    margin-bottom: 0
+
+  code,
+  pre
+    border-radius: .5rem
+    color: $grey-1
+    background-color: $grey-10
+
+  code
+    padding: .25rem .5rem
+
+  pre
+    padding: 1rem
+
+    code
+      padding: 0
+
+  a
+    color: $accent
+    cursor: pointer
+
+  img
+    max-width: 100%
 </style>
