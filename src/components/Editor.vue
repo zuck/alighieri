@@ -70,6 +70,12 @@
         :color="editor.isActive('strike') ? 'accent' : color"
         @click="editor.chain().focus().toggleStrike().run()"
       />
+      <q-btn
+        dense
+        icon="code"
+        :color="editor.isActive('code') ? 'accent' : color"
+        @click="editor.chain().focus().toggleCode().run()"
+      />
       <q-separator vertical/>
       <q-btn
         dense
@@ -77,31 +83,43 @@
         :color="editor.isActive('blockquote') ? 'accent' : color"
         @click="editor.chain().focus().toggleBlockquote().run()"
       />
-      <q-btn
-        dense
-        icon="code"
-        :color="editor.isActive('code') ? 'accent' : color"
-        @click="editor.chain().focus().toggleCode().run()"
-      />
     </q-btn-group>
   </bubble-menu>
+  <floating-menu
+    v-if="editor"
+    :editor="editor"
+    :tippy-options="{ duration: 100 }"
+  >
+    <q-btn-group flat class="q-ml-lg faded">
+      <q-btn
+        flat
+        round
+        icon="o_add_a_photo"
+        @click="addImage(editor)"
+      />
+    </q-btn-group>
+  </floating-menu>
   <editor-content :editor="editor" />
 </template>
 
 <script>
 import { computed } from 'vue'
-import { debounce } from 'quasar'
-import { useEditor, EditorContent, BubbleMenu } from '@tiptap/vue-3'
+import { useI18n } from 'vue-i18n'
+import { debounce, useQuasar } from 'quasar'
+import { useEditor, EditorContent, BubbleMenu, FloatingMenu } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 import Underline from '@tiptap/extension-underline'
 import Typography from '@tiptap/extension-typography'
 import TextAlign from '@tiptap/extension-text-align'
+import CodeBlock from '@tiptap/extension-code-block'
+import Image from '@tiptap/extension-image'
 import { UPDATE_STATS_DEBOUNCE_TIME } from '../config'
 
 export default {
   components: {
     EditorContent,
-    BubbleMenu
+    BubbleMenu,
+    FloatingMenu
   },
 
   props: {
@@ -112,10 +130,14 @@ export default {
   },
 
   setup (props, { emit }) {
+    const { t } = useI18n()
     const updateContent = debounce((content, text) => {
       emit('update:modelValue', content)
       emit('update:text', text)
     }, UPDATE_STATS_DEBOUNCE_TIME)
+
+    const color = computed(() => 'black')
+    const quasar = useQuasar()
     const editor = useEditor({
       content: props.modelValue,
       extensions: [
@@ -124,7 +146,9 @@ export default {
         Typography,
         TextAlign.configure({
           types: ['heading', 'paragraph']
-        })
+        }),
+        CodeBlock,
+        Image
       ],
       editorProps: {
         attributes: {
@@ -135,11 +159,28 @@ export default {
         updateContent(this.getHTML(), this.getText())
       }
     })
-    const color = computed(() => 'black')
+
+    const addImage = (editor) => {
+      quasar.dialog({
+        title: t('Add image'),
+        prompt: {
+          model: '',
+          placeholder: t('Please, enter the image source URL'),
+          type: 'text'
+        },
+        cancel: true,
+        persistent: true
+      }).onOk(src => {
+        if (src !== null) {
+          editor.chain().focus().setImage({ src }).run()
+        }
+      })
+    }
 
     return {
       editor,
-      color
+      color,
+      addImage
     }
   },
 
@@ -156,6 +197,12 @@ export default {
 
 <style lang="sass">
 @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville')
+
+.faded
+  opacity: .33
+
+.faded:hover
+  opacity: 1
 
 .ProseMirror
   font-size: 20px

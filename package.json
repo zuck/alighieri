@@ -18,6 +18,9 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
+    "@tiptap/extension-code-block": "^2.0.0-beta.37",
+    "@tiptap/extension-floating-menu": "^2.0.0-beta.50",
+    "@tiptap/extension-image": "^2.0.0-beta.27",
     "@tiptap/extension-text-align": "^2.0.0-beta.29",
     "@tiptap/extension-typography": "^2.0.0-beta.20",
     "@tiptap/extension-underline": "^2.0.0-beta.23",
@@ -31,7 +34,7 @@
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.13.14",
-    "@quasar/app": "^3.0.0",
+    "@quasar/app": "^3.3.3",
     "electron": "^16.0.5",
     "eslint": "^7.14.0",
     "eslint-config-standard": "^16.0.2",
