@@ -107,7 +107,7 @@ export default defineComponent({
         // TODO
       },
       onPrintFile () {
-        // TODO
+        store.dispatch('editor/printFile')
       },
       onSettings () {
         // TODO

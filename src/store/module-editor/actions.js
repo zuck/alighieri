@@ -28,3 +28,7 @@ export function reloadFile ({ commit }) {
   commit('setLastSave', now)
   commit('setLastChange', now)
 }
+
+export function printFile ({ commit }) {
+  window.print()
+}

@@ -210,23 +210,23 @@ export default {
   line-height: 2
 
   h1, h2, h3, h4, h5, h6
-    margin: 3rem 0
+    margin: 1.5rem 0
     line-height: 1.3
 
   h1
-    font-size: 5.653rem
+    font-size: 3.052rem
 
   h2
-    font-size: 3.998rem
+    font-size: 2.441rem
 
   h3
-    font-size: 2.827rem
+    font-size: 1.953rem
 
   h4
-    font-size: 1.999rem
+    font-size: 1.563rem
 
   h5
-    font-size: 1.414rem
+    font-size: 1.25rem
 
   h6
     font-size: 1rem
