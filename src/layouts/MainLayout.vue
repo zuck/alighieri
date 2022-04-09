@@ -15,7 +15,9 @@
       :class="baseClass"
       v-model="menuOpen"
     >
-      <sidebar />
+      <sidebar
+        @newFile="onNewFile"
+      />
       <q-btn
         dense
         round
@@ -36,6 +38,7 @@
 <script>
 import { defineComponent, computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
+import { useI18n } from 'vue-i18n'
 import { useQuasar } from 'quasar'
 import Navbar from 'src/components/Navbar'
 import Sidebar from 'src/components/Sidebar'
@@ -50,17 +53,37 @@ export default defineComponent({
 
   setup () {
     const store = useStore()
-    const q = useQuasar()
+    const i18n = useI18n()
+    const $q = useQuasar()
     const menuOpen = computed(() => store.state.base.menuOpen)
     const isDark = computed(() => store.state.base.darkMode)
     const baseClass = computed(() => isDark.value ? 'q-dark' : 'bg-white text-dark')
 
-    onMounted(() => q.dark.set(store.state.base.darkMode))
+    function askConfirmOrExecute (shouldAskConfirm, action) {
+      if (shouldAskConfirm) {
+        $q.dialog({
+          title: i18n.t('There are unsaved changes'),
+          message: i18n.t('Are you sure you want to discard the current document?'),
+          ok: i18n.t('Confirm'),
+          cancel: true,
+          persistent: true
+        }).onOk(action)
+      } else {
+        action()
+      }
+    }
+
+    onMounted(() => $q.dark.set(store.state.base.darkMode))
 
     return {
       menuOpen,
       isDark,
       baseClass,
+      onNewFile () {
+        const hasUnsavedChanges = store.getters['editor/hasUnsavedChanges']
+        const resetFile = () => store.dispatch('editor/resetFile')
+        askConfirmOrExecute(hasUnsavedChanges, resetFile)
+      },
       onToggleMenu () {
         store.commit('base/toggleMenu')
       },

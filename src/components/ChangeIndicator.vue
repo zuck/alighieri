@@ -20,7 +20,7 @@ export default defineComponent({
 
   setup () {
     const store = useStore()
-    const isChanged = computed(() => store.getters['editor/isChanged'])
+    const isChanged = computed(() => store.getters['editor/hasUnsavedChanges'])
     return {
       isChanged
     }

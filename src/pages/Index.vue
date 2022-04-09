@@ -28,12 +28,12 @@ export default defineComponent({
     const store = useStore()
     const content = computed(() => store.state.editor.content)
 
-    onMounted(() => store.commit('editor/reloadContent'))
+    onMounted(() => store.dispatch('editor/reloadFile'))
 
     return {
       content,
       onUpdateContent (content) {
-        store.commit('editor/setContent', content)
+        store.dispatch('editor/updateContent', content)
       },
       onUpdateStats (text) {
         store.commit('editor/updateStats', text)
