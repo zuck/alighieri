@@ -17,6 +17,13 @@
     >
       <sidebar
         @newFile="onNewFile"
+        @openFile="onOpenFile"
+        @saveFile="onSaveFile"
+        @saveFileAs="onSaveFileAs"
+        @importFile="onImportFile"
+        @exportFileAs="onExportFileAs"
+        @printFile="onPrintFile"
+        @settings="onSettings"
       />
       <q-btn
         dense
@@ -83,6 +90,27 @@ export default defineComponent({
         const hasUnsavedChanges = store.getters['editor/hasUnsavedChanges']
         const resetFile = () => store.dispatch('editor/resetFile')
         askConfirmOrExecute(hasUnsavedChanges, resetFile)
+      },
+      onOpenFile () {
+        // TODO
+      },
+      onSaveFile () {
+        // TODO
+      },
+      onSaveFileAs () {
+        // TODO
+      },
+      onImportFile () {
+        // TODO
+      },
+      onExportFileAs () {
+        // TODO
+      },
+      onPrintFile () {
+        // TODO
+      },
+      onSettings () {
+        // TODO
       },
       onToggleMenu () {
         store.commit('base/toggleMenu')
