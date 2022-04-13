@@ -237,7 +237,7 @@ export default {
   h6
     font-size: 1em
 
-  p, ol, ul
+  p, ol, ul, img, table
     margin-top: 1em
 
   li p
