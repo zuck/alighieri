@@ -209,27 +209,33 @@ export default {
   font-family: "Libre Baskerville", serif
   line-height: 2
 
+  @media print
+    font-size: 12pt
+
   h1, h2, h3, h4, h5, h6
-    margin: 1.5rem 0
-    line-height: 1.3
+    line-height: 1
 
   h1
-    font-size: 3.052rem
+    font-size: 3.052em
 
   h2
-    font-size: 2.441rem
+    opacity: .7
+    font-size: 2.441em
+
+    @media print
+      opacity: 1
 
   h3
-    font-size: 1.953rem
+    font-size: 1.953em
 
   h4
-    font-size: 1.563rem
+    font-size: 1.563em
 
   h5
-    font-size: 1.25rem
+    font-size: 1.25em
 
   h6
-    font-size: 1rem
+    font-size: 1em
 
   p, ol, ul
     margin-top: 1em
@@ -238,7 +244,7 @@ export default {
     margin-top: 0
 
   hr
-    margin: 4em
+    margin: 4rem
 
   blockquote
     margin-left: 0
