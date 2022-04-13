@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { defineComponent, computed, onMounted } from 'vue'
+import { defineComponent, computed, onMounted, onUnmounted } from 'vue'
 import { useStore } from 'vuex'
 import { useI18n } from 'vue-i18n'
 import { useQuasar } from 'quasar'
@@ -80,44 +80,96 @@ export default defineComponent({
       }
     }
 
-    onMounted(() => $q.dark.set(store.state.base.darkMode))
+    function onNewFile () {
+      const hasUnsavedChanges = store.getters['editor/hasUnsavedChanges']
+      const resetFile = () => store.dispatch('editor/resetFile')
+      askConfirmOrExecute(hasUnsavedChanges, resetFile)
+    }
+    function onOpenFile () {
+      // TODO
+    }
+    function onSaveFile () {
+      store.dispatch('editor/saveFile')
+    }
+    function onSaveFileAs () {
+      // TODO
+    }
+    function onImportFile () {
+      // TODO
+    }
+    function onExportFileAs () {
+      // TODO
+    }
+    function onPrintFile () {
+      store.dispatch('editor/printFile')
+    }
+    function onSettings () {
+      // TODO
+    }
+    function onToggleMenu () {
+      store.commit('base/toggleMenu')
+    }
+    function onToggleDarkMode () {
+      store.dispatch('base/toggleDarkMode')
+    }
+    function onKeyDown (evt) {
+      // Toggle menu
+      if (evt.key === 'm' && evt.ctrlKey) {
+        evt.preventDefault()
+        onToggleMenu()
+      }
+      // Toggle dark mode
+      if (evt.key === 'd' && evt.ctrlKey) {
+        evt.preventDefault()
+        onToggleDarkMode()
+      }
+      // Open file
+      if (evt.key === 'o' && evt.ctrlKey) {
+        evt.preventDefault()
+        onOpenFile()
+      }
+      // Save file
+      if (evt.key === 's' && evt.ctrlKey) {
+        evt.preventDefault()
+        onSaveFile()
+      }
+      // Print file
+      if (evt.key === 'p' && evt.ctrlKey) {
+        evt.preventDefault()
+        onPrintFile()
+      }
+    }
+    function onExit () {
+      // TODO
+    }
+
+    onMounted(() => {
+      window.addEventListener('beforeunload', onExit)
+      document.addEventListener('keydown', onKeyDown)
+      $q.dark.set(store.state.base.darkMode)
+    })
+
+    onUnmounted(() => {
+      window.removeEventListener('beforeunload', onExit)
+      document.removeEventListener('keydown', onKeyDown)
+    })
 
     return {
       menuOpen,
       isDark,
       baseClass,
-      onNewFile () {
-        const hasUnsavedChanges = store.getters['editor/hasUnsavedChanges']
-        const resetFile = () => store.dispatch('editor/resetFile')
-        askConfirmOrExecute(hasUnsavedChanges, resetFile)
-      },
-      onOpenFile () {
-        // TODO
-      },
-      onSaveFile () {
-        // TODO
-      },
-      onSaveFileAs () {
-        // TODO
-      },
-      onImportFile () {
-        // TODO
-      },
-      onExportFileAs () {
-        // TODO
-      },
-      onPrintFile () {
-        store.dispatch('editor/printFile')
-      },
-      onSettings () {
-        // TODO
-      },
-      onToggleMenu () {
-        store.commit('base/toggleMenu')
-      },
-      onToggleDarkMode () {
-        store.dispatch('base/toggleDarkMode')
-      }
+      onNewFile,
+      onOpenFile,
+      onSaveFile,
+      onSaveFileAs,
+      onImportFile,
+      onExportFileAs,
+      onPrintFile,
+      onSettings,
+      onToggleMenu,
+      onToggleDarkMode,
+      onKeyDown,
+      onExit
     }
   }
 })

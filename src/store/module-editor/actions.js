@@ -29,6 +29,14 @@ export function reloadFile ({ commit }) {
   commit('setLastChange', now)
 }
 
+export function saveFile ({ commit, state }) {
+  const now = new Date()
+  LocalStorage.set(CONTENT_CACHE_KEY, state.content)
+  LocalStorage.set(FILENAME_CACHE_KEY, state.filename)
+  commit('setLastSave', now)
+  commit('setLastChange', now)
+}
+
 export function printFile ({ commit }) {
   window.print()
 }
