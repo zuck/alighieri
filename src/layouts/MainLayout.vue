@@ -104,7 +104,30 @@ export default defineComponent({
       store.dispatch('editor/printFile')
     }
     function onSettings () {
-      // TODO
+      const settings = {
+        darkMode: store.state.base.darkMode,
+        parSpaceBetween: store.state.base.parSpaceBetween,
+        parIndentFirstLine: store.state.base.parIndentFirstLine
+      }
+      $q.dialog({
+        title: i18n.t('Settings'),
+        options: {
+          type: 'toggle',
+          model: Object.keys(settings).filter(opt => !!settings[opt]),
+          items: [
+            { label: i18n.t('Dark mode'), value: 'darkMode' },
+            { label: i18n.t('Space between paragraphs'), value: 'parSpaceBetween' },
+            { label: i18n.t('Indent first line'), value: 'parIndentFirstLine' }
+          ]
+        },
+        cancel: true,
+        persistent: true
+      })
+        .onOk(res => {
+          store.commit('base/setDarkMode', res.includes('darkMode'))
+          store.commit('base/setParagraphSpaceBetween', res.includes('parSpaceBetween'))
+          store.commit('base/setParagraphIndentFirstLine', res.includes('parIndentFirstLine'))
+        })
     }
     function onToggleMenu () {
       store.commit('base/toggleMenu')
