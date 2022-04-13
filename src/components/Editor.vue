@@ -213,7 +213,7 @@ export default {
     font-size: 12pt
 
   h1, h2, h3, h4, h5, h6
-    line-height: 1
+    line-height: 1.2
 
   h1
     font-size: 3.052em
