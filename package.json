@@ -27,7 +27,7 @@
     "vue-i18n": "8.22.4"
   },
   "devDependencies": {
-    "@quasar/app": "^2.0.0",
+    "@quasar/app": "^2.4.3",
     "babel-eslint": "^10.0.1",
     "devtron": "^1.4.0",
     "electron": "^9.4.0",
