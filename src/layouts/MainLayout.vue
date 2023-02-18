@@ -7,6 +7,7 @@
       <navbar
         @toggleDarkMode="onToggleDarkMode"
         @toggleMenu="onToggleMenu"
+        @about="onAbout"
       />
     </q-header>
 
@@ -43,12 +44,13 @@
 </template>
 
 <script>
-import { defineComponent, computed, onMounted, onUnmounted } from 'vue'
-import { useStore } from 'vuex'
-import { useI18n } from 'vue-i18n'
 import { useQuasar } from 'quasar'
+import AboutDialog from 'src/components/AboutDialog'
 import Navbar from 'src/components/Navbar'
 import Sidebar from 'src/components/Sidebar'
+import { computed, defineComponent, onMounted, onUnmounted } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useStore } from 'vuex'
 
 export default defineComponent({
   name: 'MainLayout',
@@ -85,24 +87,31 @@ export default defineComponent({
       const resetFile = () => store.dispatch('editor/resetFile')
       askConfirmOrExecute(hasUnsavedChanges, resetFile)
     }
+
     function onOpenFile () {
       // TODO
     }
+
     function onSaveFile () {
       store.dispatch('editor/saveFile')
     }
+
     function onSaveFileAs () {
       // TODO
     }
+
     function onImportFile () {
       // TODO
     }
+
     function onExportFileAs () {
       // TODO
     }
+
     function onPrintFile () {
       store.dispatch('editor/printFile')
     }
+
     function onSettings () {
       const settings = {
         darkMode: store.state.base.darkMode,
@@ -129,12 +138,21 @@ export default defineComponent({
           store.commit('base/setParagraphIndentFirstLine', res.includes('parIndentFirstLine'))
         })
     }
+
+    function onAbout () {
+      $q.dialog({
+        component: AboutDialog
+      })
+    }
+
     function onToggleMenu () {
       store.commit('base/toggleMenu')
     }
+
     function onToggleDarkMode () {
       store.dispatch('base/toggleDarkMode')
     }
+
     function onKeyDown (evt) {
       // Toggle menu
       if (evt.key === 'm' && evt.ctrlKey) {
@@ -162,6 +180,7 @@ export default defineComponent({
         onPrintFile()
       }
     }
+
     function onExit () {
       // TODO
     }
@@ -189,6 +208,7 @@ export default defineComponent({
       onExportFileAs,
       onPrintFile,
       onSettings,
+      onAbout,
       onToggleMenu,
       onToggleDarkMode,
       onKeyDown,
