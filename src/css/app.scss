@@ -20,7 +20,7 @@ fieldset {
     color: #000 !important;
   }
 
-  h1 {
+  h1:not(:first-child) {
     page-break-before: always;
   }
 
