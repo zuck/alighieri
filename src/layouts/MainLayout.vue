@@ -7,6 +7,7 @@
       <navbar
         @toggleDarkMode="onToggleDarkMode"
         @toggleMenu="onToggleMenu"
+        @save="onSaveFile"
         @about="onAbout"
       />
     </q-header>
