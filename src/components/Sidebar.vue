@@ -46,7 +46,7 @@
       @click="$emit('saveFileAs')"
     >
       <q-item-section avatar>
-        <q-icon name="o_save_as" />
+        <q-icon name="o_cloud_download" />
       </q-item-section>
       <q-item-section>
         <q-item-label>{{ $t('Save as') }}</q-item-label>
