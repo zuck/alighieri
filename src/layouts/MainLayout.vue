@@ -44,7 +44,7 @@
 
 <script>
 import { showOpenFilePicker } from 'file-system-access'
-import { useQuasar } from 'quasar'
+import { useMeta, useQuasar } from 'quasar'
 import AboutDialog from 'src/components/AboutDialog'
 import Navbar from 'src/components/Navbar'
 import Sidebar from 'src/components/Sidebar'
@@ -68,6 +68,16 @@ export default defineComponent({
     const menuOpen = computed(() => store.state.base.menuOpen)
     const isDark = computed(() => store.state.base.darkMode)
     const baseClass = computed(() => isDark.value ? 'q-dark' : 'bg-white text-dark')
+
+    useMeta(() => {
+      const { productName } = store.getters['base/appInfo']
+      const filename = store.state.editor.filename
+      const marker = store.getters['editor/hasUnsavedChanges'] ? '*' : ''
+      return {
+        title: `${marker}${filename}`,
+        titleTemplate: title => title ? `${productName} - ${title}` : productName
+      }
+    })
 
     function askConfirmOrExecute (shouldAskConfirm, action) {
       if (shouldAskConfirm) {

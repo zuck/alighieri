@@ -14,7 +14,7 @@ export function updateContent ({ commit, state }, content) {
 }
 
 export function resetFile ({ commit }) {
-  commit('setFilename', '')
+  commit('setFilename', 'untitled.html')
   commit('setContent', DEFAULT_CONTENT)
   commit('setLastSave', null)
   commit('setLastChange', null)
