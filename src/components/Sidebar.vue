@@ -46,36 +46,10 @@
       @click="$emit('saveFileAs')"
     >
       <q-item-section avatar>
-        <q-icon name="o_move_to_inbox" />
+        <q-icon name="o_save_as" />
       </q-item-section>
       <q-item-section>
         <q-item-label>{{ $t('Save as') }}</q-item-label>
-      </q-item-section>
-    </q-item>
-    <q-item
-      clickable
-      v-ripple
-      :title="$t('Import from other formats')"
-      @click="$emit('importFile')"
-    >
-      <q-item-section avatar>
-        <q-icon name="o_cloud_upload" />
-      </q-item-section>
-      <q-item-section>
-        <q-item-label>{{ $t('Import') }}</q-item-label>
-      </q-item-section>
-    </q-item>
-    <q-item
-      clickable
-      v-ripple
-      :title="$t('Export to another format')"
-      @click="$emit('exportFileAs')"
-    >
-      <q-item-section avatar>
-        <q-icon name="o_cloud_download" />
-      </q-item-section>
-      <q-item-section>
-        <q-item-label>{{ $t('Export') }}</q-item-label>
       </q-item-section>
     </q-item>
     <q-item
@@ -122,7 +96,7 @@
 </template>
 
 <script>
-import { defineComponent, computed } from 'vue'
+import { computed, defineComponent } from 'vue'
 import { useStore } from 'vuex'
 
 export default defineComponent({

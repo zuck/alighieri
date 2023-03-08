@@ -28,8 +28,9 @@
     "@tiptap/vue-3": "^2.0.0-beta.217",
     "core-js": "^3.6.5",
     "file-system-access": "^1.0.4",
-    "html-to-text": "7.0.0",
+    "html-to-text": "^9.0.4",
     "quasar": "^2.11.7",
+    "showdown": "^2.1.0",
     "vue": "^3.2.40",
     "vue-i18n": "^9.0.0",
     "vuex": "^4.0.1"

@@ -22,8 +22,6 @@
         @openFile="onOpenFile"
         @saveFile="onSaveFile"
         @saveFileAs="onSaveFileAs"
-        @importFile="onImportFile"
-        @exportFileAs="onExportFileAs"
         @printFile="onPrintFile"
         @settings="onSettings"
       />
@@ -45,10 +43,12 @@
 </template>
 
 <script>
+import { showOpenFilePicker } from 'file-system-access'
 import { useQuasar } from 'quasar'
 import AboutDialog from 'src/components/AboutDialog'
 import Navbar from 'src/components/Navbar'
 import Sidebar from 'src/components/Sidebar'
+import { serializeContent } from 'src/conversion'
 import { computed, defineComponent, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useStore } from 'vuex'
@@ -89,24 +89,30 @@ export default defineComponent({
       askConfirmOrExecute(hasUnsavedChanges, resetFile)
     }
 
-    function onOpenFile () {
-      // TODO
+    async function onOpenFile () {
+      const [fileHandle] = await showOpenFilePicker({
+      })
+      const file = await fileHandle.getFile()
+      const content = await file.text()
+      store.dispatch('editor/loadFile', {
+        filename: file.name,
+        content
+      })
     }
 
-    function onSaveFile () {
+    async function onSaveFile () {
       store.dispatch('editor/saveFile')
     }
 
-    function onSaveFileAs () {
-      // TODO
-    }
-
-    function onImportFile () {
-      // TODO
-    }
-
-    function onExportFileAs () {
-      // TODO
+    async function onSaveFileAs () {
+      const fileHandle = await window.showSaveFilePicker({
+        suggestedName: store.state.editor.filename
+      })
+      store.dispatch('editor/saveFile', fileHandle.name)
+      const writable = await fileHandle.createWritable()
+      const content = serializeContent(store.state.editor.content, fileHandle.name)
+      await writable.write(content)
+      await writable.close()
     }
 
     function onPrintFile () {
@@ -205,8 +211,6 @@ export default defineComponent({
       onOpenFile,
       onSaveFile,
       onSaveFileAs,
-      onImportFile,
-      onExportFileAs,
       onPrintFile,
       onSettings,
       onAbout,
