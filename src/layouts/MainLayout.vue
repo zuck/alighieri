@@ -24,6 +24,7 @@
         @saveFileAs="onSaveFileAs"
         @printFile="onPrintFile"
         @settings="onSettings"
+        @exit="onExit"
       />
       <q-btn
         dense
@@ -199,7 +200,13 @@ export default defineComponent({
     }
 
     function onExit () {
-      // TODO
+      const hasUnsavedChanges = store.getters['editor/hasUnsavedChanges']
+      const exitApp = () => {
+        if (window.electron) {
+          window.electron.close()
+        }
+      }
+      askConfirmOrExecute(hasUnsavedChanges, exitApp)
     }
 
     onMounted(() => {
