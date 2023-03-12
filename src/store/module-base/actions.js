@@ -10,6 +10,9 @@ export function toggleDarkMode ({ dispatch, state }) {
 }
 
 export function updateSettings ({ commit }, value) {
+  if ('locale' in value) {
+    commit('setLocale', value.locale)
+  }
   if ('darkMode' in value) {
     commit('setDarkMode', value.darkMode)
   }

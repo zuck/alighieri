@@ -6,7 +6,7 @@
           {{ appInfo.name }}
           <span class="text-subtitle2">v{{ appInfo.version }}</span>
         </q-toolbar-title>
-        <q-btn flat dense icon="close" @click="onOKClick" />
+        <q-btn flat round dense icon="close" @click="onOKClick" />
       </q-toolbar>
       <q-separator/>
       <q-card-section class="text-center q-gutter-md">

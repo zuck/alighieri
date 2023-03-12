@@ -48,6 +48,7 @@ import { showOpenFilePicker } from 'file-system-access'
 import { useMeta, useQuasar } from 'quasar'
 import AboutDialog from 'src/components/AboutDialog'
 import Navbar from 'src/components/Navbar'
+import SettingsDialog from 'src/components/SettingsDialog'
 import Sidebar from 'src/components/Sidebar'
 import { serializeContent } from 'src/conversion'
 import { computed, defineComponent, onMounted, onUnmounted } from 'vue'
@@ -131,29 +132,14 @@ export default defineComponent({
     }
 
     function onSettings () {
-      const settings = {
-        darkMode: store.state.base.darkMode,
-        parSpaceBetween: store.state.base.parSpaceBetween,
-        parIndentFirstLine: store.state.base.parIndentFirstLine
-      }
       $q.dialog({
-        title: i18n.t('Settings'),
-        options: {
-          type: 'toggle',
-          model: Object.keys(settings).filter(opt => !!settings[opt]),
-          items: [
-            { label: i18n.t('Dark mode'), value: 'darkMode' },
-            { label: i18n.t('Space between paragraphs'), value: 'parSpaceBetween' },
-            { label: i18n.t('Indent first line'), value: 'parIndentFirstLine' }
-          ]
-        },
-        cancel: true,
-        persistent: true
+        component: SettingsDialog
       })
         .onOk(res => {
-          store.commit('base/setDarkMode', res.includes('darkMode'))
-          store.commit('base/setParagraphSpaceBetween', res.includes('parSpaceBetween'))
-          store.commit('base/setParagraphIndentFirstLine', res.includes('parIndentFirstLine'))
+          store.commit('base/setLocale', res.locale)
+          store.commit('base/setDarkMode', res.darkMode)
+          store.commit('base/setParagraphSpaceBetween', res.parSpaceBetween)
+          store.commit('base/setParagraphIndentFirstLine', res.parIndentFirstLine)
         })
     }
 

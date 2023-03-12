@@ -14,6 +14,7 @@ export function appInfo () {
 
 export function settings (state) {
   return {
+    locale: state.locale,
     darkMode: state.darkMode,
     parSpaceBetween: state.parSpaceBetween,
     parIndentFirstLine: state.parIndentFirstLine

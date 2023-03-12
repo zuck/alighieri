@@ -3,7 +3,7 @@
     <q-item
       clickable
       v-ripple
-      :title="$t('Create a new file')"
+      :title="$t('Create a new document')"
       @click="$emit('newFile')"
     >
       <q-item-section avatar>
@@ -16,7 +16,7 @@
     <q-item
       clickable
       v-ripple
-      :title="$t('Open an existing file')"
+      :title="$t('Open an existing document')"
       @click="$emit('openFile')"
     >
       <q-item-section avatar>

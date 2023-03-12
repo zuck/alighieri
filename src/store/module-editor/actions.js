@@ -1,4 +1,5 @@
 import { LocalStorage } from 'quasar'
+import { i18n } from '../../boot/i18n'
 import {
   CONTENT_CACHE_KEY,
   DEFAULT_CONTENT,
@@ -15,7 +16,7 @@ export function updateContent ({ commit, state }, content) {
 
 export function resetFile ({ commit }) {
   commit('setFilename', 'untitled.html')
-  commit('setContent', DEFAULT_CONTENT)
+  commit('setContent', i18n.global.t(DEFAULT_CONTENT))
   commit('setLastSave', null)
   commit('setLastChange', null)
 }
@@ -31,7 +32,7 @@ export function loadFile ({ commit }, { filename, content }) {
 export function reloadFile ({ commit }) {
   const now = new Date()
   const filename = LocalStorage.getItem(FILENAME_CACHE_KEY) || ''
-  const content = LocalStorage.getItem(CONTENT_CACHE_KEY) || DEFAULT_CONTENT
+  const content = LocalStorage.getItem(CONTENT_CACHE_KEY) || i18n.global.t(DEFAULT_CONTENT)
   commit('setFilename', filename)
   commit('setContent', content)
   commit('setLastSave', now)
