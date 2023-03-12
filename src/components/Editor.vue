@@ -99,20 +99,21 @@
       />
     </q-btn-group>
   </floating-menu>
-  <editor-content :editor="editor" />
+  <editor-content :class="editorClass" :editor="editor" />
 </template>
 
 <script>
-import { computed } from 'vue'
-import { useI18n } from 'vue-i18n'
-import { debounce, useQuasar } from 'quasar'
-import { useEditor, EditorContent, BubbleMenu, FloatingMenu } from '@tiptap/vue-3'
-import StarterKit from '@tiptap/starter-kit'
-import Underline from '@tiptap/extension-underline'
-import Typography from '@tiptap/extension-typography'
-import TextAlign from '@tiptap/extension-text-align'
 import CodeBlock from '@tiptap/extension-code-block'
 import Image from '@tiptap/extension-image'
+import TextAlign from '@tiptap/extension-text-align'
+import Typography from '@tiptap/extension-typography'
+import Underline from '@tiptap/extension-underline'
+import StarterKit from '@tiptap/starter-kit'
+import { BubbleMenu, EditorContent, FloatingMenu, useEditor } from '@tiptap/vue-3'
+import { debounce, useQuasar } from 'quasar'
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useStore } from 'vuex'
 import { UPDATE_STATS_DEBOUNCE_TIME } from '../config'
 
 export default {
@@ -136,8 +137,13 @@ export default {
       emit('update:text', text)
     }, UPDATE_STATS_DEBOUNCE_TIME)
 
-    const color = computed(() => 'black')
     const quasar = useQuasar()
+    const store = useStore()
+    const color = computed(() => 'black')
+    const editorClass = computed(() => ({
+      'par-space-between': store.state.base.parSpaceBetween,
+      'par-indent-first-line': store.state.base.parIndentFirstLine
+    }))
     const editor = useEditor({
       content: props.modelValue,
       extensions: [
@@ -152,7 +158,7 @@ export default {
       ],
       editorProps: {
         attributes: {
-          class: 'q-pa-lg no-outline'
+          class: 'q-py-xl q-px-lg no-outline'
         }
       },
       onUpdate () {
@@ -179,6 +185,7 @@ export default {
 
     return {
       editor,
+      editorClass,
       color,
       addImage
     }
@@ -237,12 +244,6 @@ export default {
   h6
     font-size: 1em
 
-  p, ol, ul, img, table
-    margin-top: 1em
-
-  li p
-    margin-top: 0
-
   hr
     margin: 4rem
 
@@ -251,15 +252,22 @@ export default {
     padding-left: 1.5rem
     border-left: 8px solid $grey-5
 
-  p,
-  pre
+  p
     margin-bottom: 0
+    text-indent: 0
+
+  li p
+    margin-bottom: 0 !important
+    text-indent: 0 !important
+
+  ol, ul, img, table, pre
+    margin-bottom: 1.5em
 
   code,
   pre
     border-radius: .5rem
     color: $grey-1
-    background-color: $grey-10
+    background-color: $grey-9
 
   code
     padding: .25rem .5rem
@@ -276,4 +284,14 @@ export default {
 
   img
     max-width: 100%
+
+.par-space-between
+  .ProseMirror
+    p
+      margin-bottom: 1.5em
+
+.par-indent-first-line
+  .ProseMirror
+    p
+      text-indent: 2em
 </style>
