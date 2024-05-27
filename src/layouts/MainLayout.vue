@@ -1,8 +1,5 @@
 <template>
-  <q-layout
-    view="hHh Lpr lFf"
-    :class="baseClass"
-  >
+  <q-layout view="hHh Lpr lFf" :class="baseClass">
     <q-header :class="baseClass">
       <navbar
         @toggleDarkMode="onToggleDarkMode"
@@ -12,11 +9,7 @@
       />
     </q-header>
 
-    <q-drawer
-      mini
-      :class="baseClass"
-      v-model="menuOpen"
-    >
+    <q-drawer mini :class="baseClass" v-model="menuOpen">
       <sidebar
         @newFile="onNewFile"
         @openFile="onOpenFile"
@@ -32,7 +25,7 @@
         color="accent"
         icon="menu_open"
         class="lt-md absolute-top-right q-mt-sm"
-        style="margin-right:-16px"
+        style="margin-right: -16px"
         @click="onToggleMenu"
       />
     </q-drawer>
@@ -44,167 +37,170 @@
 </template>
 
 <script>
-import { showOpenFilePicker } from 'file-system-access'
-import { useMeta, useQuasar } from 'quasar'
-import AboutDialog from 'src/components/AboutDialog'
-import Navbar from 'src/components/Navbar'
-import SettingsDialog from 'src/components/SettingsDialog'
-import Sidebar from 'src/components/Sidebar'
-import { serializeContent } from 'src/conversion'
-import { computed, defineComponent, onMounted, onUnmounted } from 'vue'
-import { useI18n } from 'vue-i18n'
-import { useStore } from 'vuex'
+import { showOpenFilePicker } from "file-system-access";
+import { useMeta, useQuasar } from "quasar";
+import AboutDialog from "src/components/AboutDialog";
+import Navbar from "src/components/Navbar";
+import SettingsDialog from "src/components/SettingsDialog";
+import Sidebar from "src/components/Sidebar";
+import { serializeContent } from "src/conversion";
+import { computed, defineComponent, onMounted, onUnmounted } from "vue";
+import { useI18n } from "vue-i18n";
+import { useStore } from "vuex";
 
 export default defineComponent({
-  name: 'MainLayout',
+  name: "MainLayout",
 
   components: {
     Navbar,
-    Sidebar
+    Sidebar,
   },
 
-  setup () {
-    const store = useStore()
-    const i18n = useI18n()
-    const $q = useQuasar()
-    const menuOpen = computed(() => store.state.base.menuOpen)
-    const isDark = computed(() => store.state.base.darkMode)
-    const baseClass = computed(() => isDark.value ? 'q-dark' : 'bg-white text-dark')
+  setup() {
+    const store = useStore();
+    const i18n = useI18n();
+    const $q = useQuasar();
+    const menuOpen = computed(() => store.state.base.menuOpen);
+    const isDark = computed(() => store.state.base.darkMode);
+    const baseClass = computed(() =>
+      isDark.value ? "q-dark" : "bg-white text-dark"
+    );
 
     useMeta(() => {
-      const { productName } = store.getters['base/appInfo']
-      const filename = store.state.editor.filename
-      const marker = store.getters['editor/hasUnsavedChanges'] ? '*' : ''
+      const { productName } = store.getters["base/appInfo"];
+      const filename = store.state.editor.filename;
+      const marker = store.getters["editor/hasUnsavedChanges"] ? "*" : "";
       return {
         title: `${marker}${filename}`,
-        titleTemplate: title => title ? `${productName} - ${title}` : productName
-      }
-    })
+        titleTemplate: (title) =>
+          title ? `${productName} - ${title}` : productName,
+      };
+    });
 
-    function askConfirmOrExecute (shouldAskConfirm, action) {
+    function askConfirmOrExecute(shouldAskConfirm, action) {
       if (shouldAskConfirm) {
         $q.dialog({
-          title: i18n.t('There are unsaved changes'),
-          message: i18n.t('Are you sure you want to discard the current document?'),
-          ok: i18n.t('Confirm'),
+          title: i18n.t("There are unsaved changes"),
+          message: i18n.t(
+            "Are you sure you want to discard the current document?"
+          ),
+          ok: i18n.t("Confirm"),
           cancel: true,
-          persistent: true
-        }).onOk(action)
+          persistent: true,
+        }).onOk(action);
       } else {
-        action()
+        action();
       }
     }
 
-    function onNewFile () {
-      const hasUnsavedChanges = store.getters['editor/hasUnsavedChanges']
-      const resetFile = () => store.dispatch('editor/resetFile')
-      askConfirmOrExecute(hasUnsavedChanges, resetFile)
+    function onNewFile() {
+      const hasUnsavedChanges = store.getters["editor/hasUnsavedChanges"];
+      const resetFile = () => store.dispatch("editor/resetFile");
+      askConfirmOrExecute(hasUnsavedChanges, resetFile);
     }
 
-    async function onOpenFile () {
-      const [fileHandle] = await showOpenFilePicker({
-      })
-      const file = await fileHandle.getFile()
-      const content = await file.text()
-      store.dispatch('editor/loadFile', {
+    async function onOpenFile() {
+      const [fileHandle] = await showOpenFilePicker({});
+      const file = await fileHandle.getFile();
+      const content = await file.text();
+      store.dispatch("editor/loadFile", {
         filename: file.name,
-        content
-      })
+        content,
+      });
     }
 
-    async function onSaveFile () {
-      store.dispatch('editor/saveFile')
+    async function onSaveFile() {
+      store.dispatch("editor/saveFile");
     }
 
-    async function onSaveFileAs () {
+    async function onSaveFileAs() {
       const fileHandle = await window.showSaveFilePicker({
-        suggestedName: store.state.editor.filename
-      })
-      store.dispatch('editor/saveFile', fileHandle.name)
-      const writable = await fileHandle.createWritable()
-      const content = serializeContent(store.state.editor.content, fileHandle.name)
-      await writable.write(content)
-      await writable.close()
+        suggestedName: store.state.editor.filename,
+      });
+      store.dispatch("editor/saveFile", fileHandle.name);
+      const writable = await fileHandle.createWritable();
+      const content = serializeContent(
+        store.state.editor.content,
+        fileHandle.name
+      );
+      await writable.write(content);
+      await writable.close();
     }
 
-    function onPrintFile () {
-      store.dispatch('editor/printFile')
+    function onPrintFile() {
+      store.dispatch("editor/printFile");
     }
 
-    function onSettings () {
+    function onSettings() {
       $q.dialog({
-        component: SettingsDialog
-      })
-        .onOk(res => {
-          store.commit('base/setLocale', res.locale)
-          store.commit('base/setDarkMode', res.darkMode)
-          store.commit('base/setParagraphSpaceBetween', res.parSpaceBetween)
-          store.commit('base/setParagraphIndentFirstLine', res.parIndentFirstLine)
-        })
+        component: SettingsDialog,
+      }).onOk((res) => {
+        store.dispatch("base/updateSettings", res);
+      });
     }
 
-    function onAbout () {
+    function onAbout() {
       $q.dialog({
-        component: AboutDialog
-      })
+        component: AboutDialog,
+      });
     }
 
-    function onToggleMenu () {
-      store.commit('base/toggleMenu')
+    function onToggleMenu() {
+      store.commit("base/toggleMenu");
     }
 
-    function onToggleDarkMode () {
-      store.dispatch('base/toggleDarkMode')
+    function onToggleDarkMode() {
+      store.dispatch("base/toggleDarkMode");
     }
 
-    function onKeyDown (evt) {
+    function onKeyDown(evt) {
       // Toggle menu
-      if (evt.key === 'm' && evt.ctrlKey) {
-        evt.preventDefault()
-        onToggleMenu()
+      if (evt.key === "m" && evt.ctrlKey) {
+        evt.preventDefault();
+        onToggleMenu();
       }
       // Toggle dark mode
-      if (evt.key === 'd' && evt.ctrlKey) {
-        evt.preventDefault()
-        onToggleDarkMode()
+      if (evt.key === "d" && evt.ctrlKey) {
+        evt.preventDefault();
+        onToggleDarkMode();
       }
       // Open file
-      if (evt.key === 'o' && evt.ctrlKey) {
-        evt.preventDefault()
-        onOpenFile()
+      if (evt.key === "o" && evt.ctrlKey) {
+        evt.preventDefault();
+        onOpenFile();
       }
       // Save file
-      if (evt.key === 's' && evt.ctrlKey) {
-        evt.preventDefault()
-        onSaveFile()
+      if (evt.key === "s" && evt.ctrlKey) {
+        evt.preventDefault();
+        onSaveFile();
       }
       // Print file
-      if (evt.key === 'p' && evt.ctrlKey) {
-        evt.preventDefault()
-        onPrintFile()
+      if (evt.key === "p" && evt.ctrlKey) {
+        evt.preventDefault();
+        onPrintFile();
       }
     }
 
-    function onExit () {
-      const hasUnsavedChanges = store.getters['editor/hasUnsavedChanges']
+    function onExit() {
+      const hasUnsavedChanges = store.getters["editor/hasUnsavedChanges"];
       const exitApp = () => {
         if (window.electron) {
-          window.electron.close()
+          window.electron.close();
         }
-      }
-      askConfirmOrExecute(hasUnsavedChanges, exitApp)
+      };
+      askConfirmOrExecute(hasUnsavedChanges, exitApp);
     }
 
     onMounted(() => {
-      window.addEventListener('beforeunload', onExit)
-      document.addEventListener('keydown', onKeyDown)
-      $q.dark.set(store.state.base.darkMode)
-    })
+      window.addEventListener("beforeunload", onExit);
+      document.addEventListener("keydown", onKeyDown);
+      $q.dark.set(store.state.base.darkMode);
+    });
 
     onUnmounted(() => {
-      window.removeEventListener('beforeunload', onExit)
-      document.removeEventListener('keydown', onKeyDown)
-    })
+      window.removeEventListener("beforeunload", onExit);
+      document.removeEventListener("keydown", onKeyDown);
+    });
 
     return {
       menuOpen,
@@ -220,8 +216,8 @@ export default defineComponent({
       onToggleMenu,
       onToggleDarkMode,
       onKeyDown,
-      onExit
-    }
-  }
-})
+      onExit,
+    };
+  },
+});
 </script>

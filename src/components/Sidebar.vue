@@ -1,5 +1,5 @@
 <template>
-  <q-list class="text-uppercase" style="opacity:.6">
+  <q-list class="text-uppercase" style="opacity: 0.6">
     <q-item
       clickable
       v-ripple
@@ -10,7 +10,7 @@
         <q-icon name="add_circle_outline" />
       </q-item-section>
       <q-item-section>
-        <q-item-label>{{ $t('New...') }}</q-item-label>
+        <q-item-label>{{ $t("New...") }}</q-item-label>
       </q-item-section>
     </q-item>
     <q-item
@@ -23,7 +23,7 @@
         <q-icon name="o_folder_open" />
       </q-item-section>
       <q-item-section>
-        <q-item-label>{{ $t('Open') }}</q-item-label>
+        <q-item-label>{{ $t("Open") }}</q-item-label>
       </q-item-section>
     </q-item>
     <q-item
@@ -36,7 +36,7 @@
         <q-icon name="o_save" />
       </q-item-section>
       <q-item-section>
-        <q-item-label>{{ $t('Save') }}</q-item-label>
+        <q-item-label>{{ $t("Save") }}</q-item-label>
       </q-item-section>
     </q-item>
     <q-item
@@ -49,7 +49,7 @@
         <q-icon name="o_cloud_download" />
       </q-item-section>
       <q-item-section>
-        <q-item-label>{{ $t('Save as') }}</q-item-label>
+        <q-item-label>{{ $t("Save as") }}</q-item-label>
       </q-item-section>
     </q-item>
     <q-item
@@ -62,7 +62,7 @@
         <q-icon name="o_print" />
       </q-item-section>
       <q-item-section>
-        <q-item-label>{{ $t('Print') }}</q-item-label>
+        <q-item-label>{{ $t("Print") }}</q-item-label>
       </q-item-section>
     </q-item>
     <q-item
@@ -75,7 +75,7 @@
         <q-icon name="o_settings" />
       </q-item-section>
       <q-item-section>
-        <q-item-label>{{ $t('Settings') }}</q-item-label>
+        <q-item-label>{{ $t("Settings") }}</q-item-label>
       </q-item-section>
     </q-item>
     <q-item
@@ -86,31 +86,31 @@
       @click="$emit('exit')"
     >
       <q-item-section avatar>
-        <q-icon name="o_exit_to_app"/>
+        <q-icon name="o_exit_to_app" />
       </q-item-section>
       <q-item-section>
-        <q-item-label>{{ $t('Exit') }}</q-item-label>
+        <q-item-label>{{ $t("Exit") }}</q-item-label>
       </q-item-section>
     </q-item>
   </q-list>
 </template>
 
 <script>
-import { computed, defineComponent } from 'vue'
-import { useStore } from 'vuex'
+import { computed, defineComponent } from "vue";
+import { useStore } from "vuex";
 
 export default defineComponent({
-  name: 'Sidebar',
+  name: "Sidebar",
 
-  setup () {
-    const store = useStore()
-    const appInfo = computed(() => store.getters['base/appInfo'])
+  setup() {
+    const store = useStore();
+    const appInfo = computed(() => store.getters["base/appInfo"]);
 
     return {
-      appInfo
-    }
-  }
-})
+      appInfo,
+    };
+  },
+});
 </script>
 
 <style scoped lang="sass">
