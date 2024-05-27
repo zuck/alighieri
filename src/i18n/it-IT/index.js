@@ -38,5 +38,8 @@ export default {
   'Indent first line': 'Indenta prima riga',
   'Start to type your masterpiece... 🎉': 'Inizia a scrivere il tuo capolavoro... 🎉',
   Cancel: 'Annulla',
-  OK: 'OK'
+  OK: 'OK',
+  Confirm: 'Conferma',
+  'There are unsaved changes': 'Ci sono modifiche non salvate',
+  'Are you sure you want to discard the current document?': 'Sei sicuro di voler perdere il lavoro fatto su questo documento?'
 }
