@@ -27,12 +27,3 @@
  *   }
  * }
  */
-
-import { BrowserWindow } from '@electron/remote'
-import { contextBridge } from 'electron'
-
-contextBridge.exposeInMainWorld('electron', {
-  close () {
-    BrowserWindow.getFocusedWindow().close()
-  }
-})
