@@ -1,0 +1,53 @@
+// Forms
+fieldset {
+	border: none;
+}
+
+// Print
+@media print {
+  .q-header,
+  .q-drawer {
+    display: none;
+  }
+
+  .q-page-container {
+    padding: 0 !important;
+  }
+
+  .body--dark,
+  .bg-dark-page {
+    background-color: transparent !important;
+    color: #000 !important;
+  }
+
+  h1:not(:first-child) {
+    page-break-before: always;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    page-break-after: avoid;
+  }
+
+  hr {
+    visibility: hidden;
+    margin: 0;
+    padding: 0;
+    border: none;
+    page-break-after: always;
+    & + h1 {
+      page-break-before: none;
+    }
+  }
+
+  table,
+  figure,
+  blockquote {
+    width: 100%;
+    page-break-inside: avoid;
+  }
+}

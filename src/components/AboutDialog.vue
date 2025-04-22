@@ -1,93 +1,93 @@
 <template>
-  <q-dialog ref="dialog" @hide="onDialogHide">
+  <q-dialog ref="dialogRef" @hide="onDialogHide">
     <q-card class="q-dialog-plugin">
-      <q-card-section class="row justify-between">
-        <div class="text-h6">{{ $t('Alighieri') }} v{{ appInfo.version }}</div>
-        <q-btn flat dense icon="close" @click="onOKClick" />
-      </q-card-section>
-      <q-card-section class="text-center">
-        <img id="logo" src="~assets/logo.svg">
-        <p class="text-center text-subtitle1">{{ appInfo.description }}</p>
-        <p class="row items-center justify-center">
+      <q-toolbar>
+        <q-toolbar-title>
+          {{ appInfo.name }}
+          <span class="text-subtitle2">v{{ appInfo.version }}</span>
+        </q-toolbar-title>
+        <q-btn flat round dense icon="close" @click="onOKClick" />
+      </q-toolbar>
+      <q-separator/>
+      <q-card-section class="text-center q-gutter-md">
+        <q-img width="180px" src="~assets/logo.svg"/>
+        <p class="text-body1">{{ appInfo.description }}</p>
+        <p class="text-body2 row items-center justify-center">
           <span>
             {{ $t('Built by') }}
             <strong>{{ appInfo.authorName }}</strong>
             {{ $t('with') }}
           </span>
-          <a href="#" @click="openQuasar()">
-            <img
-              id="quasar-logo"
-              width="32px"
-              src="https://cdn.rawgit.com/quasarframework/quasar-art/cbbbb4b0/dist/svg/quasar-logo.svg"
-            >
-          </a>
+          <q-img
+            class="q-mx-xs"
+            width="24px"
+            style="cursor:pointer"
+            src="~assets/quasar-logo.svg"
+            alt="Quasar Framework"
+            @click="openQuasar()"
+          />
         </p>
+        <p><q-btn flat no-caps icon="balance" :label="$t(`${appInfo.license} License`)" @click="openLicense()"/></p>
       </q-card-section>
-      <q-card-section>
-        <div class="row items-center justify-around">
-          <q-btn outline :label="$t('Contribute')" @click="goToGitHub()"/>
-          <q-btn outline color="amber-9" :label="$t('Donate')" @click="goToDonation()"/>
-        </div>
-      </q-card-section>
+      <q-separator/>
+      <q-card-actions class="row q-pa-sm q-gutter-sm justify-between">
+        <q-btn outline icon="code" :label="$t('Contribute')" @click="goToGitHub()"/>
+        <q-btn outline color="primary" icon="support" :label="$t('Donate')" @click="goToDonation()"/>
+      </q-card-actions>
     </q-card>
   </q-dialog>
 </template>
 
 <script>
-import { openURL } from 'quasar'
-import DialogMixin from '../mixins/DialogMixin'
+import { openURL, useDialogPluginComponent } from 'quasar'
+import { useStore } from 'vuex'
 
 export default {
   name: 'AboutDialog',
 
-  mixins: [DialogMixin],
+  emits: [
+    ...useDialogPluginComponent.emits
+  ],
 
-  computed: {
-    appInfo () {
-      const info = this.$store.getters['base/appInfo']
-      const authorName = (info.author || '').split('<')[0].trim()
-      const gitURL = ((info.repository && info.repository.url) || '')
-        .replace(':', '/')
-        .replace('.git', '')
-        .replace('git@', 'https://')
-      return {
-        name: info.name,
-        description: info.description,
-        version: info.version,
-        license: info.license,
-        authorName,
-        gitURL
-      }
+  setup () {
+    const store = useStore()
+    const { dialogRef, onDialogHide, onDialogOK, onDialogCancel } = useDialogPluginComponent()
+    const info = store.getters['base/appInfo']
+    const authorName = (info.author || '').split('<')[0].trim()
+    const gitURL = ((info.repository && info.repository.url) || '')
+      .replace(':', '/')
+      .replace('.git', '')
+      .replace('git@', 'https://')
+    const appInfo = {
+      name: info.productName,
+      description: info.description,
+      version: info.version,
+      license: info.license,
+      authorName
     }
-  },
-
-  methods: {
-    openLicense () {
-      openURL(
-        'https://en.wikipedia.org/wiki/' + this.appInfo.license + '_License'
-      )
-    },
-
-    openQuasar () {
-      openURL('https://quasar.dev')
-    },
-
-    goToGitHub () {
-      openURL(this.appInfo.gitURL)
-    },
-
-    goToDonation () {
-      openURL('https://paypal.me/EBertoldi')
+    return {
+      appInfo,
+      dialogRef,
+      onDialogHide,
+      onOKClick () {
+        onDialogOK()
+      },
+      onCancelClick: onDialogCancel,
+      openLicense () {
+        openURL(
+          `https://en.wikipedia.org/wiki/${appInfo.license}_License`
+        )
+      },
+      openQuasar () {
+        openURL('https://quasar.dev')
+      },
+      goToGitHub () {
+        openURL(gitURL)
+      },
+      goToDonation () {
+        openURL('https://paypal.me/EBertoldi')
+      }
     }
   }
 }
 </script>
-
-<style scoped lang="stylus">
-#logo
-  width 180px
-  margin 1em auto
-
-#quasar-logo
-  margin: 0 .25em
-</style>

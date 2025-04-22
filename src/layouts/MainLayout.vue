@@ -1,32 +1,33 @@
 <template>
-  <q-layout view="lHh lpr lFf">
-    <q-header class="bg-transparent">
+  <q-layout view="hHh Lpr lFf" :class="baseClass">
+    <q-header :class="baseClass">
       <navbar
         @toggleDarkMode="onToggleDarkMode"
         @toggleMenu="onToggleMenu"
+        @save="onSaveFile"
+        @about="onAbout"
       />
     </q-header>
 
-    <q-drawer
-      mini-to-overlay
-      bordered
-      :value="menuOpen"
-      :mini="menuMini"
-      @mouseover="menuMini = false"
-      @mouseout="menuMini = true"
-      @input="onToggleMenu"
-    >
+    <q-drawer mini :class="baseClass" v-model="menuOpen">
       <sidebar
-        @about="onAbout"
         @newFile="onNewFile"
         @openFile="onOpenFile"
         @saveFile="onSaveFile"
         @saveFileAs="onSaveFileAs"
-        @importFile="onImportFile"
-        @exportFileAs="onExportFileAs"
+        @exportFile="onExportFile"
         @printFile="onPrintFile"
         @settings="onSettings"
         @exit="onExit"
+      />
+      <q-btn
+        dense
+        round
+        color="accent"
+        icon="menu_open"
+        class="lt-md absolute-top-right q-mt-sm"
+        style="margin-right: -16px"
+        @click="onToggleMenu"
       />
     </q-drawer>
 
@@ -37,260 +38,218 @@
 </template>
 
 <script>
-import { exportFile } from 'quasar'
-import { importFile } from '../utils/loadfile'
-import {
-  extractHtmlContent,
-  convertMdToHtml,
-  convertTxtToHtml,
-  convertHtmlToMd,
-  convertHtmlToTxt
-} from '../utils/conversion'
-import Navbar from 'components/Navbar'
-import Sidebar from 'components/Sidebar'
-import SaveDialog from 'components/SaveDialog'
-import SettingsDialog from 'components/SettingsDialog'
-import AboutDialog from 'src/components/AboutDialog.vue'
+import { showOpenFilePicker } from "file-system-access";
+import { useMeta, useQuasar } from "quasar";
+import AboutDialog from "src/components/AboutDialog";
+import Navbar from "src/components/Navbar";
+import SettingsDialog from "src/components/SettingsDialog";
+import Sidebar from "src/components/Sidebar";
+import { serializeContent } from "src/conversion";
+import { computed, defineComponent, onMounted, onUnmounted } from "vue";
+import { useI18n } from "vue-i18n";
+import { useStore } from "vuex";
 
-export default {
-  name: 'MainLayout',
+export default defineComponent({
+  name: "MainLayout",
 
   components: {
     Navbar,
-    Sidebar
+    Sidebar,
   },
 
-  computed: {
-    menuOpen () {
-      return this.$store.state.base.menuOpen
+  setup() {
+    const store = useStore();
+    const i18n = useI18n();
+    const $q = useQuasar();
+    const menuOpen = computed(() => store.state.base.menuOpen);
+    const isDark = computed(() => store.state.base.darkMode);
+    const baseClass = computed(() =>
+      isDark.value ? "q-dark" : "bg-white text-dark"
+    );
+
+    useMeta(() => {
+      const { productName } = store.getters["base/appInfo"];
+      const filename = store.state.editor.filename;
+      const marker = store.getters["editor/hasUnsavedChanges"] ? "*" : "";
+      return {
+        title: `${marker}${filename}`,
+        titleTemplate: (title) =>
+          title ? `${productName} - ${title}` : productName,
+      };
+    });
+
+    function askConfirmOrExecute(shouldAskConfirm, action) {
+      if (shouldAskConfirm) {
+        $q.dialog({
+          title: i18n.t("There are unsaved changes"),
+          message: i18n.t(
+            "Are you sure you want to discard the current document?"
+          ),
+          ok: i18n.t("Confirm"),
+          cancel: true,
+          persistent: true,
+        }).onOk(action);
+      } else {
+        action();
+      }
     }
-  },
 
-  data () {
-    return {
-      menuMini: true
+    function onNewFile() {
+      const hasUnsavedChanges = store.getters["editor/hasUnsavedChanges"];
+      const resetFile = () => store.dispatch("editor/resetFile");
+      askConfirmOrExecute(hasUnsavedChanges, resetFile);
     }
-  },
 
-  mounted () {
-    window.addEventListener('beforeunload', this.onExit)
-    document.addEventListener('keydown', this.onKeyDown)
-    this.$q.dark.set(this.$store.state.base.darkMode)
-  },
+    async function onOpenFile() {
+      const [fileHandle] = await showOpenFilePicker({});
+      const file = await fileHandle.getFile();
+      const content = await file.text();
+      store.dispatch("editor/loadFile", {
+        filename: file.name,
+        content,
+      });
+    }
 
-  beforeDestroy () {
-    window.removeEventListener('beforeunload', this.onExit)
-    document.removeEventListener('keydown', this.onKeyDown)
-  },
+    async function onSaveFile() {
+      store.dispatch("editor/saveFile");
+    }
 
-  methods: {
-    async showConfirmDlg (opts) {
-      return new Promise((resolve, reject) => {
-        try {
-          this.$q.dialog(opts)
-            .onOk(data => resolve(data || true))
-            .onCancel(() => resolve(false))
-        } catch (err) {
-          reject(err)
-        }
-      })
-    },
+    async function onSaveFileAs() {
+      const fileHandle = await window.showSaveFilePicker({
+        suggestedName: store.state.editor.filename,
+      });
+      store.dispatch("editor/saveFile", fileHandle.name);
+      const writable = await fileHandle.createWritable();
+      const content = serializeContent(
+        store.state.editor.content,
+        fileHandle.name
+      );
+      await writable.write(content);
+      await writable.close();
+    }
 
-    async showAboutDlg (opts) {
-      return new Promise((resolve, reject) => {
-        try {
-          this.$q.dialog({
-            component: AboutDialog,
-            parent: this,
-            ...opts
-          })
-            .onOk(data => resolve(data || true))
-            .onCancel(() => resolve(false))
-        } catch (err) {
-          reject(err)
-        }
-      })
-    },
-
-    async showSaveAsDlg (opts) {
-      return new Promise((resolve, reject) => {
-        try {
-          this.$q.dialog({
-            component: SaveDialog,
-            parent: this,
-            ...opts
-          })
-            .onOk(data => resolve(data || true))
-            .onCancel(() => resolve(false))
-        } catch (err) {
-          reject(err)
-        }
-      })
-    },
-
-    async showSettingsDlg (opts) {
-      return new Promise((resolve, reject) => {
-        try {
-          this.$q.dialog({
-            component: SettingsDialog,
-            parent: this,
-            ...opts
-          })
-            .onOk(data => resolve(data || true))
-            .onCancel(() => resolve(false))
-        } catch (err) {
-          reject(err)
-        }
-      })
-    },
-
-    async confirmChangeDiscard () {
-      const isChanged = this.$store.getters['editor/isChanged']
-      return !isChanged || await this.showConfirmDlg({
-        title: this.$t('There are unsaved changes'),
-        message: this.$t('Do you confirm you want to discard them?'),
+    async function onExportFile() {
+      $q.dialog({
+        title: i18n.t("Export file"),
+        message: i18n.t("Select the format to export"),
+        options: {
+          type: "radio",
+          model: "md",
+          items: [
+            { label: "Markdown", value: "md" },
+            { label: "HTML", value: "html" },
+            { label: "Plain Text", value: "txt" },
+          ],
+        },
         cancel: true,
-        persistent: true
-      })
-    },
+        persistent: true,
+      }).onOk(async (format) => {
+        const basename = store.state.editor.filename.replace(/\.[^/.]+$/, "");
+        const fileHandle = await window.showSaveFilePicker({
+          suggestedName: `${basename}.${format}`,
+        });
+        const writable = await fileHandle.createWritable();
+        const content = serializeContent(
+          store.state.editor.content,
+          fileHandle.name
+        );
+        await writable.write(content);
+        await writable.close();
+      });
+    }
 
-    onToggleMenu () {
-      this.$store.commit('base/toggleMenu')
-    },
+    function onPrintFile() {
+      store.dispatch("editor/printFile");
+    }
 
-    onToggleDarkMode () {
-      this.$store.dispatch('base/toggleDarkMode')
-    },
+    function onSettings() {
+      $q.dialog({
+        component: SettingsDialog,
+      }).onOk((res) => {
+        store.dispatch("base/updateSettings", res);
+      });
+    }
 
-    async onAbout () {
-      await this.showAboutDlg()
-    },
+    function onAbout() {
+      $q.dialog({
+        component: AboutDialog,
+      });
+    }
 
-    async onNewFile () {
-      const confirmed = await this.confirmChangeDiscard()
-      if (confirmed) {
-        this.$store.dispatch('editor/newFile')
-      }
-    },
+    function onToggleMenu() {
+      store.commit("base/toggleMenu");
+    }
 
-    async onOpenFile () {
-      const confirmed = await this.confirmChangeDiscard()
-      if (confirmed) {
-        const file = await importFile(['text/html'])
-        this.$store.dispatch('editor/loadFile', {
-          name: file.name,
-          html: extractHtmlContent(file.content)
-        })
-      }
-    },
+    function onToggleDarkMode() {
+      store.dispatch("base/toggleDarkMode");
+    }
 
-    onSaveFile () {
-      this.$store.dispatch('editor/saveFile')
-    },
-
-    async onSaveFileAs () {
-      const res = await this.showSaveAsDlg({
-        filename: this.$store.state.editor.filename
-      })
-      if (res.filename) {
-        const filename = `${res.filename}.${res.ext}`
-        const content = this.$store.state.editor.contentHTML
-        const confirmed = exportFile(filename, content, 'text/html')
-        if (confirmed) {
-          this.$store.commit('editor/setFilename', filename)
-          this.$store.dispatch('editor/saveFile')
-        }
-      }
-    },
-
-    async onImportFile () {
-      const confirmed = await this.confirmChangeDiscard()
-      if (confirmed) {
-        const file = await importFile(['.md', 'text/plain'])
-        let html = ''
-        switch (file.type) {
-          case 'text/markdown':
-            html = convertMdToHtml(file.content)
-            break
-          default:
-            html = convertTxtToHtml(file.content)
-            break
-        }
-        this.$store.dispatch('editor/loadFile', {
-          name: file.name,
-          html
-        })
-      }
-    },
-
-    async onExportFileAs () {
-      const res = await this.showSaveAsDlg({
-        filename: this.$store.state.editor.filename,
-        title: this.$t('Export as'),
-        extensions: ['md', 'txt']
-      })
-      if (res) {
-        const html = this.$store.state.editor.contentHTML
-        const filename = `${res.filename}.${res.ext}`
-        switch (res.ext) {
-          case 'md':
-            exportFile(filename, convertHtmlToMd(html), 'text/markdown')
-            break
-          default:
-            exportFile(filename, convertHtmlToTxt(html), 'text/plain')
-            break
-        }
-      }
-    },
-
-    onPrintFile () {
-      this.$store.dispatch('editor/printFile')
-    },
-
-    async onSettings () {
-      const settings = await this.showSettingsDlg()
-      if (settings) {
-        this.$store.dispatch('base/updateSettings', settings)
-      }
-    },
-
-    async onExit () {
-      const confirmed = await this.confirmChangeDiscard()
-      if (confirmed) {
-        window.onbeforeunload = null
-        if (this.$q.electron) {
-          this.$q.electron.remote.getCurrentWindow().close()
-        }
-      }
-    },
-
-    onKeyDown (evt) {
+    function onKeyDown(evt) {
       // Toggle menu
-      if (evt.key === 'm' && evt.ctrlKey) {
-        evt.preventDefault()
-        this.onToggleMenu()
+      if (evt.key === "m" && evt.ctrlKey) {
+        evt.preventDefault();
+        onToggleMenu();
       }
       // Toggle dark mode
-      if (evt.key === 'd' && evt.ctrlKey) {
-        evt.preventDefault()
-        this.onToggleDarkMode()
+      if (evt.key === "d" && evt.ctrlKey) {
+        evt.preventDefault();
+        onToggleDarkMode();
       }
       // Open file
-      if (evt.key === 'o' && evt.ctrlKey) {
-        evt.preventDefault()
-        this.onOpenFile()
+      if (evt.key === "o" && evt.ctrlKey) {
+        evt.preventDefault();
+        onOpenFile();
       }
       // Save file
-      if (evt.key === 's' && evt.ctrlKey) {
-        evt.preventDefault()
-        this.onSaveFile()
+      if (evt.key === "s" && evt.ctrlKey) {
+        evt.preventDefault();
+        onSaveFile();
       }
       // Print file
-      if (evt.key === 'p' && evt.ctrlKey) {
-        evt.preventDefault()
-        this.onPrintFile()
+      if (evt.key === "p" && evt.ctrlKey) {
+        evt.preventDefault();
+        onPrintFile();
       }
     }
-  }
-}
+
+    function onExit() {
+      const hasUnsavedChanges = store.getters["editor/hasUnsavedChanges"];
+      const exitApp = () => {
+        if (window.electron) {
+          window.electron.close();
+        }
+      };
+      askConfirmOrExecute(hasUnsavedChanges, exitApp);
+    }
+
+    onMounted(() => {
+      window.addEventListener("beforeunload", onExit);
+      document.addEventListener("keydown", onKeyDown);
+      $q.dark.set(store.state.base.darkMode);
+    });
+
+    onUnmounted(() => {
+      window.removeEventListener("beforeunload", onExit);
+      document.removeEventListener("keydown", onKeyDown);
+    });
+
+    return {
+      menuOpen,
+      isDark,
+      baseClass,
+      onNewFile,
+      onOpenFile,
+      onSaveFile,
+      onSaveFileAs,
+      onExportFile,
+      onPrintFile,
+      onSettings,
+      onAbout,
+      onToggleMenu,
+      onToggleDarkMode,
+      onKeyDown,
+      onExit,
+    };
+  },
+});
 </script>

@@ -1,48 +1,38 @@
 <template>
-  <q-btn
-    flat
-    dense
-    round
-    icon="help_outline"
-    aria-label="Help"
-  >
-    <q-tooltip
-      anchor="bottom right"
-      self="top right"
-      :offset="[0, 16]"
-    >
+  <q-btn flat dense round icon="help_outline" aria-label="Help">
+    <q-tooltip anchor="bottom right" self="top right" :offset="[0, 16]">
       <dl class="horizontal">
         <dt>
           <kbd>
-            <q-icon name="keyboard_return" :title="$t('Enter')"/>
+            <q-icon name="keyboard_return" :title="$t('Enter')" />
           </kbd>
         </dt>
-        <dd>{{ $t('New paragraph') }}</dd>
+        <dd>{{ $t("New paragraph") }}</dd>
         <dt>
           <kbd>
-            Shift  +
-            <q-icon name="keyboard_return" :title="$t('Enter')"/>
+            Shift +
+            <q-icon name="keyboard_return" :title="$t('Enter')" />
           </kbd>
         </dt>
-        <dd>{{ $t('New line') }}</dd>
+        <dd>{{ $t("New line") }}</dd>
         <dt>
-          <kbd>1. +
-            <q-icon name="space_bar" :title="$t('Space')"/>
+          <kbd
+            >1. +
+            <q-icon name="space_bar" :title="$t('Space')" />
           </kbd>
         </dt>
-        <dd>{{ $t('New numbered list') }}</dd>
+        <dd>{{ $t("New numbered list") }}</dd>
         <dt>
-          <kbd>* +
-            <q-icon name="space_bar" :title="$t('Space')"/>
+          <kbd
+            >* +
+            <q-icon name="space_bar" :title="$t('Space')" />
           </kbd>
         </dt>
-        <dd>{{ $t('New bullet list') }}</dd>
+        <dd>{{ $t("New bullet list") }}</dd>
         <dt>
-          <kbd>--- +
-            <q-icon name="keyboard_return" :title="$t('Enter')"/>
-          </kbd>
+          <kbd>---</kbd>
         </dt>
-        <dd>{{ $t('New page break') }}</dd>
+        <dd>{{ $t("New page break") }}</dd>
         <dt>
           <kbd>&lt;&lt;</kbd>
         </dt>
@@ -55,19 +45,19 @@
           <dt>
             <kbd>Ctrl + S</kbd>
           </dt>
-          <dd>{{ $t('Save changes') }}</dd>
+          <dd>{{ $t("Save changes") }}</dd>
           <dt>
             <kbd>Ctrl + O</kbd>
           </dt>
-          <dd>{{ $t('Open document') }}</dd>
+          <dd>{{ $t("Open document") }}</dd>
           <dt>
             <kbd>Ctrl + P</kbd>
           </dt>
-          <dd>{{ $t('Print document') }}</dd>
+          <dd>{{ $t("Print document") }}</dd>
           <dt>
             <kbd>Ctrl + M</kbd>
           </dt>
-          <dd>{{ $t('Toggle menu') }}</dd>
+          <dd>{{ $t("Toggle menu") }}</dd>
           <dt>
             <kbd>Ctrl + D</kbd>
           </dt>
@@ -83,18 +73,19 @@
 </template>
 
 <script>
-import { QTooltip } from 'quasar'
+import { QTooltip } from "quasar";
+import { defineComponent } from "vue";
 
-export default {
-  name: 'help-tooltip',
+export default defineComponent({
+  name: "help-tooltip",
 
   components: {
-    QTooltip
-  }
-}
+    QTooltip,
+  },
+});
 </script>
 
-<style scoped lang="stylus">
+<style scoped lang="sass">
 dl
   width: 100%
   max-width: 320px

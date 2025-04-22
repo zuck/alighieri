@@ -1,44 +1,44 @@
 <template>
-  <q-page padding class="column full-height" @click.native="onFocus">
-    <editor ref="editor" class="col"/>
+  <q-page class="flex justify-center">
+    <container>
+      <editor
+        :model-value="content"
+        @update:modelValue="onUpdateContent"
+        @update:text="onUpdateStats"
+      />
+    </container>
   </q-page>
 </template>
 
 <script>
-import Editor from 'components/Editor'
+import { defineComponent, computed, onMounted } from 'vue'
+import { useStore } from 'vuex'
+import Container from 'src/components/Container'
+import Editor from 'src/components/Editor'
 
-export default {
+export default defineComponent({
   name: 'PageIndex',
 
   components: {
+    Container,
     Editor
   },
 
-  computed: {
-    fileTitle (state) {
-      const fileName = (this.$store.state.editor.filename || '')
-        .split('/')
-        .pop()
-        .split('.')[0]
-      return [
-        fileName || this.$t('No title'),
-        this.$store.getters['editor/isChanged'] ? '*' : ''
-      ].join('')
-    }
-  },
+  setup () {
+    const store = useStore()
+    const content = computed(() => store.state.editor.content)
 
-  meta () {
-    const productName = this.$store.getters['base/appInfo'].productName
+    onMounted(() => store.dispatch('editor/reloadFile'))
+
     return {
-      title: this.fileTitle,
-      titleTemplate: title => `${title} - ${productName}`
-    }
-  },
-
-  methods: {
-    onFocus (evt) {
-      this.$refs.editor.focus()
+      content,
+      onUpdateContent (content) {
+        store.dispatch('editor/updateContent', content)
+      },
+      onUpdateStats (text) {
+        store.commit('editor/updateStats', text)
+      }
     }
   }
-}
+})
 </script>
