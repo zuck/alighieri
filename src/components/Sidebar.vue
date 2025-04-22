@@ -92,7 +92,6 @@
       </q-item-section>
     </q-item>
     <q-item
-      v-if="$q.platform.is.electron"
       clickable
       v-ripple
       :title="$t('Close the application')"

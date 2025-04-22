@@ -215,9 +215,7 @@ export default defineComponent({
     function onExit() {
       const hasUnsavedChanges = store.getters["editor/hasUnsavedChanges"];
       const exitApp = () => {
-        if (window.electron) {
-          window.electron.close();
-        }
+        window.close();
       };
       askConfirmOrExecute(hasUnsavedChanges, exitApp);
     }
