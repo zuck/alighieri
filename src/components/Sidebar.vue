@@ -55,6 +55,19 @@
     <q-item
       clickable
       v-ripple
+      :title="$t('Export to several formats')"
+      @click="$emit('exportFile')"
+    >
+      <q-item-section avatar>
+        <q-icon name="o_file_download" />
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>{{ $t("Export as") }}</q-item-label>
+      </q-item-section>
+    </q-item>
+    <q-item
+      clickable
+      v-ripple
       :title="$t('Print your work')"
       @click="$emit('printFile')"
     >

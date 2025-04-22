@@ -15,6 +15,7 @@
         @openFile="onOpenFile"
         @saveFile="onSaveFile"
         @saveFileAs="onSaveFileAs"
+        @exportFile="onExportFile"
         @printFile="onPrintFile"
         @settings="onSettings"
         @exit="onExit"
@@ -127,6 +128,36 @@ export default defineComponent({
       await writable.close();
     }
 
+    async function onExportFile() {
+      $q.dialog({
+        title: i18n.t("Export file"),
+        message: i18n.t("Select the format to export"),
+        options: {
+          type: "radio",
+          model: "md",
+          items: [
+            { label: "Markdown", value: "md" },
+            { label: "HTML", value: "html" },
+            { label: "Plain Text", value: "txt" },
+          ],
+        },
+        cancel: true,
+        persistent: true,
+      }).onOk(async (format) => {
+        const basename = store.state.editor.filename.replace(/\.[^/.]+$/, "");
+        const fileHandle = await window.showSaveFilePicker({
+          suggestedName: `${basename}.${format}`,
+        });
+        const writable = await fileHandle.createWritable();
+        const content = serializeContent(
+          store.state.editor.content,
+          fileHandle.name
+        );
+        await writable.write(content);
+        await writable.close();
+      });
+    }
+
     function onPrintFile() {
       store.dispatch("editor/printFile");
     }
@@ -210,6 +241,7 @@ export default defineComponent({
       onOpenFile,
       onSaveFile,
       onSaveFileAs,
+      onExportFile,
       onPrintFile,
       onSettings,
       onAbout,
