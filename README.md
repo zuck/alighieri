@@ -14,6 +14,8 @@ You can try **Alighieri** in your browser:
 
 [zuck.github.io/alighieri](https://zuck.github.io/alighieri)
 
+[![Get it from the Snap Store](https://snapcraft.io/en/light/install.svg)](https://snapcraft.io/alighieri)
+
 ## Main features
 
 - Distraction-free text editor
