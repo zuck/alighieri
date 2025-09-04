@@ -40,7 +40,7 @@
     "@babel/eslint-parser": "^7.13.14",
     "@electron/remote": "^2.0.9",
     "@quasar/app-webpack": "^3.15.1",
-    "electron": "^35.2.0",
+    "electron": "^35.7.5",
     "electron-builder": "^24.13.3",
     "eslint": "^7.14.0",
     "eslint-config-prettier": "^9.1.0",
